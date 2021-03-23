@@ -1,3 +1,0 @@
-- Pseudo : générer des pseudos à suivre ou générer un pseudo aléatoire qui n'existe pas déjà
-
-- Garder quelque part la correspondance Identifiant / Pseudo pour pouvoir vérifier ultérieurement 
