@@ -90,16 +90,12 @@ public class LectureFichier {
             numColonne+=1;                          //On recommence avec la colonne suivante
         }
 
-        for(int a =0;a<ListeIdentifiants.size();a++){    //Test du tableau pour en vérifier le contenu
-            System.out.print("[");
-            for(int b =0;b<ListeIdentifiants.get(a).size();b++){
-                System.out.print(ListeIdentifiants.get(a).get(b));
-            }
-            System.out.println("]");
         }
 
-
-     }
-
+    public List<List<String>> getListeIdentifiants() {
+        return ListeIdentifiants;
+    }
 }
+
+
 
