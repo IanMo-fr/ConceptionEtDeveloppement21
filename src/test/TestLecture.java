@@ -119,6 +119,36 @@ public class TestLecture {
         }
         */
 
+
+        // De 97 à 122 = tout l'alphabet
+
+        char test = 98;
+        System.out.println(test);
+        char ascii = 97;
+        String StringA = Character.toString(ascii);
+
+        ascii =64;
+        String StringArobase = Character.toString(ascii);
+
+        System.out.println(StringA);
+        System.out.println(StringArobase);
+
+        /*
+
+        for(int i = 97;i <=122;i++)
+            {
+                ascii = (char) i;
+                String lettre = Character.toString(ascii);
+                System.out.print(lettre + " ");
+            }
+
+
+        String lettre = Character.toString(ascii);
+        System.out.println(lettre);
+
+        */
+
+
     }
 
 }
