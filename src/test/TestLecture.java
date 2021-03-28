@@ -12,8 +12,7 @@ import org.apache.poi.ss.usermodel.Row;
 
 
 public class TestLecture {
-    public static void main(String[] args) throws IOException {
-
+/*
         String pathname = "C:/Users/jujuo/Desktop/CDA_projet/exemple_ce.xls"; //Chemin d'accès vers le fichier
         String sheet1 = "donnees"; //Nom des sheets excel
         String sheet2 = "attributs";
@@ -122,16 +121,6 @@ public class TestLecture {
 
         // De 97 à 122 = tout l'alphabet
 
-        char test = 98;
-        System.out.println(test);
-        char ascii = 97;
-        String StringA = Character.toString(ascii);
-
-        ascii =64;
-        String StringArobase = Character.toString(ascii);
-
-        System.out.println(StringA);
-        System.out.println(StringArobase);
 
         /*
 
@@ -149,7 +138,8 @@ public class TestLecture {
         */
 
 
+
     }
 
-}
+
 
