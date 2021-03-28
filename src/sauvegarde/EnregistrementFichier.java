@@ -2,14 +2,19 @@ package sauvegarde;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.usermodel.HSSFWorkbookFactory;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 /**
  * Class responsable de sauvegarder les fichiers traitées.
  */
 public class EnregistrementFichier {
+
+
+    // **** Attributs ****
+
     /**
      * un <code>HSSFWorkbook</code> qui récupère les données traitées
      */
@@ -22,6 +27,8 @@ public class EnregistrementFichier {
     private String pathSauvegardeFichier;
 
 
+    // **** Constructeurs ****
+
     /**
      * Constructeur par défaut
      */
@@ -29,6 +36,10 @@ public class EnregistrementFichier {
         this.xlsAnonymise = null;
         this.pathSauvegardeFichier = "./out/production";
     }
+
+
+
+    // **** Methodes ****
 
     /**
      * Methode permettant de créer un ficher <code>.xls</code> vide
@@ -38,6 +49,17 @@ public class EnregistrementFichier {
         HSSFWorkbookFactory crea = new HSSFWorkbookFactory();
 
         return crea.create();
+    }
+
+    /**
+     * Methode permettant de clonner une liste données sur une colonne
+     * @param liste     La liste à cloner
+     * @param excel     Le document sur lequel on clone la colonne
+     *                  le numéro de la colonne sur laquelle copier la liste
+     * @return          Le document modifié
+     */
+    private  HSSFWorkbook clonageColonne(ArrayList<String> liste, HSSFWorkbook excel, int numColonne) {
+
     }
 
 }
