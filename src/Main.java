@@ -12,12 +12,9 @@ import traitement.Controle;
  */
 public class Main {
     public static void main(String[] args) throws IOException {
-        LectureFichier test = new LectureFichier();
-        test.OuvrirFichier("C:\\Users\\jujuo\\Desktop\\CDA_projet\\exemple_ce.xls");
-        test.LireIdentifiants();
-        List<List<String>> testeur = test.getListeIdentifiants();
-        Controle.Pseudonymisation letest = new Controle.Pseudonymisation();
-        letest.Pseudonymiser(testeur);
+        Controle controleur = new Controle(); //Préciser ici en paramètre le chemin d'accès d'arrivée du fichier, sinon il ya un chemin par défaut
+        controleur.CreerDocPseudonymisé("C:/Users/jujuo/Desktop/CDA_projet/exemple_ce.xls");
+
     }
 
 }

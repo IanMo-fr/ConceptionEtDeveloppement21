@@ -1,5 +1,10 @@
 package traitement;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import sauvegarde.*;
+import lecture.*;
 
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,29 +13,42 @@ import java.util.List;
  */
 public class Controle {
 
+    String pathname;
+    String arrivee="C:/Users/jujuo/Desktop/CDA_projet/test.xls";
+
+    public Controle() {}
+
+    public Controle(String arrivee) {
+        this.arrivee = arrivee;
+    }
+
+
+    public void CreerDocPseudonymisé(String pathname) throws IOException {
+        this.pathname = pathname;
+        LectureFichier Ouverture = new LectureFichier();
+        Ouverture.OuvrirFichier(pathname);
+        Ouverture.LireIdentifiants();
+        List<List<String>> ListeId = Ouverture.getListeIdentifiants();
+        Pseudonymisation GenererPseudos = new Pseudonymisation();
+        GenererPseudos.Pseudonymiser(ListeId);
+        List<List<String>> ListePseudos = GenererPseudos.getListePseudos();
+        EnregistrementFichier Enregistrement = new EnregistrementFichier();
+        HSSFWorkbook wb = Ouverture.getWb();
+        Enregistrement.EnregistrerFichier(ListePseudos, wb, arrivee);
+
+    }
+
     /**
      * Class permettant la pseudomisation
      */
-    public static class Pseudonymisation {
+    private static class Pseudonymisation {
         // char 97 -> 122 alphabet minuscule
         // Si ça ne marche pas passer en static
         private char char1 = 97;
         private char char2 = 97;
         private char char3 = 97;
-
         private String pseudo;
-
         private List<List<String>> ListePseudos = new ArrayList<List<String>>();
-
-
-        /**
-         * getter de pseudo
-         *
-         * @return pseudo
-         */
-        public List<List<String>> getListePseudos() {
-            return ListePseudos;
-        }
 
         /**
          * méthode qui génère des pseudos sous forme de String de 3 caractères aaa incrémenté de 1 à chaque nouveau pseudo généré
@@ -65,16 +83,21 @@ public class Controle {
                 ListePseudos.add(ListePseudos_temp);
             }
 
-            for (int a = 0; a < ListePseudos.size(); a++) {
-                for (int b = 0; b < ListePseudos.get(a).size(); b++) {
-                    System.out.println(ListePseudos.get(a).get(b));
-                }
-
-
-            }
-
-
         }
+
+
+
+
+
+        /**
+         * getter de la liste des pseudos
+         *
+         * @return pseudo
+         */
+        public List<List<String>> getListePseudos() {
+            return ListePseudos;
+        }
+
     }
 }
 

@@ -24,14 +24,13 @@ public class LectureFichier {
     private HSSFWorkbook wb;
 
 
-    public void OuvrirFichier(String path) throws IOException {
-        pathname = path;
+    public void OuvrirFichier(String pathname) throws IOException {
         File fichier = new File(pathname);
         FileInputStream inputStream = new FileInputStream(fichier);  //Lecture du fichier au chemin d'accès donné
         // Get the workbook instance for XLS file
-        HSSFWorkbook workbook = new HSSFWorkbook(inputStream);  //Lecture du fichier comme fichier .xls
-        pathname = path;
-        wb = workbook;
+        HSSFWorkbook wb = new HSSFWorkbook(inputStream);  //Lecture du fichier comme fichier .xls
+        this.pathname = pathname;
+        this.wb = wb;
     }
 
 
@@ -94,6 +93,10 @@ public class LectureFichier {
 
     public List<List<String>> getListeIdentifiants() {
         return ListeIdentifiants;
+    }
+
+    public HSSFWorkbook getWb() {
+        return wb;
     }
 }
 
