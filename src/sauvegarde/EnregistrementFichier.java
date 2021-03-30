@@ -12,7 +12,6 @@ public class EnregistrementFichier {
 
     // **** Attributs ****
 
-    private HSSFWorkbook wb;
 
     // **** constructeurs ****
 
@@ -22,20 +21,24 @@ public class EnregistrementFichier {
      * Méthode qui permet de créer un fichier Excel identique au premier mais avec les ID pseudonymisés, et d'enregistrer ce dernier au chemin d'accès spécifié
      * @param ListePseudos
      * @param wb
-     * @param arrivee
      */
-    public void EnregistrerFichier(List<List<String>> ListePseudos, HSSFWorkbook wb, String arrivee) {
+    public void ModifierIDFichier(List<List<String>> ListePseudos, HSSFWorkbook wb) {
 
         HSSFSheet sheet_donnees = wb.getSheet("donnees");
 
         for (int a = 0; a < ListePseudos.size(); a++) {
             for (int b = 0; b < ListePseudos.get(a).size(); b++) {
-                sheet_donnees.getRow(b+1).getCell(a).setCellValue(ListePseudos.get(a).get(b));
+                sheet_donnees.getRow(b + 1).getCell(a).setCellValue(ListePseudos.get(a).get(b));
             }
-        }  // [[1,2,3,4],[5,6,7,8]] => a=0; b=0 -> 1 a=0; b=1 -> 2
+        }
 
-        this.wb = wb;
+    }
 
+    /**
+     * Méthode qui permet de créer un fichier Excel identique au premier mais avec les ID pseudonymisés, et d'enregistrer ce dernier au chemin d'accès spécifié
+     * @param arrivee
+     */
+    public void EnregistrerFichier(HSSFWorkbook wb, String arrivee) {
         try {
             FileOutputStream fileOut = new FileOutputStream(arrivee); //Ici mettre chemin où l'on veut stocker le fichier
             wb.write(fileOut);

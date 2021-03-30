@@ -27,7 +27,7 @@ public class LectureFichier {
     private HSSFWorkbook wb;
 
 
-    // **** constructeurs ****
+    // **** Constructeurs ****
 
 
     // **** Méthodes ****

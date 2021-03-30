@@ -58,7 +58,8 @@ public class Controle {
         List<List<String>> ListePseudos = GenererPseudos.getListePseudos();
         EnregistrementFichier Enregistrement = new EnregistrementFichier();
         HSSFWorkbook wb = Ouverture.getWb();
-        Enregistrement.EnregistrerFichier(ListePseudos, wb, arrivee);
+        Enregistrement.ModifierIDFichier(ListePseudos,wb);
+        Enregistrement.EnregistrerFichier(wb,arrivee);
 
     }
 
