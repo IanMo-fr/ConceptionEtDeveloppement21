@@ -24,17 +24,21 @@ public class LectureFichier {
     private HSSFWorkbook wb;
 
 
-    public void OuvrirFichier(String path) throws IOException {
-        pathname = path;
+    public void OuvrirFichier(String pathname) throws IOException {
         File fichier = new File(pathname);
         FileInputStream inputStream = new FileInputStream(fichier);  //Lecture du fichier au chemin d'accès donné
         // Get the workbook instance for XLS file
-        HSSFWorkbook workbook = new HSSFWorkbook(inputStream);  //Lecture du fichier comme fichier .xls
-        pathname = path;
-        wb = workbook;
+        HSSFWorkbook wb = new HSSFWorkbook(inputStream);  //Lecture du fichier comme fichier .xls
+        this.pathname = pathname;
+        this.wb = wb;
     }
 
-
+    /**
+     * Permet de compter le nombre de colonnes ID/QID/DS
+     * @param nature
+     * @return compteur
+     * @throws IOException
+     */
     private int CompteurID_QID_DS(String nature) throws IOException {
 
         HSSFSheet sheet = wb.getSheet("attributs");
@@ -63,6 +67,10 @@ public class LectureFichier {
         return compteur;
     }
 
+    /**
+     * Permet de lire les identifiants d'un fichier excel et de les stocker dans un ArrayList
+     * @throws IOException
+     */
     public void LireIdentifiants() throws IOException {
         int compteur_ID = CompteurID_QID_DS("ID");  //On cherche le nombre de colonne de type ID
         HSSFSheet sheet = wb.getSheet("donnees");  //On se place dans la page "donnees"
@@ -90,16 +98,24 @@ public class LectureFichier {
             numColonne+=1;                          //On recommence avec la colonne suivante
         }
 
-        for(int a =0;a<ListeIdentifiants.size();a++){    //Test du tableau pour en vérifier le contenu
-            System.out.print("[");
-            for(int b =0;b<ListeIdentifiants.get(a).size();b++){
-                System.out.print(ListeIdentifiants.get(a).get(b));
-            }
-            System.out.println("]");
         }
 
+    /**
+     * getter de la liste des identifiants
+     * @return ListeIdentifiants
+     */
+    public List<List<String>> getListeIdentifiants() {
+        return ListeIdentifiants;
+    }
 
-     }
-
+    /**
+     * getter du wb ouvert
+     * @return wb
+     */
+    public HSSFWorkbook getWb() {
+        return wb;
+    }
 }
+
+
 

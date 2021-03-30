@@ -1,63 +1,50 @@
 package sauvegarde;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.usermodel.HSSFWorkbookFactory;
+import org.apache.poi.hssf.usermodel.*;
+import java.io.*;
+import lecture.*;
+
+import traitement.Controle;
+
 import java.util.ArrayList;
-
-
+import java.util.List;
 
 /**
  * Class responsable de sauvegarder les fichiers traitées.
  */
 public class EnregistrementFichier {
 
-
-    // **** Attributs ****
-
-    /**
-     * un <code>HSSFWorkbook</code> qui récupère les données traitées
-     */
-    private HSSFWorkbook xlsAnonymise;
+    private HSSFWorkbook wb;
 
     /**
-     * permet de sauvegarder le chemin d'accès du fichier de sortis
-     * nb : changement du pathName par Constructeur de la class
+     * Méthode qui permet de créer un fichier Excel identique au premier mais avec les ID pseudonymisés, et d'enregistrer ce dernier au chemin d'accès spécifié
+     * @param ListePseudos
+     * @param wb
+     * @param arrivee
      */
-    private String pathSauvegardeFichier;
+    public void EnregistrerFichier(List<List<String>> ListePseudos, HSSFWorkbook wb, String arrivee) {
+
+        HSSFSheet sheet_donnees = wb.getSheet("donnees");
+
+        for (int a = 0; a < ListePseudos.size(); a++) {
+            for (int b = 0; b < ListePseudos.get(a).size(); b++) {
+                sheet_donnees.getRow(b+1).getCell(a).setCellValue(ListePseudos.get(a).get(b));
+            }
+        }  // [[1,2,3,4],[5,6,7,8]] => a=0; b=0 -> 1 a=0; b=1 -> 2
+
+        this.wb = wb;
+
+        try {
+            FileOutputStream fileOut = new FileOutputStream(arrivee); //Ici mettre chemin où l'on veut stocker le fichier
+            wb.write(fileOut);
+            fileOut.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
-    // **** Constructeurs ****
-
-    /**
-     * Constructeur par défaut
-     */
-    public EnregistrementFichier() {
-        this.xlsAnonymise = null;
-        this.pathSauvegardeFichier = "./out/production/xlsanon.xls";
-    }
-
-
-
-    // **** Methodes ****
-
-    /**
-     * Methode permettant de créer un ficher <code>.xls</code> vide
-     * @return vide     Un fichier <code>.xls</code> vide
-     */
-    private HSSFWorkbook Initialisation() {
-        HSSFWorkbookFactory crea = new HSSFWorkbookFactory();
-
-        return crea.create();
-    }
-
-    /**
-     * Methode permettant de clonner une liste données sur une colonne
-     * @param liste     La liste à cloner
-     * @param excel     Le document sur lequel on clone la colonne
-     *                  le numéro de la colonne sur laquelle copier la liste
-     * @return          Le document modifié
-     */
-    private  HSSFWorkbook clonageColonne(ArrayList<String> liste, HSSFWorkbook excel, int numColonne) {
 
     }
 
