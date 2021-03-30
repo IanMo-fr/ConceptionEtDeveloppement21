@@ -33,7 +33,7 @@ public class EnregistrementFichier {
      */
     public EnregistrementFichier() {
         this.xlsAnonymise = null;
-        this.pathSauvegardeFichier = "./out/production";
+        this.pathSauvegardeFichier = "./out/production/xlsanon.xls";
     }
 
 
