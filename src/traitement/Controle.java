@@ -5,6 +5,7 @@ import lecture.*;
 
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +15,14 @@ import java.util.List;
 public class Controle {
 
     String pathname;
-    String arrivee="C:/Users/jujuo/Desktop/CDA_projet/test.xls";
+    String arrivee;
 
-    public Controle() {}
 
     public Controle(String arrivee) {
         this.arrivee = arrivee;
+    }
+    public Controle() {
+        this("C:/Users/jujuo/Desktop/CDA_projet/test.xls");
     }
 
 
@@ -44,9 +47,9 @@ public class Controle {
     private static class Pseudonymisation {
         // char 97 -> 122 alphabet minuscule
         // Si ça ne marche pas passer en static
-        private char char1 = 97;
-        private char char2 = 97;
-        private char char3 = 97;
+        private int index_unite = 0;  //Création de curseur : à 0 on est sur le a, à 27 on est sur le z
+        private int index_dizaine = 0;
+        private int index_centaine= 0;
         private String pseudo;
         private List<List<String>> ListePseudos = new ArrayList<List<String>>();
 
@@ -55,16 +58,44 @@ public class Controle {
          *
          * @return pseudo
          */
-        private String genererPseudo() {
+        private String genererPseudo() {  //De 97 à 122 = tout l'alphabet
+
+            List<String> Alphabet = new ArrayList<String>();
+            for (char i=97; i<123;i++) {
+                Alphabet.add(String.valueOf(i));
+            }
+
+            pseudo = Alphabet.get(index_centaine)+Alphabet.get(index_dizaine)+Alphabet.get(index_unite);
+            index_unite++;
+            if (index_unite>=26) {
+                index_unite=0;
+                index_dizaine++;
+                if (index_dizaine>=26) {
+                    index_dizaine=0;
+                    index_centaine++;
+                }
+            }
+            //Création d'une liste contenant tous les caractères que l'on va utiliser
+
+         /*   pseudo =
+            if (char1 > 122) {
+                char1=97;
+            }
+
             if (char1 < 122) {
                 pseudo = (String.valueOf(char1++)) + (String.valueOf(char2)) + (String.valueOf(char3));
-            } else if (char2 < 122) {
+            } else if (char2 < 122)  {      //Premier cas = zaa : on repasse z à a et on incrémente le deuxième a à b
+
                 pseudo = (String.valueOf(char1)) + (String.valueOf(char2++)) + (String.valueOf(char3));
             } else {
                 pseudo = (String.valueOf(char1)) + (String.valueOf(char2)) + (String.valueOf(char3++));
             }
+
+          */
             return pseudo;
         }
+
+
 
         /**
          * Méthode créant un tableau à 2 dimensions de même taille que les
