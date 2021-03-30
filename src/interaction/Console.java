@@ -1,7 +1,7 @@
 package interaction;
 
 /**
- * Class de prise d'information auprès de l'utilisateur
+ * Class de prise d'information et d'affichage auprès de l'utilisateur
  */
 public class Console {
 }
