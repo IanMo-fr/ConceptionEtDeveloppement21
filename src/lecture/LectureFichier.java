@@ -19,11 +19,24 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  * Class responsable de la lecture des fichiers <code>.xls</code> placés dans <code>../</code>.
  */
 public class LectureFichier {
+
+    // **** Attributs ****
+
     private List<List<String>> ListeIdentifiants = new ArrayList<List<String>>();
     private String pathname;
     private HSSFWorkbook wb;
 
 
+    // **** constructeurs ****
+
+
+    // **** Méthodes ****
+
+    /**
+     * Méthode pour l'ouverture du fichier en type <code>HSSFWorkbook</code>.
+     * @param pathname      Le chemin d'accès du fichier à ouvrir
+     * @throws IOException      Exception à l'ouverture du fichier
+     */
     public void OuvrirFichier(String pathname) throws IOException {
         File fichier = new File(pathname);
         FileInputStream inputStream = new FileInputStream(fichier);  //Lecture du fichier au chemin d'accès donné

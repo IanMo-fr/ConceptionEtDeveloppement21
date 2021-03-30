@@ -14,8 +14,14 @@ import java.util.List;
  */
 public class Controle {
 
+
+    // **** Attributs ****
+
     private String pathname;
     private String arrivee;
+
+
+    // **** constructeurs ****
 
     /**
      * Constructeur de Controle
@@ -32,6 +38,9 @@ public class Controle {
         this("C:/Users/jujuo/Desktop/CDA_projet/test.xls");
     }
 
+
+
+    // **** Méthodes ****
 
     /**
      * Permet de réaliser bout à bout la création et l'enregistrement d'un fichier Excel Pseudonymisé à partir d'un fichier Excel donné (par son chemin d'accès)

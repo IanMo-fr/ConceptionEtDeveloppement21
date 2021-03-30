@@ -2,11 +2,7 @@ package sauvegarde;
 
 import org.apache.poi.hssf.usermodel.*;
 import java.io.*;
-import lecture.*;
 
-import traitement.Controle;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +10,13 @@ import java.util.List;
  */
 public class EnregistrementFichier {
 
+    // **** Attributs ****
+
     private HSSFWorkbook wb;
+
+    // **** constructeurs ****
+
+    // **** Méthodes ****
 
     /**
      * Méthode qui permet de créer un fichier Excel identique au premier mais avec les ID pseudonymisés, et d'enregistrer ce dernier au chemin d'accès spécifié
