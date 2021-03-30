@@ -33,7 +33,12 @@ public class LectureFichier {
         this.wb = wb;
     }
 
-
+    /**
+     * Permet de compter le nombre de colonnes ID/QID/DS
+     * @param nature
+     * @return compteur
+     * @throws IOException
+     */
     private int CompteurID_QID_DS(String nature) throws IOException {
 
         HSSFSheet sheet = wb.getSheet("attributs");
@@ -62,6 +67,10 @@ public class LectureFichier {
         return compteur;
     }
 
+    /**
+     * Permet de lire les identifiants d'un fichier excel et de les stocker dans un ArrayList
+     * @throws IOException
+     */
     public void LireIdentifiants() throws IOException {
         int compteur_ID = CompteurID_QID_DS("ID");  //On cherche le nombre de colonne de type ID
         HSSFSheet sheet = wb.getSheet("donnees");  //On se place dans la page "donnees"
@@ -91,10 +100,18 @@ public class LectureFichier {
 
         }
 
+    /**
+     * getter de la liste des identifiants
+     * @return ListeIdentifiants
+     */
     public List<List<String>> getListeIdentifiants() {
         return ListeIdentifiants;
     }
 
+    /**
+     * getter du wb ouvert
+     * @return wb
+     */
     public HSSFWorkbook getWb() {
         return wb;
     }

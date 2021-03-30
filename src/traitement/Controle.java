@@ -14,18 +14,30 @@ import java.util.List;
  */
 public class Controle {
 
-    String pathname;
-    String arrivee;
+    private String pathname;
+    private String arrivee;
 
-
+    /**
+     * Constructeur de Controle
+     * @param arrivee
+     */
     public Controle(String arrivee) {
         this.arrivee = arrivee;
     }
+
+    /**
+     * Constructeur surchargé de Controle : permet d'avoir un chemin d'arrivée par défaut si non spécifié
+     */
     public Controle() {
         this("C:/Users/jujuo/Desktop/CDA_projet/test.xls");
     }
 
 
+    /**
+     * Permet de réaliser bout à bout la création et l'enregistrement d'un fichier Excel Pseudonymisé à partir d'un fichier Excel donné (par son chemin d'accès)
+     * @param pathname
+     * @throws IOException
+     */
     public void CreerDocPseudonymisé(String pathname) throws IOException {
         this.pathname = pathname;
         LectureFichier Ouverture = new LectureFichier();
@@ -47,7 +59,7 @@ public class Controle {
     private static class Pseudonymisation {
         // char 97 -> 122 alphabet minuscule
         // Si ça ne marche pas passer en static
-        private int index_unite = 0;  //Création de curseur : à 0 on est sur le a, à 27 on est sur le z
+        private int index_unite = 0;  //Création de curseurs : à 0 on est sur le a, à 27 on est sur le z
         private int index_dizaine = 0;
         private int index_centaine= 0;
         private String pseudo;
@@ -115,10 +127,6 @@ public class Controle {
             }
 
         }
-
-
-
-
 
         /**
          * getter de la liste des pseudos
