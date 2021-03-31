@@ -51,7 +51,7 @@ public class Controle {
         this.pathname = pathname;
         LectureFichier Ouverture = new LectureFichier();
         Ouverture.OuvrirFichier(pathname);
-        Ouverture.LireIdentifiants();
+        //Ouverture.LireIdentifiants();         Plus nécessaire désormais
         List<List<String>> ListeId = Ouverture.getListeIdentifiants();
         Pseudonymisation GenererPseudos = new Pseudonymisation();
         GenererPseudos.Pseudonymiser(ListeId);
@@ -62,6 +62,7 @@ public class Controle {
         Enregistrement.EnregistrerFichier(wb,arrivee);
 
     }
+
 
     /**
      * Class permettant la pseudomisation
@@ -127,9 +128,10 @@ public class Controle {
          */
         public void Pseudonymiser(List<List<String>> ListeIdentifiants) {
 
-            for (int a = 0; a < ListeIdentifiants.size(); a++) {    //Test du tableau pour en vérifier le contenu
+            for (int a = 0; a < ListeIdentifiants.size(); a++) {
                 ArrayList<String> ListePseudos_temp = new ArrayList<>();
-                for (int b = 0; b < ListeIdentifiants.get(a).size(); b++) {
+                ListePseudos_temp.add(ListeIdentifiants.get(a).get(0));
+                for (int b = 1; b < ListeIdentifiants.get(a).size(); b++) {
                     String new_pseudo = genererPseudo();
                     ListePseudos_temp.add(new_pseudo);
                 }

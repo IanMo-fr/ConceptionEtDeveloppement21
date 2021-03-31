@@ -28,7 +28,7 @@ public class EnregistrementFichier {
 
         for (int a = 0; a < ListePseudos.size(); a++) {
             for (int b = 0; b < ListePseudos.get(a).size(); b++) {
-                sheet_donnees.getRow(b + 1).getCell(a).setCellValue(ListePseudos.get(a).get(b));
+                sheet_donnees.getRow(b).getCell(a).setCellValue(ListePseudos.get(a).get(b));
             }
         }
 
