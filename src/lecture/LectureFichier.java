@@ -92,22 +92,24 @@ public class LectureFichier {
     public void LireIdentifiants() {
         int compteur_ID = CompteurID_QID_DS("ID");  //On cherche le nombre de colonne de type ID
         HSSFSheet sheet = wb.getSheet("donnees");  //On se place dans la page "donnees"
-        String Id_lu="";         //Initialisation de Id_lu, c'est la valeur de la cellule qui sera lue par la suite
+        String Id_lu=" ";         //Initialisation de Id_lu, c'est la valeur de la cellule qui sera lue par la suite
         int numColonne = 0;    //Les colonnes sont triées, les IDs commencent donc TOUJOURS à la colonne 0
         for (int i =0; i<compteur_ID;i++) {      //On va lire les colonnes autant de fois qu'il y a de colonnes ID
             int index = 0 ;
             Row row = sheet.getRow(index) ;
             List<String> ListeID_temp = new ArrayList<>();  //Déclaration d'une arraylist temporaire vide qui va contenir toutes les données de la première colonne ID
             while (row != null) {
-                CellType type_lu = row.getCell(numColonne).getCellType();  //On vérifie le type de la cellule, qu'on va finir par convertir dans tous les cas en String
-                switch (type_lu) {
-                    case NUMERIC:
-                        double Id_lu_double = row.getCell(numColonne).getNumericCellValue();  //Si c'est une valeur numérique => on la met en String
-                        Id_lu = Double.toString(Id_lu_double);
-                        break;
-                    case STRING:                                                             //Si c'est déjà un String, on l'utilise tel quel
-                        Id_lu = row.getCell(numColonne).getStringCellValue();
-                        break;
+                if (row.getCell(numColonne) != null) {
+                    CellType type_lu = row.getCell(numColonne).getCellType();  //On vérifie le type de la cellule, qu'on va finir par convertir dans tous les cas en String
+                    switch (type_lu) {
+                        case NUMERIC:
+                            double Id_lu_double = row.getCell(numColonne).getNumericCellValue();  //Si c'est une valeur numérique => on la met en String
+                            Id_lu = Double.toString(Id_lu_double);
+                            break;
+                        case STRING:                                                             //Si c'est déjà un String, on l'utilise tel quel
+                            Id_lu = row.getCell(numColonne).getStringCellValue();
+                            break;
+                    }
                 }
                 ListeID_temp.add(Id_lu);      //Ajout de la cellule lue à la liste temporaire
                 row = sheet.getRow(++index) ;  //On passe à la ligne suivante
@@ -125,22 +127,24 @@ public class LectureFichier {
     public void LireQID() {
         int compteur_QID = CompteurID_QID_DS("QID");  //On cherche le nombre de colonne de type ID
         HSSFSheet sheet = wb.getSheet("donnees");  //On se place dans la page "donnees"
-        String Qid_lu="";         //Initialisation de Id_lu, c'est la valeur de la cellule qui sera lue par la suite
+        String Qid_lu=" ";         //Initialisation de Id_lu, c'est la valeur de la cellule qui sera lue par la suite
         int numColonne = CompteurID_QID_DS("ID");    //On part de la première colonne des QID, repéré lors du comptage
         for (int i =0; i<compteur_QID;i++) {      //On va lire les colonnes autant de fois qu'il y a de colonnes ID
             int index = 0 ;
             Row row = sheet.getRow(index) ;
             List<String> ListeQID_temp = new ArrayList<>();  //Déclaration d'une arraylist temporaire vide qui va contenir toutes les données de la première colonne ID
             while (row != null) {
-                CellType type_lu = row.getCell(numColonne).getCellType();  //On vérifie le type de la cellule, qu'on va finir par convertir dans tous les cas en String
-                switch (type_lu) {
-                    case NUMERIC:
-                        double Qid_lu_double = row.getCell(numColonne).getNumericCellValue();  //Si c'est une valeur numérique => on la met en String
-                        Qid_lu = Double.toString(Qid_lu_double);
-                        break;
-                    case STRING:                                                             //Si c'est déjà un String, on l'utilise comme telle
-                        Qid_lu = row.getCell(numColonne).getStringCellValue();
-                        break;
+                if (row.getCell(numColonne) != null) {
+                    CellType type_lu = row.getCell(numColonne).getCellType();  //On vérifie le type de la cellule, qu'on va finir par convertir dans tous les cas en String
+                    switch (type_lu) {
+                        case NUMERIC:
+                            double Qid_lu_double = row.getCell(numColonne).getNumericCellValue();  //Si c'est une valeur numérique => on la met en String
+                            Qid_lu = Double.toString(Qid_lu_double);
+                            break;
+                        case STRING:                                                             //Si c'est déjà un String, on l'utilise comme telle
+                            Qid_lu = row.getCell(numColonne).getStringCellValue();
+                            break;
+                    }
                 }
                 ListeQID_temp.add(Qid_lu);      //Ajout de la cellule lue à la liste temporaire
                 row = sheet.getRow(++index) ;  //On passe à la ligne suivante
@@ -159,22 +163,24 @@ public class LectureFichier {
     public void LireDS() {
         int compteur_DS = CompteurID_QID_DS("DS");  //On cherche le nombre de colonne de type ID
         HSSFSheet sheet = wb.getSheet("donnees");  //On se place dans la page "donnees"
-        String DS_lu="";         //Initialisation de Id_lu, c'est la valeur de la cellule qui sera lue par la suite
+        String DS_lu=" ";         //Initialisation de Id_lu, c'est la valeur de la cellule qui sera lue par la suite
         int numColonne = CompteurID_QID_DS("ID")+CompteurID_QID_DS("QID");    //On part de la première colonne des DS, repéré lors du comptage
         for (int i =0; i<compteur_DS;i++) {      //On va lire les colonnes autant de fois qu'il y a de colonnes ID
             int index = 0 ;
             Row row = sheet.getRow(index) ;
             List<String> ListeDS_temp = new ArrayList<>();  //Déclaration d'une arraylist temporaire vide qui va contenir toutes les données de la première colonne ID
             while (row != null) {
-                CellType type_lu = row.getCell(numColonne).getCellType();  //On vérifie le type de la cellule, qu'on va finir par convertir dans tous les cas en String
-                switch (type_lu) {
-                    case NUMERIC:
-                        double DS_lu_double = row.getCell(numColonne).getNumericCellValue();  //Si c'est une valeur numérique => on la met en String
-                        DS_lu = Double.toString(DS_lu_double);
-                        break;
-                    case STRING:                                                             //Si c'est déjà un String, on l'utilise comme telle
-                        DS_lu = row.getCell(numColonne).getStringCellValue();
-                        break;
+                if (row.getCell(numColonne) != null) {
+                    CellType type_lu = row.getCell(numColonne).getCellType();  //On vérifie le type de la cellule, qu'on va finir par convertir dans tous les cas en String
+                    switch (type_lu) {
+                        case NUMERIC:
+                            double DS_lu_double = row.getCell(numColonne).getNumericCellValue();  //Si c'est une valeur numérique => on la met en String
+                            DS_lu = Double.toString(DS_lu_double);
+                            break;
+                        case STRING:                                                             //Si c'est déjà un String, on l'utilise comme telle
+                            DS_lu = row.getCell(numColonne).getStringCellValue();
+                            break;
+                    }
                 }
                 ListeDS_temp.add(DS_lu);      //Ajout de la cellule lue à la liste temporaire
                 row = sheet.getRow(++index) ;  //On passe à la ligne suivante
