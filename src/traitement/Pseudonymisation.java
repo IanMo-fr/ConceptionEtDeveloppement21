@@ -19,20 +19,20 @@ public class Pseudonymisation {
 
     // char 97 -> 122 alphabet minuscule
     // Si ça ne marche pas passer en static
-    private int index_unite;  //Création de curseurs : à 0 on est sur le a, à 27 on est sur le z
-    private int index_dizaine ;
-    private int index_centaine;
+    private int index_unite =0 ;  //Création de curseurs : à 0 on est sur le a, à 27 on est sur le z
+    private int index_dizaine = 0;
+    private int index_centaine = 0;
     private String pseudo;
-    private List<List<String>> ListePseudos;
+    private List<List<String>> ListePseudos = new ArrayList<List<String>>();
 
     // **** constructeurs ****
 
     public Pseudonymisation() {
-        this.index_unite = 0;
-        this.index_dizaine = 0;
-        this.index_centaine = 0;
-        this.pseudo = null;
-        ListePseudos = new ArrayList<List<String>>();
+        //this.index_unite = 0;
+       // this.index_dizaine = 0;
+        //this.index_centaine = 0;
+       // this.pseudo = null;
+      //  ListePseudos = new ArrayList<List<String>>();
     }
 
 

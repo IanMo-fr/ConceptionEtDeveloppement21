@@ -27,8 +27,8 @@ public class Controleur {
      * Constructeur par défaut
      */
     public Controleur(){
-        this.arrivee = null;
-        this.pathname = null;
+     //  this.arrivee = null;
+    //   this.pathname = null;
     }
 
     /**
@@ -43,7 +43,7 @@ public class Controleur {
      * Constructeur surchargé de Controle : permet d'avoir un chemin d'arrivée par défaut si non spécifié
      */
     public Controleur(String user, boolean test) {
-        //todo : mettre nos chemin d'accès pour les testes dans un "case"
+        //todo : mettre nos chemins d'accès pour les tests dans un "case"
         switch (user) {
             case "Julien":
                 this.arrivee = ("C:/Users/jujuo/Desktop/CDA_projet/test.xls");
@@ -51,7 +51,6 @@ public class Controleur {
 
         }
     }
-
 
 
     /**
@@ -69,8 +68,26 @@ public class Controleur {
         List<List<String>> ListePseudos = GenererPseudos.getListePseudos();
         EnregistrementFichier Enregistrement = new EnregistrementFichier();
         HSSFWorkbook wb = Ouverture.getWb();
-        Enregistrement.ModifierIDFichier(ListePseudos,wb);
+        Enregistrement.AnonymiserIDFichier(ListePseudos,wb);
         Enregistrement.EnregistrerFichier(wb,arrivee);
+
+    }
+
+    public void CreerDocsBucketisés(String pathname, int k) throws IOException {
+        this.pathname = pathname;
+        LectureFichier Ouverture = new LectureFichier();
+        Ouverture.OuvrirFichier(pathname);
+        List<List<String>> ListeQID = Ouverture.getListeQuasiIdentifiants();
+        List<List<String>> ListeDS = Ouverture.getListeDonneesSensibles();
+
+        Bucketisation bucket = new Bucketisation();
+        bucket.Bucketiser(k, ListeQID, ListeDS);
+        EnregistrementFichier Enregistrement = new EnregistrementFichier();
+        HSSFWorkbook wbQID = bucket.getWbQID();
+        Enregistrement.EnregistrerFichier(wbQID, "C:/Users/jujuo/Desktop/CDA_projet/QID.xls");
+        HSSFWorkbook wbDS = bucket.getWbDS();
+        Enregistrement.EnregistrerFichier(wbDS, "C:/Users/jujuo/Desktop/CDA_projet/DS.xls");
+
 
     }
 

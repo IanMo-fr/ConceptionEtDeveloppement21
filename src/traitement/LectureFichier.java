@@ -22,9 +22,9 @@ public class LectureFichier {
 
     // **** Attributs ****
 
-    private List<List<String>> ListeIdentifiants = new ArrayList<List<String>>();
-    private List<List<String>> ListeQuasiIdentifiants = new ArrayList<List<String>>();
-    private List<List<String>> ListeDonneesSensibles = new ArrayList<List<String>>();
+    private List<List<String>> ListeIdentifiants;
+    private List<List<String>> ListeQuasiIdentifiants;
+    private List<List<String>> ListeDonneesSensibles;
     private String pathname;
     private HSSFWorkbook wb;
 
@@ -32,13 +32,13 @@ public class LectureFichier {
 
     // **** Constructeurs ****
 
-    public LectureFichier() {
-        ListeIdentifiants = null;
-        ListeQuasiIdentifiants = null;
-        ListeDonneesSensibles = null;
-        this.pathname = null;
-        this.wb = null;
-    }
+  //  public LectureFichier() {
+       // ListeIdentifiants = null;
+       // ListeQuasiIdentifiants = null;
+        //ListeDonneesSensibles = null;
+        //this.pathname = null;
+        //this.wb = null;
+  //  }
 
 
     // **** Méthodes ****
@@ -98,15 +98,18 @@ public class LectureFichier {
      * @throws IOException
      */
     public void LireIdentifiants() {
+
+        List<List<String>> ListeID = new ArrayList<>();
         int compteur_ID = CompteurID_QID_DS("ID");  //On cherche le nombre de colonne de type ID
         HSSFSheet sheet = wb.getSheet("donnees");  //On se place dans la page "donnees"
-        String Id_lu=" ";         //Initialisation de Id_lu, c'est la valeur de la cellule qui sera lue par la suite
+
         int numColonne = 0;    //Les colonnes sont triées, les IDs commencent donc TOUJOURS à la colonne 0
-        for (int i =0; i<compteur_ID;i++) {      //On va lire les colonnes autant de fois qu'il y a de colonnes ID
-            int index = 0 ;
-            Row row = sheet.getRow(index) ;
+        for (int i = 0; i < compteur_ID; i++) {      //On va lire les colonnes autant de fois qu'il y a de colonnes ID
+            int index = 0;
+            Row row = sheet.getRow(index);
             List<String> ListeID_temp = new ArrayList<>();  //Déclaration d'une arraylist temporaire vide qui va contenir toutes les données de la première colonne ID
             while (row != null) {
+                String Id_lu = " ";         //Initialisation de Id_lu, c'est la valeur de la cellule qui sera lue par la suite
                 if (row.getCell(numColonne) != null) {
                     CellType type_lu = row.getCell(numColonne).getCellType();  //On vérifie le type de la cellule, qu'on va finir par convertir dans tous les cas en String
                     switch (type_lu) {
@@ -119,29 +122,31 @@ public class LectureFichier {
                             break;
                     }
                 }
-                ListeID_temp.add(Id_lu);      //Ajout de la cellule lue à la liste temporaire
-                row = sheet.getRow(++index) ;  //On passe à la ligne suivante
+                    ListeID_temp.add(Id_lu);      //Ajout de la cellule lue à la liste temporaire
+                    row = sheet.getRow(++index);  //On passe à la ligne suivante
+                }
+                ListeID.add(ListeID_temp);    //Ajout de la liste temporaire à la liste contenant TOUTES les données
+                numColonne += 1;                          //On recommence avec la colonne suivante
             }
-            ListeIdentifiants.add(ListeID_temp);    //Ajout de la liste temporaire à la liste contenant TOUTES les données
-            numColonne+=1;                          //On recommence avec la colonne suivante
-        }
+        this.ListeIdentifiants=ListeID;
 
-        }
+    }
     /**
      * Permet de lire les quasi-identifiants d'un fichier excel et de les stocker dans un ArrayList
      * @throws IOException
      */
 
     public void LireQID() {
+        List<List<String>> ListeQID = new ArrayList<>();
         int compteur_QID = CompteurID_QID_DS("QID");  //On cherche le nombre de colonne de type ID
         HSSFSheet sheet = wb.getSheet("donnees");  //On se place dans la page "donnees"
-        String Qid_lu=" ";         //Initialisation de Id_lu, c'est la valeur de la cellule qui sera lue par la suite
         int numColonne = CompteurID_QID_DS("ID");    //On part de la première colonne des QID, repéré lors du comptage
         for (int i =0; i<compteur_QID;i++) {      //On va lire les colonnes autant de fois qu'il y a de colonnes ID
             int index = 0 ;
             Row row = sheet.getRow(index) ;
             List<String> ListeQID_temp = new ArrayList<>();  //Déclaration d'une arraylist temporaire vide qui va contenir toutes les données de la première colonne ID
             while (row != null) {
+                String Qid_lu = " ";
                 if (row.getCell(numColonne) != null) {
                     CellType type_lu = row.getCell(numColonne).getCellType();  //On vérifie le type de la cellule, qu'on va finir par convertir dans tous les cas en String
                     switch (type_lu) {
@@ -157,10 +162,10 @@ public class LectureFichier {
                 ListeQID_temp.add(Qid_lu);      //Ajout de la cellule lue à la liste temporaire
                 row = sheet.getRow(++index) ;  //On passe à la ligne suivante
             }
-            ListeQuasiIdentifiants.add(ListeQID_temp);    //Ajout de la liste temporaire à la liste contenant TOUTES les données
+            ListeQID.add(ListeQID_temp);    //Ajout de la liste temporaire à la liste contenant TOUTES les données
             numColonne+=1;                          //On recommence avec la colonne suivante
         }
-
+        this.ListeQuasiIdentifiants=ListeQID;
     }
 
     /**
@@ -169,15 +174,17 @@ public class LectureFichier {
      */
 
     public void LireDS() {
+        List<List<String>> ListeDS = new ArrayList<>();
         int compteur_DS = CompteurID_QID_DS("DS");  //On cherche le nombre de colonne de type ID
         HSSFSheet sheet = wb.getSheet("donnees");  //On se place dans la page "donnees"
-        String DS_lu=" ";         //Initialisation de Id_lu, c'est la valeur de la cellule qui sera lue par la suite
+
         int numColonne = CompteurID_QID_DS("ID")+CompteurID_QID_DS("QID");    //On part de la première colonne des DS, repéré lors du comptage
         for (int i =0; i<compteur_DS;i++) {      //On va lire les colonnes autant de fois qu'il y a de colonnes ID
             int index = 0 ;
             Row row = sheet.getRow(index) ;
             List<String> ListeDS_temp = new ArrayList<>();  //Déclaration d'une arraylist temporaire vide qui va contenir toutes les données de la première colonne ID
             while (row != null) {
+                String DS_lu=" ";
                 if (row.getCell(numColonne) != null) {
                     CellType type_lu = row.getCell(numColonne).getCellType();  //On vérifie le type de la cellule, qu'on va finir par convertir dans tous les cas en String
                     switch (type_lu) {
@@ -193,10 +200,10 @@ public class LectureFichier {
                 ListeDS_temp.add(DS_lu);      //Ajout de la cellule lue à la liste temporaire
                 row = sheet.getRow(++index) ;  //On passe à la ligne suivante
             }
-            ListeDonneesSensibles.add(ListeDS_temp);    //Ajout de la liste temporaire à la liste contenant TOUTES les données
+            ListeDS.add(ListeDS_temp);    //Ajout de la liste temporaire à la liste contenant TOUTES les données
             numColonne+=1;                          //On recommence avec la colonne suivante
         }
-
+        this.ListeDonneesSensibles=ListeDS;
     }
     
     
