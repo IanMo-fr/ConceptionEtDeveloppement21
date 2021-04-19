@@ -1,4 +1,4 @@
-package lecture;
+package traitement;
 
 import java.io.*;
 import java.util.Iterator;

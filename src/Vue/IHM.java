@@ -1,6 +1,5 @@
-package interaction;
+package Vue;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -8,7 +7,7 @@ import java.util.regex.Pattern;
 /**
  * Class de prise d'information et d'affichage auprès de l'utilisateur
  */
-public class Console {
+public class IHM {
     // **** Attributs ****
 
     Scanner in = new Scanner(System.in);

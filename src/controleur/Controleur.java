@@ -1,13 +1,10 @@
-package contrôleur;
+package controleur;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import sauvegarde.*;
-import lecture.*;
 import traitement.*;
 
 
-import lecture.LectureFichier;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import sauvegarde.EnregistrementFichier;
+import traitement.LectureFichier;
+import traitement.EnregistrementFichier;
 
 
 import java.io.IOException;
