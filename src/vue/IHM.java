@@ -1,5 +1,6 @@
 package vue;
 
+import javax.swing.*;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -7,7 +8,22 @@ import java.util.regex.Pattern;
 /**
  * Class de prise d'information et d'affichage auprès de l'utilisateur
  */
-public class IHM {
+
+public class IHM extends JFrame {
+    public IHM(){
+        super ("Projet CdA");
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setSize(1200, 800);
+        this.setLocationRelativeTo(null);
+
+        JPanel contentPane = (JPanel) this.getContentPane();
+        contentPane.add(new JLabel("Choisissez votre fichier : "));
+        // contentPane.add(new JFileChooser());
+    }
+
+
+
+/*
     // **** Attributs ****
 
     Scanner in = new Scanner(System.in);
@@ -20,6 +36,8 @@ public class IHM {
      * Méthode de demande du chemin d'accès du fichier à lire //TODO : tester le patern de vérification
      * @return String path      le chemin d'accès utilisable
      */
+
+    /*
     public String demandePath() {
         boolean err = false;
         String path = null;
@@ -37,5 +55,7 @@ public class IHM {
         } while (err);
 
         return path;
-    }
+    }*/
 }
+
+

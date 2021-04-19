@@ -5,7 +5,8 @@ import traitement.LectureFichier;
 
 import java.io.IOException;
 import java.util.List;
-
+import vue.*;
+//ATTENTION IMPORT VUE POUR TEST
 
 /**
  * Main du projet : réalise les intéractions utilisateur et fait l'appel <code>Controleur</code>*/
@@ -15,7 +16,8 @@ public class Main {
         //controleur.CreerDocPseudonymisé("C:/Users/jujuo/Desktop/CDA_projet/exemple_ce.xls");
 
        controleur.CreerDocsBucketisés("C:/Users/jujuo/Desktop/CDA_projet/exemple_ce.xls", 3);
-
+        IHM fenetre = new IHM();
+        fenetre.setVisible(true);
 
 
     }
