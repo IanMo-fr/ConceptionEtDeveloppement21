@@ -10,6 +10,10 @@ import traitement.EnregistrementFichier;
 import java.io.IOException;
 import java.util.List;
 
+
+/**
+ * Fait le lien entre l'interface Homme-machine du package <code>vue</code> et les class de type "modèle" du package <code>traitement</code>
+ */
 public class Controleur {
 
     // **** Attributs ****
@@ -19,6 +23,13 @@ public class Controleur {
 
 
     // **** constructeurs ****
+    /**
+     * Constructeur par défaut
+     */
+    public Controleur(){
+        this.arrivee = null;
+        this.pathname = null;
+    }
 
     /**
      * Constructeur de Controle
@@ -31,8 +42,14 @@ public class Controleur {
     /**
      * Constructeur surchargé de Controle : permet d'avoir un chemin d'arrivée par défaut si non spécifié
      */
-    public Controleur() {
-        this("C:/Users/jujuo/Desktop/CDA_projet/test.xls");
+    public Controleur(String user, boolean test) {
+        //todo : mettre nos chemin d'accès pour les testes dans un "case"
+        switch (user) {
+            case "Julien":
+                this.arrivee = ("C:/Users/jujuo/Desktop/CDA_projet/test.xls");
+                break;
+
+        }
     }
 
 

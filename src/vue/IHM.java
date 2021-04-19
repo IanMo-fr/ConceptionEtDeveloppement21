@@ -1,4 +1,4 @@
-package Vue;
+package vue;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
