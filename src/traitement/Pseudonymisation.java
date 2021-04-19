@@ -1,4 +1,5 @@
 package traitement;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import sauvegarde.*;
 import lecture.*;
@@ -12,62 +13,13 @@ import java.util.List;
 /**
  * Class regroupant les differentes sous-classes de traitement de données
  */
-public class Controle {
 
-
-    // **** Attributs ****
-
-    private String pathname;
-    private String arrivee;
-
-
-    // **** constructeurs ****
-
-    /**
-     * Constructeur de Controle
-     * @param arrivee
-     */
-    public Controle(String arrivee) {
-        this.arrivee = arrivee;
-    }
-
-    /**
-     * Constructeur surchargé de Controle : permet d'avoir un chemin d'arrivée par défaut si non spécifié
-     */
-    public Controle() {
-        this("C:/Users/jujuo/Desktop/CDA_projet/test.xls");
-    }
-
-
-
-    // **** Méthodes ****
-
-    /**
-     * Permet de réaliser bout à bout la création et l'enregistrement d'un fichier Excel Pseudonymisé à partir d'un fichier Excel donné (par son chemin d'accès)
-     * @param pathname
-     * @throws IOException
-     */
-    public void CreerDocPseudonymisé(String pathname) throws IOException {
-        this.pathname = pathname;
-        LectureFichier Ouverture = new LectureFichier();
-        Ouverture.OuvrirFichier(pathname);
-        //Ouverture.LireIdentifiants();         Plus nécessaire désormais
-        List<List<String>> ListeId = Ouverture.getListeIdentifiants();
-        Pseudonymisation GenererPseudos = new Pseudonymisation();
-        GenererPseudos.Pseudonymiser(ListeId);
-        List<List<String>> ListePseudos = GenererPseudos.getListePseudos();
-        EnregistrementFichier Enregistrement = new EnregistrementFichier();
-        HSSFWorkbook wb = Ouverture.getWb();
-        Enregistrement.ModifierIDFichier(ListePseudos,wb);
-        Enregistrement.EnregistrerFichier(wb,arrivee);
-
-    }
 
 
     /**
      * Class permettant la pseudomisation
      */
-    private static class Pseudonymisation {
+    public class Pseudonymisation {
         // char 97 -> 122 alphabet minuscule
         // Si ça ne marche pas passer en static
         private int index_unite = 0;  //Création de curseurs : à 0 on est sur le a, à 27 on est sur le z
@@ -118,8 +70,6 @@ public class Controle {
             return pseudo;
         }
 
-
-
         /**
          * Méthode créant un tableau à 2 dimensions de même taille que les
          *
@@ -137,8 +87,11 @@ public class Controle {
                 }
                 ListePseudos.add(ListePseudos_temp);
             }
-
         }
+
+
+
+
 
         /**
          * getter de la liste des pseudos
@@ -149,7 +102,8 @@ public class Controle {
             return ListePseudos;
         }
 
+
     }
-}
+
 
 

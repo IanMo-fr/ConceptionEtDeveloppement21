@@ -31,8 +31,8 @@ public class EnregistrementFichier {
                 sheet_donnees.getRow(b).getCell(a).setCellValue(ListePseudos.get(a).get(b));
             }
         }
-
     }
+
 
     /**
      * Méthode qui permet de créer un fichier Excel identique au premier mais avec les ID pseudonymisés, et d'enregistrer ce dernier au chemin d'accès spécifié
@@ -48,9 +48,6 @@ public class EnregistrementFichier {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
     }
 
 }
