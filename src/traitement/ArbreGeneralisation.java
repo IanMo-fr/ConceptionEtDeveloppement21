@@ -2,6 +2,8 @@ package traitement;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public interface ArbreGeneralisation {
@@ -12,7 +14,7 @@ public interface ArbreGeneralisation {
 
     /**
      *
-     * @return
+     * @return      le Workbook après passage par l'algorithme
      */
    public HSSFWorkbook anonyme();
 
@@ -22,7 +24,18 @@ public interface ArbreGeneralisation {
      * @return
      */
    private List<Integer> frequences(List<List<String>> donnee, int attribut){
-       return null;
+       //liste de stockage des fréquences
+       List <Integer> res = new LinkedList<Integer>();
+       //liste des attibuts à évaluer
+       List <String> att = donnee.get(attribut);
+
+       //on itère pour toute la liste, chaque attribut
+       for (int i = 0; i < att.size(); i++){
+            for (int frequence = 0; frequence < att.size(); frequence++){
+
+            }
+       }
+       return res;
    }
 
     /**
