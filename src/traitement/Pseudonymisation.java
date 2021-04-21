@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class Pseudonymisation {
 
-
     // **** Attributs ****
 
     // char 97 -> 122 alphabet minuscule
