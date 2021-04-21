@@ -77,7 +77,6 @@ public class Controleur {
         Ouverture.OuvrirFichier(pathname);
         List<List<String>> ListeQID = Ouverture.getListeQuasiIdentifiants();
         List<List<String>> ListeDS = Ouverture.getListeDonneesSensibles();
-
         Bucketisation bucket = new Bucketisation();
         bucket.Bucketiser(k, ListeQID, ListeDS);
         EnregistrementFichier Enregistrement = new EnregistrementFichier();
@@ -86,7 +85,28 @@ public class Controleur {
         HSSFWorkbook wbDS = bucket.getWbDS();
         Enregistrement.EnregistrerFichier(wbDS, "C:/Users/jujuo/Desktop/CDA_proj/DS.xls");
 
+    }
+
+    public void VerifierDiversité(String pathname, int k, int l) throws IOException {
+        this.pathname=pathname;
+        LectureFichier Ouverture = new LectureFichier();
+        Ouverture.OuvrirFichier(pathname);
+        List<List<String>> ListeDS = Ouverture.getListeDonneesSensibles();
+
+        Diversité diversité = new Diversité();
+        diversité.Verification(ListeDS,k,l);
+        boolean resultat = diversité.isEst_diverse();
+        if (resultat == true) {
+            System.out.println("Cette base de données " +k +"-anonymisée est bien "+l+"-diverse.");
+        }
+        else {
+            System.out.println("Cette base de données " +k +"-anonymisée n'est pas "+l+"-diverse.");
+        }
+
+
 
     }
+
+
 
 }

@@ -97,6 +97,7 @@ public class Pseudonymisation {
             }
             LisPseudos.add(ListePseudos_temp);
         }
+
         wb = AnonymiserIDFichier(LisPseudos,wb);
         this.ListePseudos=LisPseudos;
         this.workbook = wb;

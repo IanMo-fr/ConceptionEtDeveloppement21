@@ -38,23 +38,32 @@ public class Bucketisation {
      * @param ListeDonneesSensibles
      */
     public void Bucketiser(int k,List<List<String>> ListeQuasiIdentifiants, List<List<String>> ListeDonneesSensibles) {
-        List<String> GroupeBucket= new ArrayList<>();
-        int nb_personnes = ListeQuasiIdentifiants.get(0).size()-1;
-        GroupeBucket.add("Groupe");
-       // if (test==0) {      //cas où ça tombe juste = 6 personnes et k=2 : 2 groupes de 3
-        for (int i = 1; i <= nb_personnes/k; i++) {
+
+        // [[Age, 10,8,40,18,19],[Groupe, G1,G1,G2,G2,G2]]  pour k = 2
+        List<String> GroupeBucketQID= new ArrayList<>();
+        List<String> GroupeBucketDS= new ArrayList<>();
+        int nb_personnes = ListeQuasiIdentifiants.get(0).size()-1;  // 5
+
+        GroupeBucketQID.add(ListeDonneesSensibles.get(0).get(0));
+        GroupeBucketDS.add("Groupe");  // [Groupe]
+
+
+        for (int i = 1; i <= nb_personnes/k; i++) {  //i de 1 à 2
             for (int j=0; j<k;j++) {
-                GroupeBucket.add("G" + i);
+                GroupeBucketQID.add("G" + i);  //[Groupe, G1]
+                GroupeBucketDS.add("G" + i);
             }
         }
+        //[Groupe, G1,G1,G2,G2]
         for (int a=0 ;a<nb_personnes%k;a++) {
-            GroupeBucket.add("G" + nb_personnes / k);
+            GroupeBucketQID.add("G" + nb_personnes / k); //ajout du numéro du dernier groupe
+            GroupeBucketDS.add("G" + nb_personnes / k);
         }
 
-        ListeQuasiIdentifiants.add(GroupeBucket);
+        ListeQuasiIdentifiants.add(GroupeBucketQID);  //[[Age, 10,8,40,18,19]].add [Groupe, G1,G1,G2,G2,G2]
         this.ListeQIDBucket=ListeQuasiIdentifiants;
 
-        ListeDonneesSensibles.add(GroupeBucket);
+        ListeDonneesSensibles.add(0,GroupeBucketDS);
         this.ListeDSBucket=ListeDonneesSensibles;
 
         CreerFichierBucketQID(ListeQIDBucket);
@@ -84,7 +93,7 @@ public class Bucketisation {
                 }
             }
         }
-        this.wbQID=wb;
+        this.wbQID=wb;  //Mise à jour du wb pour l'utiliser plus tard
     }
 
     /**
