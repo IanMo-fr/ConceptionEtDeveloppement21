@@ -10,11 +10,33 @@ import java.util.List;
 
 public class Bucketisation {
 
+    // **** Attributs ****
+
     private List<List<String>> ListeQIDBucket;
     private List<List<String>> ListeDSBucket;
     private HSSFWorkbook wbQID;
     private HSSFWorkbook wbDS;
 
+    // **** constructeurs ****
+
+    /**
+     * Constructeur par défaut
+     */
+    public Bucketisation() {
+        this.ListeDSBucket = null;
+        this.ListeQIDBucket = null;
+        this.wbDS = null;
+        this.wbQID = null;
+    }
+
+    // **** Méthodes ****
+
+    /**
+     *
+     * @param k
+     * @param ListeQuasiIdentifiants
+     * @param ListeDonneesSensibles
+     */
     public void Bucketiser(int k,List<List<String>> ListeQuasiIdentifiants, List<List<String>> ListeDonneesSensibles) {
         List<String> GroupeBucket= new ArrayList<>();
         int nb_personnes = ListeQuasiIdentifiants.get(0).size()-1;
@@ -41,6 +63,10 @@ public class Bucketisation {
 
     }
 
+    /**
+     *
+     * @param ListeBucket
+     */
     private void CreerFichierBucketQID(List<List<String>> ListeBucket) {
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("QID");
@@ -61,6 +87,10 @@ public class Bucketisation {
         this.wbQID=wb;
     }
 
+    /**
+     *
+     * @param ListeBucket
+     */
     private void CreerFichierBucketDS(List<List<String>> ListeBucket) {
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("DS");
@@ -81,10 +111,18 @@ public class Bucketisation {
         this.wbDS=wb;
     }
 
+    /**
+     * Getteur de <code>wbQID</code>
+     * @return
+     */
     public HSSFWorkbook getWbQID() {
         return wbQID;
     }
 
+    /**
+     * Getteur de <code>wbDS</code>
+     * @return
+     */
     public HSSFWorkbook getWbDS() {
         return wbDS;
     }
