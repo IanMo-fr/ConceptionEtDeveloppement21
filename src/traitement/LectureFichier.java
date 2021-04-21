@@ -32,13 +32,13 @@ public class LectureFichier {
 
     // **** Constructeurs ****
 
-  //  public LectureFichier() {
-       // ListeIdentifiants = null;
-       // ListeQuasiIdentifiants = null;
-        //ListeDonneesSensibles = null;
-        //this.pathname = null;
-        //this.wb = null;
-  //  }
+   public LectureFichier() {
+        this.ListeIdentifiants = null;
+        this.ListeQuasiIdentifiants = null;
+        this.ListeDonneesSensibles = null;
+        this.pathname = null;
+        this.wb = null;
+    }
 
 
     // **** Méthodes ****
