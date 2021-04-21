@@ -29,7 +29,7 @@ public interface ArbreGeneralisation {
        //liste des attibuts à évaluer
        List <String> att = donnee.get(attribut);
 
-       //on itère pour toute la liste, chaque attribut
+       //on itère pour toute la liste, chaque attribut :: oskour j c pa koman retiré lé doublon
        for (int i = 0; i < att.size(); i++){
             for (int frequence = 0; frequence < att.size(); frequence++){
 
