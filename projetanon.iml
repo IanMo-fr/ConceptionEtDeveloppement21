@@ -12,5 +12,6 @@
     <orderEntry type="library" name="commons-codec-1.15" level="project" />
     <orderEntry type="library" name="poi-integration-5.0.0" level="project" />
     <orderEntry type="library" name="curvesapi-1.06" level="project" />
+    <orderEntry type="library" name="poi-scratchpad-5.0.0" level="project" />
   </component>
 </module>

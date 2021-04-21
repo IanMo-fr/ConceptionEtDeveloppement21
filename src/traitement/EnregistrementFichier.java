@@ -18,21 +18,6 @@ public class EnregistrementFichier {
 
     // **** Méthodes ****
 
-    /**
-     * Méthode qui permet de créer un fichier Excel identique au premier mais avec les ID pseudonymisés, et d'enregistrer ce dernier au chemin d'accès spécifié
-     * @param ListePseudos
-     * @param wb
-     */
-    public void AnonymiserIDFichier(List<List<String>> ListePseudos, HSSFWorkbook wb) {
-
-        HSSFSheet sheet_donnees = wb.getSheet("donnees");
-
-        for (int a = 0; a < ListePseudos.size(); a++) {
-            for (int b = 0; b < ListePseudos.get(a).size(); b++) {
-                sheet_donnees.getRow(b).getCell(a).setCellValue(ListePseudos.get(a).get(b));
-            }
-        }
-    }
 
     /**
      * Méthode qui permet d'enregistrer un fichier workbook donné en paramètre au chemin "arrivee"

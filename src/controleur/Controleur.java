@@ -46,7 +46,7 @@ public class Controleur {
         //todo : mettre nos chemins d'accès pour les tests dans un "case"
         switch (user) {
             case "Julien":
-                this.arrivee = ("C:/Users/jujuo/Desktop/CDA_projet/test.xls");
+                this.arrivee = ("C:/Users/jujuo/Desktop/CDA_proj/test.xls");
                 break;
 
         }
@@ -62,14 +62,12 @@ public class Controleur {
         this.pathname = pathname;
         LectureFichier Ouverture = new LectureFichier();
         Ouverture.OuvrirFichier(pathname);
+        HSSFWorkbook wb_depart = Ouverture.getWb();
         List<List<String>> ListeId = Ouverture.getListeIdentifiants();
-        Pseudonymisation GenererPseudos = new Pseudonymisation();
-        GenererPseudos.Pseudonymiser(ListeId);
-        List<List<String>> ListePseudos = GenererPseudos.getListePseudos();
+        Pseudonymisation pseudonymisation = new Pseudonymisation();
+        pseudonymisation.Pseudonymiser(ListeId, wb_depart);
         EnregistrementFichier Enregistrement = new EnregistrementFichier();
-        HSSFWorkbook wb = Ouverture.getWb();
-        Enregistrement.AnonymiserIDFichier(ListePseudos,wb);
-        Enregistrement.EnregistrerFichier(wb,arrivee);
+        Enregistrement.EnregistrerFichier(pseudonymisation.getWorkbook(),arrivee);
 
     }
 
@@ -84,9 +82,9 @@ public class Controleur {
         bucket.Bucketiser(k, ListeQID, ListeDS);
         EnregistrementFichier Enregistrement = new EnregistrementFichier();
         HSSFWorkbook wbQID = bucket.getWbQID();
-        Enregistrement.EnregistrerFichier(wbQID, "C:/Users/jujuo/Desktop/CDA_projet/QID.xls");
+        Enregistrement.EnregistrerFichier(wbQID, "C:/Users/jujuo/Desktop/CDA_proj/QID.xls");
         HSSFWorkbook wbDS = bucket.getWbDS();
-        Enregistrement.EnregistrerFichier(wbDS, "C:/Users/jujuo/Desktop/CDA_projet/DS.xls");
+        Enregistrement.EnregistrerFichier(wbDS, "C:/Users/jujuo/Desktop/CDA_proj/DS.xls");
 
 
     }

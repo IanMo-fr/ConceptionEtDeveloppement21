@@ -24,6 +24,7 @@ public class Pseudonymisation {
     private int index_centaine = 0;
     private String pseudo;
     private List<List<String>> ListePseudos = new ArrayList<List<String>>();
+    private HSSFWorkbook workbook;
 
     // **** constructeurs ****
 
@@ -85,19 +86,40 @@ public class Pseudonymisation {
      * @param ListeIdentifiants
      * @return tab      un tableau à 2 dimensions contenant les données pseudonimisées
      */
-    public void Pseudonymiser(List<List<String>> ListeIdentifiants) {
+    public void Pseudonymiser(List<List<String>> ListeIdentifiants, HSSFWorkbook wb) {
 
+        List<List<String>> LisPseudos = new ArrayList<List<String>>();
         for (int a = 0; a < ListeIdentifiants.size(); a++) {
             ArrayList<String> ListePseudos_temp = new ArrayList<>();
-            ListePseudos_temp.add(ListeIdentifiants.get(a).get(0));
+            ListePseudos_temp.add(ListeIdentifiants.get(a).get(0)); //Ajout du nom de la catégorie
             for (int b = 1; b < ListeIdentifiants.get(a).size(); b++) {
                 String new_pseudo = genererPseudo();
                 ListePseudos_temp.add(new_pseudo);
             }
-            ListePseudos.add(ListePseudos_temp);
+            LisPseudos.add(ListePseudos_temp);
         }
+        wb = AnonymiserIDFichier(LisPseudos,wb);
+        this.ListePseudos=LisPseudos;
+        this.workbook = wb;
+
     }
 
+    /**
+     * Méthode qui permet de créer un fichier Excel identique au premier mais avec les ID pseudonymisés, et d'enregistrer ce dernier au chemin d'accès spécifié
+     * @param ListePseudos
+     * @param wb
+     */
+    private HSSFWorkbook AnonymiserIDFichier(List<List<String>> ListePseudos, HSSFWorkbook wb) {
+
+        HSSFSheet sheet_donnees = wb.getSheet("donnees");
+
+        for (int a = 0; a < ListePseudos.size(); a++) {
+            for (int b = 0; b < ListePseudos.get(a).size(); b++) {
+                sheet_donnees.getRow(b).getCell(a).setCellValue(ListePseudos.get(a).get(b));
+            }
+        }
+        return wb;
+    }
 
 
 
@@ -111,6 +133,7 @@ public class Pseudonymisation {
         return ListePseudos;
     }
 
+    public HSSFWorkbook getWorkbook() {return workbook;}
 
 }
 
