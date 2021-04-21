@@ -25,6 +25,7 @@ public class LectureFichier {
     private List<List<String>> ListeIdentifiants;
     private List<List<String>> ListeQuasiIdentifiants;
     private List<List<String>> ListeDonneesSensibles;
+    private List<List<String>> ListeDSBucket;
     private String pathname;
     private HSSFWorkbook wb;
 
@@ -36,6 +37,7 @@ public class LectureFichier {
         this.ListeIdentifiants = null;
         this.ListeQuasiIdentifiants = null;
         this.ListeDonneesSensibles = null;
+        this.ListeDSBucket = null;
         this.pathname = null;
         this.wb = null;
     }
@@ -205,7 +207,7 @@ public class LectureFichier {
         }
         this.ListeDonneesSensibles=ListeDS;
     }
-    
+
     
     /**
      * getter de la liste des identifiants
@@ -239,6 +241,7 @@ public class LectureFichier {
     public HSSFWorkbook getWb() {
         return wb;
     }
+
 }
 
 
