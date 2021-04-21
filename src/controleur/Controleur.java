@@ -27,8 +27,8 @@ public class Controleur {
      * Constructeur par défaut
      */
     public Controleur(){
-     //  this.arrivee = null;
-    //   this.pathname = null;
+        this.arrivee = null;
+        this.pathname = null;
     }
 
     /**

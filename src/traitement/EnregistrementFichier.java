@@ -12,9 +12,7 @@ public class EnregistrementFichier {
 
     // **** Attributs ****
 
-    HSSFWorkbook wb;
-
-    // **** constructeurs ****
+    // **** Constructeurs ****
 
     // **** Méthodes ****
 
