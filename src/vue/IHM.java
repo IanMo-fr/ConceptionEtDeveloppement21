@@ -1,7 +1,10 @@
 package vue;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
+import java.io.File;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -35,12 +38,23 @@ private JPanel selectXLS(){
         labelXSL.setPreferredSize(new Dimension(200,30));
         panelXLS.add(labelXSL);
 
-        JFileChooser pathXLS = (new JFileChooser());
+        JFileChooser pathXLS = (new JFileChooser(FileSystemView.getFileSystemView()));
         panelXLS.add(pathXLS);
 
+        pathXLS.setDialogTitle("Selectionner votre fichier .xls");
+        pathXLS.setAcceptAllFileFilterUsed(false);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("fichiers XLS", "xls");
+        pathXLS.addChoosableFileFilter(filter);
+
+        int returnValue = pathXLS.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION){
+            File fichierSelectionner = pathXLS.getSelectedFile();
+            System.out.println(fichierSelectionner.getAbsolutePath());
+        }
 
         return panelXLS;
 }
+
 
 private JPanel selectBucket(){
         JPanel panelBucket = new JPanel(new FlowLayout());
