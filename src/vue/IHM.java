@@ -5,8 +5,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.io.File;
-import java.util.Scanner;
-import java.util.regex.Pattern;
 
 
 /**
@@ -25,21 +23,16 @@ public class IHM extends JFrame {
 
         JScrollPane scroll = new JScrollPane();
         contentPane.add(scroll);
-
-        contentPane.add(selectXLS(), BorderLayout.NORTH);
+        selectXLS();
+        //contentPane.add(selectXLS(), BorderLayout.NORTH);
         contentPane.add(selectBucket(), BorderLayout.CENTER);
         contentPane.add(selectAlgo1(),BorderLayout.AFTER_LAST_LINE);
         }
 
-private JPanel selectXLS(){
-        JPanel panelXLS = new JPanel(new FlowLayout());
-
-        JLabel labelXSL = new JLabel("Choisissez votre fichier : .xls");
-        labelXSL.setPreferredSize(new Dimension(200,30));
-        panelXLS.add(labelXSL);
+        //permet de sélectionner le pathname du fichier .xls selectionné => on peut le récupérer en retour de la fonction. A voir où l'utiliser -> paramètre de HIM ? Attribut ?
+private void selectXLS(){
 
         JFileChooser pathXLS = (new JFileChooser(FileSystemView.getFileSystemView()));
-        panelXLS.add(pathXLS);
 
         pathXLS.setDialogTitle("Selectionner votre fichier .xls");
         pathXLS.setAcceptAllFileFilterUsed(false);
@@ -52,7 +45,6 @@ private JPanel selectXLS(){
             System.out.println(fichierSelectionner.getAbsolutePath());
         }
 
-        return panelXLS;
 }
 
 
