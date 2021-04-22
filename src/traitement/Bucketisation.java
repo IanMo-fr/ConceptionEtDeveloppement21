@@ -37,7 +37,7 @@ public class Bucketisation {
      * @param ListeQuasiIdentifiants
      * @param ListeDonneesSensibles
      */
-    public void Bucketiser(int k,List<List<String>> ListeQuasiIdentifiants, List<List<String>> ListeDonneesSensibles) {
+    public void Bucketiser(int k, List<List<String>> ListeIdentifiants, List<List<String>> ListeQuasiIdentifiants, List<List<String>> ListeDonneesSensibles) {
 
         // [[Age, 10,8,40,18,19],[Groupe, G1,G1,G2,G2,G2]]  pour k = 2
         List<String> GroupeBucketQID= new ArrayList<>();
@@ -58,6 +58,10 @@ public class Bucketisation {
         for (int a=0 ;a<nb_personnes%k;a++) {
             GroupeBucketQID.add("G" + nb_personnes / k); //ajout du numéro du dernier groupe
             GroupeBucketDS.add("G" + nb_personnes / k);
+        }
+
+        for (int i=0;i<ListeIdentifiants.size();i++) {
+            ListeQuasiIdentifiants.add(0,ListeIdentifiants.get(i));
         }
 
         ListeQuasiIdentifiants.add(GroupeBucketQID);  //[[Age, 10,8,40,18,19]].add [Groupe, G1,G1,G2,G2,G2]

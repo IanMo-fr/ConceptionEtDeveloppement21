@@ -46,7 +46,7 @@ public class Controleur {
         //todo : mettre nos chemins d'accès pour les tests dans un "case"
         switch (user) {
             case "Julien":
-                this.arrivee = ("C:/Users/jujuo/Desktop/CDA_proj/test.xls");
+                this.arrivee = ("C:/Users/jujuo/Desktop/CDA_proj/pseudos.xls");
                 break;
 
         }
@@ -77,8 +77,9 @@ public class Controleur {
         Ouverture.OuvrirFichier(pathname);
         List<List<String>> ListeQID = Ouverture.getListeQuasiIdentifiants();
         List<List<String>> ListeDS = Ouverture.getListeDonneesSensibles();
+        List<List<String>> ListeIdentifiants = Ouverture.getListeIdentifiants();
         Bucketisation bucket = new Bucketisation();
-        bucket.Bucketiser(k, ListeQID, ListeDS);
+        bucket.Bucketiser(k, ListeIdentifiants, ListeQID, ListeDS);
         EnregistrementFichier Enregistrement = new EnregistrementFichier();
         HSSFWorkbook wbQID = bucket.getWbQID();
         Enregistrement.EnregistrerFichier(wbQID, "C:/Users/jujuo/Desktop/CDA_proj/QID.xls");
