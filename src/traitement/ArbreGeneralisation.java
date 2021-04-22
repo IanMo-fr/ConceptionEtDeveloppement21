@@ -2,7 +2,7 @@ package traitement;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-import java.util.ArrayList;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface ArbreGeneralisation {
      *
      * @return      le Workbook après passage par l'algorithme
      */
-   public HSSFWorkbook anonyme();
+   public HSSFWorkbook anonyme(List<String> attributStrg);
 
     /**
      * Calcule la fréquence d'apparition d'un attribut donné
@@ -24,18 +24,8 @@ public interface ArbreGeneralisation {
      * @return
      */
    private List<Integer> frequences(List<List<String>> donnee, int attribut){
-       //liste de stockage des fréquences
-       List <Integer> res = new LinkedList<Integer>();
-       //liste des attibuts à évaluer
-       List <String> att = donnee.get(attribut);
-
-       //on itère pour toute la liste, chaque attribut :: oskour j c pa koman retiré lé doublon
-       for (int i = 0; i < att.size(); i++){
-            for (int frequence = 0; frequence < att.size(); frequence++){
-
-            }
-       }
-       return res;
+       //On ne choisit que des attributs numériques
+       return null;
    }
 
     /**
@@ -44,7 +34,7 @@ public interface ArbreGeneralisation {
      * @param frequence     la liste <Integer> avec la fréquence d'apparition d'un attribut
      * @return int          la médiane
      */
-   private int mediane(List<Integer> frequence){
+    default int mediane(List<Integer> frequence){
        //on classe les valeurs de la serie dans l'orde croissant
        frequence.sort(Integer::compareTo);
 
