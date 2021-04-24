@@ -23,9 +23,14 @@ import static java.awt.FlowLayout.CENTER;
 public class IHM extends JFrame implements ActionListener {
 
     private String pathname;
-    private  JButton Bucket = new JButton("Bucketisation");
-    private Controleur controleur = new Controleur("Marilou", true);
+    private Controleur controleur = new Controleur("Julien", true);
+    private JButton Bucket = new JButton("Bucketisation");
     private JButton Algo1 = new JButton("Algorithme 1");
+    private JTextField k = new JTextField();
+    private JTextField nomFileDS = new JTextField();
+    private JTextField nomFileQID = new JTextField();
+    private JLabel erreur = new JLabel("Les données entrées sont incorrectes");
+
 
 
     public IHM(){
@@ -51,11 +56,14 @@ public class IHM extends JFrame implements ActionListener {
         }
 
 
+
         JPanel contentPane = (JPanel) this.getContentPane();
         contentPane.setLayout(new FlowLayout(CENTER, 50,50));
 
         contentPane.add(composantBucket());
         contentPane.add(composantAlgo1());
+        erreur.setVisible(false);
+        contentPane.add(erreur);
 
 
         Bucket.setPreferredSize(new Dimension(150,30));
@@ -76,23 +84,20 @@ public class IHM extends JFrame implements ActionListener {
             JLabel nomQID = new JLabel("Nom du fichier contenant les QID :");
             panelBucket.add(nomQID);
 
-            JTextField nomFileQID = new JTextField();
             nomFileQID.setPreferredSize(new Dimension(100,30));
-            panelBucket.add( nomFileQID);
+            panelBucket.add(nomFileQID);
 
             JLabel nomDS = new JLabel("Nom du fichier contenant les Données Sensibles:");
             panelBucket.add(nomDS);
 
-            JTextField nomFileDS = new JTextField();
 
-            panelBucket.add( nomFileDS);
+            panelBucket.add(nomFileDS);
 
             JLabel selectk = new JLabel("k :");
             panelBucket.add(selectk);
 
-            JTextField k = new JTextField();
 
-            panelBucket.add( k);
+            panelBucket.add(k);
 
 
             return panelBucket;
@@ -128,8 +133,19 @@ public class IHM extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         if (event.getSource()==Bucket){
             try {
-                controleur.CreerDocPseudonymisé(pathname);
-            } catch (IOException e) {
+                String nomQID = nomFileQID.getText();
+                String nomDS = nomFileDS.getText();
+                String val_k = k.getText();
+                if ( nomQID.equals("") || nomDS.equals("") || val_k.equals("") || nomQID.equals(nomDS) ) {
+                    erreur.setVisible(true);
+                    System.out.println(nomQID+" "+ nomDS+" "+val_k);
+                } else {
+                    erreur.setVisible(false);
+                    int int_k = Integer.parseInt(val_k);
+                    controleur.CreerDocBucketiséAPartirdeBDD(pathname, controleur.getArrivee(), int_k, nomQID, nomDS);
+                }
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }

@@ -22,6 +22,9 @@ public class Controleur {
     private String pathname;
     private String arrivee;
 
+    public String getArrivee() {
+        return arrivee;
+    }
 
     // **** constructeurs ****
     /**
@@ -74,7 +77,7 @@ public class Controleur {
 
     }
 
-    public void CreerDocsBucketisés(String pathname, int k) throws IOException {
+    public void CreerDocsBucketisés(String pathname, int k, String nomQID, String nomDS) throws IOException {
         this.pathname = pathname;
         LectureFichier Ouverture = new LectureFichier();
         Ouverture.OuvrirFichier(pathname);
@@ -85,11 +88,25 @@ public class Controleur {
         bucket.Bucketiser(k, ListeIdentifiants, ListeQID, ListeDS);
         EnregistrementFichier Enregistrement = new EnregistrementFichier();
         HSSFWorkbook wbQID = bucket.getWbQID();
-        Enregistrement.EnregistrerFichier(wbQID, "C:/Users/jujuo/Desktop/CDA_proj/QID.xls");
+        String arrivee_QID = "C:/Users/jujuo/Desktop/CDA_proj/"+nomQID+".xls";
+        Enregistrement.EnregistrerFichier(wbQID, arrivee_QID);
         HSSFWorkbook wbDS = bucket.getWbDS();
-        Enregistrement.EnregistrerFichier(wbDS, "C:/Users/jujuo/Desktop/CDA_proj/DS.xls");
+        String arrivee_DS = "C:/Users/jujuo/Desktop/CDA_proj/"+nomDS+".xls";
+        Enregistrement.EnregistrerFichier(wbDS, arrivee_DS);
 
     }
+
+    /**
+     * Permet de réaliser bout à bout la création et l'enregistrement d'un fichier Excel Pseudonymisé à partir d'un fichier Excel donné (par son chemin d'accès)
+     * @param pathname
+     * @throws IOException
+     */
+    public void CreerDocBucketiséAPartirdeBDD(String pathname, String arrivee, int k, String nomQID, String nomDS) throws IOException {
+        CreerDocPseudonymisé(pathname);
+        CreerDocsBucketisés(arrivee, k, nomQID, nomDS);
+
+    }
+
 
     public void VerifierDiversité(String pathname, int k, int l) throws IOException {
         this.pathname=pathname;
@@ -111,7 +128,7 @@ public class Controleur {
 
     }
 
-    public void controleurIHM() throws IOException {
+       public void controleurIHM() throws IOException {
         IHM fenetre = new IHM();
         fenetre.setVisible(true);
         String chemin = fenetre.getPathname();
@@ -119,6 +136,7 @@ public class Controleur {
         this.pathname = chemin;
 
     }
+
 
 
 
