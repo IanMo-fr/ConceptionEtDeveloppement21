@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
+import static java.awt.FlowLayout.CENTER;
+
 
 /**
  * Class de prise d'information et d'affichage auprès de l'utilisateur
@@ -23,6 +25,7 @@ public class IHM extends JFrame implements ActionListener {
     private String pathname;
     private  JButton Bucket = new JButton("Bucketisation");
     private Controleur controleur = new Controleur("Marilou", true);
+    private JButton Algo1 = new JButton("Algorithme 1");
 
 
     public IHM(){
@@ -49,52 +52,73 @@ public class IHM extends JFrame implements ActionListener {
 
 
         JPanel contentPane = (JPanel) this.getContentPane();
-        contentPane.setLayout(new FlowLayout());
+        contentPane.setLayout(new FlowLayout(CENTER, 50,50));
 
-        JLabel nomQID = new JLabel("Nom du fichier contenant les QID :");
-        contentPane.add(nomQID);
+        contentPane.add(composantBucket());
+        contentPane.add(composantAlgo1());
 
-        JTextField nomFileQID = new JTextField();
-        nomFileQID.setPreferredSize(new Dimension(100,30));
-        contentPane.add( nomFileQID);
 
-        JLabel nomDS = new JLabel("Nom du fichier contenant les Données Sensibles:");
-        contentPane.add(nomDS);
-
-        JTextField nomFileDS = new JTextField();
-        nomFileDS.setPreferredSize(new Dimension(100,30));
-        contentPane.add( nomFileDS);
-
-        JLabel selectk = new JLabel("k :");
-        contentPane.add(selectk);
-
-        JTextField k = new JTextField();
-        k.setPreferredSize(new Dimension(100,30));
-        contentPane.add( k);
-
-        Bucket.setPreferredSize(new Dimension(300,30));
+        Bucket.setPreferredSize(new Dimension(150,30));
         contentPane.add(Bucket);
         Bucket.addActionListener( this);
 
-
-
-        // Algo1
-
-        JButton Algo1 = new JButton("Algorithme 1");
-        Algo1.setPreferredSize(new Dimension(200,30));
+        Algo1.setPreferredSize(new Dimension(150,30));
         contentPane.add(Algo1);
-
-        JLabel nom = new JLabel("Nom du fichier :");
-        contentPane.add(nom);
-
-        JTextField nomFile = new JTextField();
-        nomFile.setPreferredSize(new Dimension(100,30));
-        contentPane.add( nomFile);
-
-
+        Algo1.addActionListener(this);
 
         }
 
+        private JPanel composantBucket(){
+
+            JPanel panelBucket = new JPanel();
+            panelBucket.setLayout(new GridLayout(3,2,30,30));
+
+            JLabel nomQID = new JLabel("Nom du fichier contenant les QID :");
+            panelBucket.add(nomQID);
+
+            JTextField nomFileQID = new JTextField();
+            nomFileQID.setPreferredSize(new Dimension(100,30));
+            panelBucket.add( nomFileQID);
+
+            JLabel nomDS = new JLabel("Nom du fichier contenant les Données Sensibles:");
+            panelBucket.add(nomDS);
+
+            JTextField nomFileDS = new JTextField();
+
+            panelBucket.add( nomFileDS);
+
+            JLabel selectk = new JLabel("k :");
+            panelBucket.add(selectk);
+
+            JTextField k = new JTextField();
+
+            panelBucket.add( k);
+
+
+            return panelBucket;
+        }
+
+        private JPanel composantAlgo1(){
+
+            JPanel panelAlgo1 = new JPanel();
+            panelAlgo1.setLayout(new GridLayout(2,2,30,30));
+
+            JLabel nom = new JLabel("Nom du fichier :");
+            panelAlgo1.add(nom);
+
+            JTextField nomFile = new JTextField();
+            nomFile.setPreferredSize(new Dimension(100,30));
+            panelAlgo1.add( nomFile);
+
+            JLabel labelAttributQID = new JLabel("Attribut QID :");
+            panelAlgo1.add(labelAttributQID);
+
+            JTextField AttributQID = new JTextField();
+            AttributQID.setPreferredSize(new Dimension(100,30));
+            panelAlgo1.add( AttributQID);
+
+            return panelAlgo1;
+        }
 
     public String getPathname() {
         return pathname;
@@ -108,6 +132,9 @@ public class IHM extends JFrame implements ActionListener {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        else if (event.getSource()==Algo1){
+            System.out.println("c algo 1");
         }
     }
 }
