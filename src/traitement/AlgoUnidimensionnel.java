@@ -1,5 +1,6 @@
 package traitement;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
     @Override
     public HSSFWorkbook anonyme(List<String> listeAttribut, HSSFWorkbook wb) {
 
-        //liste pour utiliser pour stocker les valeurs numériques de la liste des QID choisit
+        //liste utilisee pour stocker les valeurs numériques de la liste des QID choisit
         List<Integer> attribut = new LinkedList<Integer>();
 
 
@@ -26,10 +27,19 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         int mediane = this.mediane(attribut);
 
         //on coupe en deux la liste de l'attibut pour avoir une généralisation par la médiane
-        List<String> rHands = new LinkedList<String>();
-        List<String> lHands = new LinkedList<String>();
+        List<String> rHands;
+        List<String> lHands;
         rHands = listeAttribut.subList(0, mediane);
         lHands = listeAttribut.subList(mediane, attribut.size());
+
+        HSSFSheet sheet_donnees = wb.getSheet("donnees");
+
+        for (int a = 0; a < listeAttribut.size(); a++) {
+            for (int b = 0; b < listeAttribut.size(); b++) {
+                if (rHands.contains(sheet_donnees.getRow(b).getCell(a).toString()))
+                    sheet_donnees.getRow(b).getCell(a).setCellValue(rHands.get(0)+"-"+rHands.get(rHands.size()-1));
+            }
+        }
 
 
         return null;
