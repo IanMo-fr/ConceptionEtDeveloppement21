@@ -17,7 +17,7 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         //liste utilisee pour stocker les valeurs numériques de la liste des QID choisit
         List<Integer> attribut = new LinkedList<Integer>();
 
-
+    do {
         //On transforme les valeurs numérique stocké en String en Integer pour l'appel de la fct mediane
         for (int taille = 0; taille < listeAttribut.size(); taille++) {
             attribut.add(Integer.parseInt(listeAttribut.get(taille)));
@@ -36,13 +36,18 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
 
         for (int a = 0; a < listeAttribut.size(); a++) {
             for (int b = 0; b < listeAttribut.size(); b++) {
+                //on verifie si la valeur à la cellule visitée est égale à une valeur de l'une des sub-listes
+                //et on modifie par la borne basse et haute de la sub-liste correspondante
                 if (rHands.contains(sheet_donnees.getRow(b).getCell(a).toString()))
-                    sheet_donnees.getRow(b).getCell(a).setCellValue(rHands.get(0)+"-"+rHands.get(rHands.size()-1));
+                    sheet_donnees.getRow(b).getCell(a).setCellValue(rHands.get(0) + "-" + rHands.get(rHands.size() - 1));
+                else
+                    sheet_donnees.getRow(b).getCell(a).setCellValue(lHands.get(0) + "-" + lHands.get(lHands.size() - 1));
             }
         }
+    }while (attribut.size()>2);
 
 
-        return null;
+        return wb;
     }
 
 }

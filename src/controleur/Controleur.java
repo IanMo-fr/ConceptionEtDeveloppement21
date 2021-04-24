@@ -49,6 +49,9 @@ public class Controleur {
             case "Julien":
                 this.arrivee = ("C:/Users/jujuo/Desktop/CDA_proj/pseudos.xls");
                 break;
+            case "Ian" :
+                this.arrivee = ("E:/Documents/Etude/L2/Semestre 4/Conception et dev/projetanon/pseudos.xls");
+                break;
 
         }
     }
