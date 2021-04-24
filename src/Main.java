@@ -10,13 +10,12 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException {
        Controleur controleur = new Controleur("Julien", true); //Préciser ici en paramètre le chemin d'accès d'arrivée du fichier, sinon il ya un chemin par défaut
-        //controleur.CreerDocPseudonymisé("C:/Users/jujuo/Desktop/CDA_proj/exemple_ce.xls");
+       // controleur.CreerDocPseudonymisé("C:/Users/jujuo/Desktop/CDA_proj/exemple_ce.xls");
 
      //  controleur.CreerDocsBucketisés("C:/Users/jujuo/Desktop/CDA_proj/pseudos.xls", 3); //Attention cette commande prend une base de données PSEUDONYMISEE en paramètre
-         IHM fenetre = new IHM();
-       fenetre.setVisible(true);
 
 
+     controleur.controleurIHM();
       //controleur.VerifierDiversité("C:/Users/jujuo/Desktop/CDA_proj/exemple_ce.xls", 3,3);
 
 

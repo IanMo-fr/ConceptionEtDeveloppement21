@@ -1,9 +1,17 @@
 package vue;
+import traitement.*;
 
+import controleur.Controleur;
+
+import javax.naming.ldap.Control;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
-import java.util.Scanner;
-import java.util.regex.Pattern;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -11,38 +19,161 @@ import java.util.regex.Pattern;
  */
 
 public class IHM extends JFrame {
+
+    private String pathname;
+    private String test;
+
+
     public IHM(){
         super ("Projet CdA");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(900, 500);
         this.setLocationRelativeTo(null);
 
-        JPanel contentPane = (JPanel) this.getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        JFileChooser pathXLS = (new JFileChooser(FileSystemView.getFileSystemView()));
 
-        JScrollPane scroll = new JScrollPane();
-        contentPane.add(scroll);
+        pathXLS.setDialogTitle("Selectionner votre fichier .xls");
+        pathXLS.setAcceptAllFileFilterUsed(false);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("fichiers XLS", "xls");
+        pathXLS.addChoosableFileFilter(filter);
 
-        contentPane.add(selectXLS(), BorderLayout.NORTH);
-        contentPane.add(selectBucket(), BorderLayout.CENTER);
-        contentPane.add(selectAlgo1(),BorderLayout.AFTER_LAST_LINE);
+        int returnValue = pathXLS.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION){
+            File fichierSelectionner = pathXLS.getSelectedFile();
+
+            String  lechemin =fichierSelectionner.getAbsolutePath();
+            this.pathname=lechemin;
+            System.out.println(returnValue);
         }
 
-private JPanel selectXLS(){
-        JPanel panelXLS = new JPanel(new FlowLayout());
 
-        JLabel labelXSL = new JLabel("Choisissez votre fichier : .xls");
-        labelXSL.setPreferredSize(new Dimension(200,30));
-        panelXLS.add(labelXSL);
+        JPanel contentPane = (JPanel) this.getContentPane();
+        contentPane.setLayout(new FlowLayout());
 
-        JFileChooser pathXLS = (new JFileChooser());
+        JLabel nomQID = new JLabel("Nom du fichier contenant les QID :");
+        contentPane.add(nomQID);
+
+        JTextField nomFileQID = new JTextField();
+        nomFileQID.setPreferredSize(new Dimension(100,30));
+        contentPane.add( nomFileQID);
+
+        JLabel nomDS = new JLabel("Nom du fichier contenant les Données Sensibles:");
+        contentPane.add(nomDS);
+
+        JTextField nomFileDS = new JTextField();
+        nomFileDS.setPreferredSize(new Dimension(100,30));
+        contentPane.add( nomFileDS);
+
+        JLabel selectk = new JLabel("k :");
+        contentPane.add(selectk);
+
+        JTextField k = new JTextField();
+        k.setPreferredSize(new Dimension(100,30));
+        contentPane.add( k);
+
+        JButton Bucket = new JButton("Bucketisation");
+        Bucket.setPreferredSize(new Dimension(300,30));
+        contentPane.add(Bucket);
+        Bucket.addActionListener(e -> {
+            String test = nomFileQID.getText();
+            System.out.println(test);
+            setTest(test);
+            System.out.println(pathname);
+            Controleur cont = new Controleur();
+            try {
+                cont.CreerDocPseudonymisé("C:/Users/jujuo/Desktop/CDA_proj/exemple_ce.xls");//pathname);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+
+
+        });
+
+
+
+        // Algo1
+
+        JButton Algo1 = new JButton("Algorithme 1");
+        Algo1.setPreferredSize(new Dimension(200,30));
+        contentPane.add(Algo1);
+
+        JLabel nom = new JLabel("Nom du fichier :");
+        contentPane.add(nom);
+
+        JTextField nomFile = new JTextField();
+        nomFile.setPreferredSize(new Dimension(100,30));
+        contentPane.add( nomFile);
+
+
+
+        }
+
+        //permet de sélectionner le pathname du fichier .xls selectionné => on peut le récupérer en retour de la fonction. A voir où l'utiliser -> paramètre de HIM ? Attribut ?
+/*private JPanel selectXLS(){
+
+        JPanel panelXLS = new JPanel((new FlowLayout()));
+
+        JFileChooser pathXLS = (new JFileChooser(FileSystemView.getFileSystemView()));
+
+        pathXLS.setDialogTitle("Selectionner votre fichier .xls");
+        pathXLS.setAcceptAllFileFilterUsed(false);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("fichiers XLS", "xls");
+        pathXLS.addChoosableFileFilter(filter);
+
+        int returnValue = pathXLS.showOpenDialog(panelXLS);
+        if (returnValue == JFileChooser.APPROVE_OPTION){
+            File fichierSelectionner = pathXLS.getSelectedFile();
+
+            String  lechemin =fichierSelectionner.getAbsolutePath();
+            this.pathname=lechemin;
+            System.out.println(returnValue);
+        }
+
         panelXLS.add(pathXLS);
-
-
         return panelXLS;
+
 }
 
-private JPanel selectBucket(){
+ */
+
+private JPanel panelBucket(){
+    JPanel panelBucket = new JPanel(new FlowLayout());
+    JLabel nomQID = new JLabel("Nom du fichier contenant les QID :");
+    panelBucket.add(nomQID);
+
+    JTextField nomFileQID = new JTextField();
+    nomFileQID.setPreferredSize(new Dimension(100,30));
+    panelBucket.add( nomFileQID);
+
+    JLabel nomDS = new JLabel("Nom du fichier contenant les Données Sensibles:");
+    panelBucket.add(nomDS);
+
+    JTextField nomFileDS = new JTextField();
+    nomFileDS.setPreferredSize(new Dimension(100,30));
+    panelBucket.add( nomFileDS);
+
+    JLabel selectk = new JLabel("k :");
+    panelBucket.add(selectk);
+
+    JTextField k = new JTextField();
+    k.setPreferredSize(new Dimension(100,30));
+    panelBucket.add( k);
+
+    JButton Bucket = new JButton("Bucketisation");
+    Bucket.setPreferredSize(new Dimension(300,30));
+    panelBucket.add(Bucket);
+    Bucket.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String test = nomFileQID.getText();
+            setTest(test);
+        }
+    });
+
+    return panelBucket;
+}
+
+/*private JPanel selectBucket(){
         JPanel panelBucket = new JPanel(new FlowLayout());
 
         JRadioButton radioBucket = new JRadioButton("Bucketisation");
@@ -95,7 +226,7 @@ private JPanel selectBucketRIGHT(){
         panelAlgo1RIGHT.add( nomFile);
 
         return panelAlgo1RIGHT;
-    }
+    }*/
 /*
     // **** Attributs ****
 
@@ -128,7 +259,20 @@ private JPanel selectBucketRIGHT(){
         } while (err);
 
         return path;
-    }*/
+
+   }*/
+
+    public String getPathname() {
+        return pathname;
+    }
+
+    public String getTest() {
+        return test;
+    }
+
+    public void setTest(String test) {
+        this.test = test;
+    }
 }
 
 
