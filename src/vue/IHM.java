@@ -61,7 +61,7 @@ public class IHM extends JFrame implements ActionListener {
         contentPane.setLayout(new FlowLayout(CENTER, 50,50));
 
         contentPane.add(composantBucket());
-        contentPane.add(composantAlgo1());
+
         erreur.setVisible(false);
         contentPane.add(erreur);
 
@@ -70,6 +70,7 @@ public class IHM extends JFrame implements ActionListener {
         contentPane.add(Bucket);
         Bucket.addActionListener( this);
 
+        contentPane.add(composantAlgo1());
         Algo1.setPreferredSize(new Dimension(150,30));
         contentPane.add(Algo1);
         Algo1.addActionListener(this);
