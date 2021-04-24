@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 
@@ -12,6 +14,11 @@ import java.io.File;
  */
 
 public class IHM extends JFrame {
+
+    private String pathname;
+    private String test;
+
+
     public IHM(){
         super ("Projet CdA");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -19,18 +26,34 @@ public class IHM extends JFrame {
         this.setLocationRelativeTo(null);
 
         JPanel contentPane = (JPanel) this.getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        contentPane.setLayout(new FlowLayout());
 
-        JScrollPane scroll = new JScrollPane();
-        contentPane.add(scroll);
-        selectXLS();
-        //contentPane.add(selectXLS(), BorderLayout.NORTH);
-        contentPane.add(selectBucket(), BorderLayout.CENTER);
-        contentPane.add(selectAlgo1(),BorderLayout.AFTER_LAST_LINE);
+        contentPane.add(selectXLS());
+
+        contentPane.add(panelBucket());
+
+
+        // Algo1
+
+        JButton Algo1 = new JButton("Algorithme 1");
+        Algo1.setPreferredSize(new Dimension(200,30));
+        contentPane.add(Algo1);
+
+        JLabel nom = new JLabel("Nom du fichier :");
+        contentPane.add(nom);
+
+        JTextField nomFile = new JTextField();
+        nomFile.setPreferredSize(new Dimension(100,30));
+        contentPane.add( nomFile);
+
+
+
         }
 
         //permet de sélectionner le pathname du fichier .xls selectionné => on peut le récupérer en retour de la fonction. A voir où l'utiliser -> paramètre de HIM ? Attribut ?
-private void selectXLS(){
+private JPanel selectXLS(){
+
+        JPanel panelXLS = new JPanel((new FlowLayout()));
 
         JFileChooser pathXLS = (new JFileChooser(FileSystemView.getFileSystemView()));
 
@@ -39,16 +62,58 @@ private void selectXLS(){
         FileNameExtensionFilter filter = new FileNameExtensionFilter("fichiers XLS", "xls");
         pathXLS.addChoosableFileFilter(filter);
 
-        int returnValue = pathXLS.showOpenDialog(null);
+        int returnValue = pathXLS.showOpenDialog(panelXLS);
         if (returnValue == JFileChooser.APPROVE_OPTION){
             File fichierSelectionner = pathXLS.getSelectedFile();
-            System.out.println(fichierSelectionner.getAbsolutePath());
+
+            String  lechemin =fichierSelectionner.getAbsolutePath();
+            this.pathname=lechemin;
+            System.out.println(returnValue);
         }
+
+        panelXLS.add(pathXLS);
+        return panelXLS;
 
 }
 
+private JPanel panelBucket(){
+    JPanel panelBucket = new JPanel(new FlowLayout());
+    JLabel nomQID = new JLabel("Nom du fichier contenant les QID :");
+    panelBucket.add(nomQID);
 
-private JPanel selectBucket(){
+    JTextField nomFileQID = new JTextField();
+    nomFileQID.setPreferredSize(new Dimension(100,30));
+    panelBucket.add( nomFileQID);
+
+    JLabel nomDS = new JLabel("Nom du fichier contenant les Données Sensibles:");
+    panelBucket.add(nomDS);
+
+    JTextField nomFileDS = new JTextField();
+    nomFileDS.setPreferredSize(new Dimension(100,30));
+    panelBucket.add( nomFileDS);
+
+    JLabel selectk = new JLabel("k :");
+    panelBucket.add(selectk);
+
+    JTextField k = new JTextField();
+    k.setPreferredSize(new Dimension(100,30));
+    panelBucket.add( k);
+
+    JButton Bucket = new JButton("Bucketisation");
+    Bucket.setPreferredSize(new Dimension(300,30));
+    panelBucket.add(Bucket);
+    Bucket.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String test = nomFileQID.getText();
+            setTest(test);
+        }
+    });
+
+    return panelBucket;
+}
+
+/*private JPanel selectBucket(){
         JPanel panelBucket = new JPanel(new FlowLayout());
 
         JRadioButton radioBucket = new JRadioButton("Bucketisation");
@@ -101,7 +166,7 @@ private JPanel selectBucketRIGHT(){
         panelAlgo1RIGHT.add( nomFile);
 
         return panelAlgo1RIGHT;
-    }
+    }*/
 /*
     // **** Attributs ****
 
@@ -134,7 +199,20 @@ private JPanel selectBucketRIGHT(){
         } while (err);
 
         return path;
-    }*/
+
+   }*/
+
+    public String getPathname() {
+        return pathname;
+    }
+
+    public String getTest() {
+        return test;
+    }
+
+    public void setTest(String test) {
+        this.test = test;
+    }
 }
 
 

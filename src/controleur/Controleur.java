@@ -5,6 +5,7 @@ import traitement.*;
 
 import traitement.LectureFichier;
 import traitement.EnregistrementFichier;
+import vue.IHM;
 
 
 import java.io.IOException;
@@ -108,6 +109,15 @@ public class Controleur {
 
     }
 
+    public void controleurIHM() throws IOException {
+        IHM fenetre = new IHM();
+        fenetre.setVisible(true);
+        String chemin = fenetre.getPathname();
+        System.out.println(chemin);
+        this.pathname = chemin;
+        String test = fenetre.getTest();
+        System.out.println(test);
+    }
 
 
 }

@@ -13,10 +13,9 @@ public class Main {
         //controleur.CreerDocPseudonymisé("C:/Users/jujuo/Desktop/CDA_proj/exemple_ce.xls");
 
      //  controleur.CreerDocsBucketisés("C:/Users/jujuo/Desktop/CDA_proj/pseudos.xls", 3); //Attention cette commande prend une base de données PSEUDONYMISEE en paramètre
-         IHM fenetre = new IHM();
-       fenetre.setVisible(true);
 
 
+      controleur.controleurIHM();
       //controleur.VerifierDiversité("C:/Users/jujuo/Desktop/CDA_proj/exemple_ce.xls", 3,3);
 
 
