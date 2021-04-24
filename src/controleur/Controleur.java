@@ -47,9 +47,11 @@ public class Controleur {
         //todo : mettre nos chemins d'accès pour les tests dans un "case"
         switch (user) {
             case "Julien":
-                this.arrivee = ("C:/Users/jujuo/Desktop/CDA_proj/pseudos.xls");
+                this.arrivee = "C:/Users/jujuo/Desktop/CDA_proj/pseudos.xls";
                 break;
-
+            case "Marilou":
+                this.arrivee="F:/Semestre 4/pseudos.xls";
+                break;
         }
     }
 
@@ -115,9 +117,10 @@ public class Controleur {
         String chemin = fenetre.getPathname();
         System.out.println(chemin);
         this.pathname = chemin;
-        String test = fenetre.getTest();
-        System.out.println(test);
+
     }
+
+
 
 
 }
