@@ -107,9 +107,6 @@ public class Controleur {
         else {
             System.out.println("Cette base de données " +k +"-anonymisée n'est pas "+l+"-diverse.");
         }
-
-
-
     }
 
     public void controleurIHM() throws IOException {
@@ -120,6 +117,19 @@ public class Controleur {
         this.pathname = chemin;
         String test = fenetre.getTest();
         System.out.println(test);
+    }
+
+    public void controleurAlgo1(String pathname) throws  IOException {
+        this.pathname = pathname;
+        LectureFichier Ouverture = new LectureFichier();
+        Ouverture.OuvrirFichier(pathname);
+        List<List<String>> ListeQID = Ouverture.getListeQuasiIdentifiants();
+        HSSFWorkbook wb = Ouverture.getWb();
+
+        AlgoUnidimensionnel algo = new AlgoUnidimensionnel();
+        algo.anonyme(ListeQID.get(1),wb);
+        EnregistrementFichier enregistrement = new EnregistrementFichier();
+        enregistrement.EnregistrerFichier(algo.anonyme(ListeQID.get(1),wb), this.arrivee);
     }
 
 

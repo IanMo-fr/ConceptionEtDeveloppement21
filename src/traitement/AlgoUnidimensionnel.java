@@ -19,8 +19,8 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
 
     do {
         //On transforme les valeurs numérique stocké en String en Integer pour l'appel de la fct mediane
-        for (int taille = 0; taille < listeAttribut.size(); taille++) {
-            attribut.add(Integer.parseInt(listeAttribut.get(taille)));
+        for (int taille = 0; taille < listeAttribut.size()-1; taille++) {
+            attribut.add(Integer.getInteger(listeAttribut.get(taille+1)));
         }
 
         //appel de fct mediane sur l'attribut
