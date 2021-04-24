@@ -1,5 +1,9 @@
 package vue;
+import traitement.*;
 
+import controleur.Controleur;
+
+import javax.naming.ldap.Control;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
@@ -7,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -25,12 +30,65 @@ public class IHM extends JFrame {
         this.setSize(900, 500);
         this.setLocationRelativeTo(null);
 
+        JFileChooser pathXLS = (new JFileChooser(FileSystemView.getFileSystemView()));
+
+        pathXLS.setDialogTitle("Selectionner votre fichier .xls");
+        pathXLS.setAcceptAllFileFilterUsed(false);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("fichiers XLS", "xls");
+        pathXLS.addChoosableFileFilter(filter);
+
+        int returnValue = pathXLS.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION){
+            File fichierSelectionner = pathXLS.getSelectedFile();
+
+            String  lechemin =fichierSelectionner.getAbsolutePath();
+            this.pathname=lechemin;
+            System.out.println(returnValue);
+        }
+
+
         JPanel contentPane = (JPanel) this.getContentPane();
         contentPane.setLayout(new FlowLayout());
 
-        contentPane.add(selectXLS());
+        JLabel nomQID = new JLabel("Nom du fichier contenant les QID :");
+        contentPane.add(nomQID);
 
-        contentPane.add(panelBucket());
+        JTextField nomFileQID = new JTextField();
+        nomFileQID.setPreferredSize(new Dimension(100,30));
+        contentPane.add( nomFileQID);
+
+        JLabel nomDS = new JLabel("Nom du fichier contenant les Données Sensibles:");
+        contentPane.add(nomDS);
+
+        JTextField nomFileDS = new JTextField();
+        nomFileDS.setPreferredSize(new Dimension(100,30));
+        contentPane.add( nomFileDS);
+
+        JLabel selectk = new JLabel("k :");
+        contentPane.add(selectk);
+
+        JTextField k = new JTextField();
+        k.setPreferredSize(new Dimension(100,30));
+        contentPane.add( k);
+
+        JButton Bucket = new JButton("Bucketisation");
+        Bucket.setPreferredSize(new Dimension(300,30));
+        contentPane.add(Bucket);
+        Bucket.addActionListener(e -> {
+            String test = nomFileQID.getText();
+            System.out.println(test);
+            setTest(test);
+            System.out.println(pathname);
+            Controleur cont = new Controleur();
+            try {
+                cont.CreerDocPseudonymisé("C:/Users/jujuo/Desktop/CDA_proj/exemple_ce.xls");//pathname);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+
+
+        });
+
 
 
         // Algo1
@@ -51,7 +109,7 @@ public class IHM extends JFrame {
         }
 
         //permet de sélectionner le pathname du fichier .xls selectionné => on peut le récupérer en retour de la fonction. A voir où l'utiliser -> paramètre de HIM ? Attribut ?
-private JPanel selectXLS(){
+/*private JPanel selectXLS(){
 
         JPanel panelXLS = new JPanel((new FlowLayout()));
 
@@ -75,6 +133,8 @@ private JPanel selectXLS(){
         return panelXLS;
 
 }
+
+ */
 
 private JPanel panelBucket(){
     JPanel panelBucket = new JPanel(new FlowLayout());

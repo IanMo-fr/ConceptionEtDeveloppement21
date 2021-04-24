@@ -9,11 +9,11 @@ public class Diversité {
 
     public void Verification(List<List<String>> ListeDS, int k, int l) {
 
-        List<String> Liste_test=new ArrayList<>();
+        List<String> Liste_test=new ArrayList<>();  // [[Age,12,40,15,10]]
         String val;
         int compteur_differences = 0;
         boolean est_diverse = true;
-        for (int a = 1; a <= ListeDS.get(0).size()-k-1; a += 3) {
+        for (int a = 1; a <= ListeDS.get(0).size()-k-1; a += k) {
             Liste_test = new ArrayList<>();
             compteur_differences = 0;
             for (int b = 0; b < k; b++) {
@@ -24,14 +24,13 @@ public class Diversité {
                 Liste_test.add(ListeDS.get(0).get(a + b));
 
             }
-
             if ((compteur_differences<l) &&  (a!=ListeDS.get(0).size()-k-1)) { //On veut faire le dernier groupe à part
                 est_diverse=false;
                 break;
             }
         }
 
-       for (int c=(ListeDS.get(0).size()-1)-((ListeDS.get(0).size()-1)%k);c<ListeDS.get(0).size();c++) {
+       for (int c=ListeDS.get(0).size()-((ListeDS.get(0).size()-1)%k);c<ListeDS.get(0).size();c++) {
            val = ListeDS.get(0).get(c);
            if (Liste_test.contains(val) == false) {
                compteur_differences +=1;
