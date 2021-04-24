@@ -2,8 +2,6 @@ package traitement;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-
-import java.util.LinkedList;
 import java.util.List;
 
 public interface ArbreGeneralisation {
@@ -16,7 +14,7 @@ public interface ArbreGeneralisation {
      *
      * @return      le Workbook après passage par l'algorithme
      */
-   public HSSFWorkbook anonyme(List<String> attributStrg);
+   public HSSFWorkbook anonyme(List<String> listeAttribut, HSSFWorkbook wb);
 
     /**
      * Calcule la fréquence d'apparition d'un attribut donné

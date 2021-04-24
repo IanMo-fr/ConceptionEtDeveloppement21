@@ -11,12 +11,26 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
      * @return le Workbook après passage par l'algorithme
      */
     @Override
-    public HSSFWorkbook anonyme(List<String> attributStrg) {
+    public HSSFWorkbook anonyme(List<String> listeAttribut, HSSFWorkbook wb) {
+
+        //liste pour utiliser pour stocker les valeurs numériques de la liste des QID choisit
         List<Integer> attribut = new LinkedList<Integer>();
-        attribut.add(Integer.parseInt(attributStrg.get(1)));
 
 
-        this.mediane(attribut);
+        //On transforme les valeurs numérique stocké en String en Integer pour l'appel de la fct mediane
+        for (int taille = 0; taille < listeAttribut.size(); taille++) {
+            attribut.add(Integer.parseInt(listeAttribut.get(taille)));
+        }
+
+        //appel de fct mediane sur l'attribut
+        int mediane = this.mediane(attribut);
+
+        //on coupe en deux la liste de l'attibut pour avoir une généralisation par la médiane
+        List<String> rHands = new LinkedList<String>();
+        List<String> lHands = new LinkedList<String>();
+        rHands = listeAttribut.subList(0, mediane);
+        lHands = listeAttribut.subList(mediane, attribut.size());
+
 
         return null;
     }
