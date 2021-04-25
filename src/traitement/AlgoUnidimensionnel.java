@@ -20,8 +20,8 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
 
     do {
         //on coupe en deux la liste de l'attibut pour avoir une généralisation par la médiane
-        List<String> rHands;
-        List<String> lHands;
+        List<Integer> rHands;
+        List<Integer> lHands;
         //on cherche le num de colonne de l'attribut
         int row = -9999;
         HSSFSheet sheet_donnees = wb.getSheet("donnees");
@@ -50,20 +50,22 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         //la valeur de la médiane
         while (!attributNum.contains(lowMediane)){
             lowMediane--;}
-        rHands = listeAttribut.subList(0, attributNum.indexOf(lowMediane) );
+        //rHands et lHands n'ont pas assez de valeurs, dans l'exemple on devrait avoir 6 et 4 valeurs or on en as 5 et 4
+        //lastIndexOf de mes couilles
+        rHands = attributNum.subList(0, attributNum.lastIndexOf(lowMediane));
         while (!attributNum.contains(upperMediane)){
             upperMediane++;}
-        lHands = listeAttribut.subList(attributNum.indexOf(upperMediane), attributNum.size());
+        lHands = attributNum.subList(attributNum.indexOf(upperMediane), attributNum.size());
 
 
 
         //on verifie si la valeur à la cellule visitée est égale à une valeur de l'une des sub-listes
         //et on modifie par la borne basse et haute de la sub-liste correspondante
         for (int cell = 0; cell < listeAttribut.size(); cell++) {
-            if (rHands.contains(sheet_donnees.getRow(row).getCell(cell).toString()))
-                sheet_donnees.getRow(row).getCell(cell).setCellValue(rHands.get(0) + "-" + rHands.get(rHands.size() - 1));
+            if (rHands.contains(sheet_donnees.getRow(cell).getCell(row).toString()))
+                sheet_donnees.getRow(cell).getCell(row).setCellValue(rHands.get(0) + "-" + rHands.get(rHands.size() - 1));
             else
-                sheet_donnees.getRow(row).getCell(cell).setCellValue(lHands.get(0) + "-" + lHands.get(lHands.size() - 1));
+                sheet_donnees.getRow(cell).getCell(row).setCellValue(lHands.get(0) + "-" + lHands.get(lHands.size() - 1));
         }    
         
     }while (attributNum.size()>2);
