@@ -32,52 +32,64 @@ public class Bucketisation {
     // **** Méthodes ****
 
     /**
-     *
+     * Cette fonction permet de k-bucketisée une BDD. Elle utilise pour cela toutes les informations de la BDD récupérée dans des tableaux de tableaux.
+     * k est lui choisi par l'utilisateur
      * @param k
+     * @param ListePseudos
      * @param ListeQuasiIdentifiants
      * @param ListeDonneesSensibles
      */
-    public void Bucketiser(int k, List<List<String>> ListeIdentifiants, List<List<String>> ListeQuasiIdentifiants, List<List<String>> ListeDonneesSensibles) {
+    public void Bucketiser(int k, List<List<String>> ListePseudos, List<List<String>> ListeQuasiIdentifiants, List<List<String>> ListeDonneesSensibles) {
 
-        // [[Age, 10,8,40,18,19],[Groupe, G1,G1,G2,G2,G2]]  pour k = 2
-        List<String> GroupeBucketQID= new ArrayList<>();
+        // Exemple de données sensibles à bucketiser pour k=2 : [[Maladie, 10,8,40,18,19]]
+        // Exemple de quasi-identifiants à bucketiser pour k=2 : [[Age, 10,8,40,18,19],[Code Postal, 21000, 23000, 18000, 17000, 45000]]
+
+        List<String> GroupeBucketQID= new ArrayList<>();  //Listes vides qui contiendront à terme les QID et DS bucketisés
         List<String> GroupeBucketDS= new ArrayList<>();
-        int nb_personnes = ListeQuasiIdentifiants.get(0).size()-1;  // 5
+        int nb_personnes = ListeQuasiIdentifiants.get(0).size()-1;  // On cherche le nombre de personnes dont les informations sont stockées (une donnée non remplie ne fausse pas le résultat car il y a un espace vide dans la liste)
+                                                                    //taille liste - 1 car premier élément = nom de la catégorie
 
-        GroupeBucketQID.add(ListeDonneesSensibles.get(0).get(0));
-        GroupeBucketDS.add("Groupe");  // [Groupe]
+        GroupeBucketQID.add(ListeDonneesSensibles.get(0).get(0));   //Il n'y a toujours qu'une données sensibles, on récupère donc son libellé
+        GroupeBucketDS.add("Groupe");                               //On ajoute le label "Groupe" qui apparaitra dans le fichier des DS
 
 
-        for (int i = 1; i <= nb_personnes/k; i++) {  //i de 1 à 2
+        for (int i = 1; i <= nb_personnes/k; i++) {  //On commence à 1 pour ignorer le nom de la catégorie
+                                                    //nb_personnes/k correspond au nombre maximal de groupe contenant au moins k éléments que l'on peut créer (attention il peut y avoir un reste)
             for (int j=0; j<k;j++) {
-                GroupeBucketQID.add("G" + i);  //[Groupe, G1]
+                GroupeBucketQID.add("G" + i);       //Donc, pour chacun des groupes, on vient ajouter aux deux listes le numéro de groupe qui sera associé à chaque élément : G1,G1,G2,G2, etc
                 GroupeBucketDS.add("G" + i);
             }
         }
-        //[Groupe, G1,G1,G2,G2]
-        for (int a=0 ;a<nb_personnes%k;a++) {
-            GroupeBucketQID.add("G" + nb_personnes / k); //ajout du numéro du dernier groupe
+
+        //A ce stade, il ne reste que x éléments à numéroter, x étant le reste de la division euclidienne nb_personnes/k (exemple : 7 personnes, k=2, le reste=1, il reste donc une personne à numéroter)
+
+        for (int a=0 ;a<nb_personnes%k;a++) {       //Pour autant d'éléments qu'il reste potentiellement -> on les ajoute au dernier groupe
+            GroupeBucketQID.add("G" + nb_personnes / k);
             GroupeBucketDS.add("G" + nb_personnes / k);
         }
 
-        for (int i=0;i<ListeIdentifiants.size();i++) {
-            ListeQuasiIdentifiants.add(0,ListeIdentifiants.get(i));
+        for (int i=0;i<ListePseudos.size();i++) {                  //On ajoute les pseudos au début de la liste des QID pour pouvoir construire le fichier xls par la suite
+            ListeQuasiIdentifiants.add(0,ListePseudos.get(i));
         }
 
-        ListeQuasiIdentifiants.add(GroupeBucketQID);  //[[Age, 10,8,40,18,19]].add [Groupe, G1,G1,G2,G2,G2]
-        this.ListeQIDBucket=ListeQuasiIdentifiants;
+        ListeQuasiIdentifiants.add(GroupeBucketQID);            //On ajoute la numérotation de chacun des éléments à la liste des QID, le fichier xls est prêt à être construit
+        this.ListeQIDBucket=ListeQuasiIdentifiants;             //Stockage des données
 
-        ListeDonneesSensibles.add(0,GroupeBucketDS);
-        this.ListeDSBucket=ListeDonneesSensibles;
+        ListeDonneesSensibles.add(0,GroupeBucketDS);  //Idem mais ajout au début de la liste pour une présentation un peu différente sur le deuxième fichier
+        this.ListeDSBucket=ListeDonneesSensibles;          //Stockage des données
 
-        CreerFichierBucketQID(ListeQIDBucket);
+        CreerFichierBucketQID(ListeQIDBucket);             //Maintenant que la bucketisation est faite, il ne reste plus qu'à demander la création des Workbook avec les données traitées, puis d'envoyer à l'enregistrement
         CreerFichierBucketDS(ListeDSBucket);
+
+        // Au final, les tableaux de données ressembleront à : (pour k=2)
+        // DS: [[Groupe, G1,G1,G2,G2,G2],[[Maladie, 10,8,40,18,19]]]
+        // QID: [[Nom, pseudo1, pseudo2, pseudo3, pseudo4, pseudo5],[Age, 10,8,40,18,19],[Maladie, G1,G1,G2,G2,G2]]
 
 
     }
 
     /**
-     *
+     * Fonction qui permet la création d'un HSSFWorkbook contenant les QID bucketisés
      * @param ListeBucket
      */
     private void CreerFichierBucketQID(List<List<String>> ListeBucket) {
@@ -101,7 +113,7 @@ public class Bucketisation {
     }
 
     /**
-     *
+     * Fonction qui permet la création d'un HSSFWorkbook contenant les données sensibles bucketisées
      * @param ListeBucket
      */
     private void CreerFichierBucketDS(List<List<String>> ListeBucket) {

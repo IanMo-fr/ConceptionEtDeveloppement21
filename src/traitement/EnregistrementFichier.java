@@ -10,12 +10,10 @@ import java.util.List;
  */
 public class EnregistrementFichier {
 
-    // **** Attributs ****
-
-    // **** Constructeurs ****
-
-    // **** Méthodes ****
-
+    /**
+     * Constructeur par défaut d'EnregistrementFichier
+     */
+    public EnregistrementFichier() {}
 
     /**
      * Méthode qui permet d'enregistrer un fichier workbook donné en paramètre au chemin "arrivee"

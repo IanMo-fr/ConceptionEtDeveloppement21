@@ -33,6 +33,10 @@ public class LectureFichier {
 
     // **** Constructeurs ****
 
+    /**
+     * Constructeur par défaut de LectureFichier
+     */
+
    public LectureFichier() {
         this.ListeIdentifiants = null;
         this.ListeQuasiIdentifiants = null;

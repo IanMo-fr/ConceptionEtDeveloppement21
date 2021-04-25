@@ -81,6 +81,16 @@ public class Controleur {
 
     }
 
+    /**
+     * Méthode du Contrôleur qui permet de réaliser de bout en bout la bucketisation d'une base de données pseudonymisée.
+     * L'utilisateur a indiqué le chemin d'accès de la bdd pseudonymisée, le nombre k d'éléments par groupe, le nom du fichier de sortie des QID et celui des DS
+     * @param pathname
+     * @param k
+     * @param nomQID
+     * @param nomDS
+     * @throws IOException
+     */
+
     public void CreerDocsBucketisés(String pathname, int k, String nomQID, String nomDS) throws IOException {
         this.pathname = pathname;
         LectureFichier Ouverture = new LectureFichier();
@@ -111,6 +121,13 @@ public class Controleur {
 
     }
 
+    /**
+     * Méthode du Contrôleur qui permet de réaliser de A à Z le test de diversité d'une BDD bucketisée dont l'utilisateur a indiqué le k et le l
+     * @param pathname
+     * @param k
+     * @param l
+     * @throws IOException
+     */
 
     public void VerifierDiversité(String pathname, int k, int l) throws IOException {
         this.pathname=pathname;
@@ -132,11 +149,17 @@ public class Controleur {
 
     }
 
-       public void controleurIHM() {
+    /**
+     * Méthode du Contrôleur qui va permettre d'appeler l'interface graphique
+     * @param user
+     */
+
+       public void controleurIHM(String user) {
         IHM fenetre = new IHM();
+        fenetre.setUser(user);
         fenetre.setVisible(true);
-        String chemin = fenetre.getPathname();
-        this.pathname = chemin;
+       //  String chemin = fenetre.getPathname();
+       // this.pathname = chemin;
 
     }
 

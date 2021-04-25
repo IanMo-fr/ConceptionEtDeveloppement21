@@ -23,7 +23,8 @@ import static java.awt.FlowLayout.CENTER;
 public class IHM extends JFrame implements ActionListener {
 
     private String pathname;
-    private Controleur controleur = new Controleur("Julien", true);
+    private String user;
+    private Controleur controleur = new Controleur(user, true);
     private JButton Bucket = new JButton("Bucketisation");
     private JButton Algo1 = new JButton("Algorithme 1");
     private JTextField k = new JTextField();
@@ -32,6 +33,13 @@ public class IHM extends JFrame implements ActionListener {
     private JLabel erreur = new JLabel("Les données entrées sont incorrectes");
     private JLabel message_bucket = new JLabel("La bucketisation a bien été faite.");
 
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    /**
+     * Constructeur par défaut de IHM : permet de construire l'interface graphique et tout ses éléments
+     */
 
     public IHM(){
         super ("Projet CdA");
@@ -80,6 +88,11 @@ public class IHM extends JFrame implements ActionListener {
 
         }
 
+
+    /**
+     * Permet la création d'un des composants de l'interface, contenant plusieurs éléments. Sert à avoir une interface mieux présentée
+     * @return
+     */
         private JPanel composantBucket(){
 
             JPanel panelBucket = new JPanel();
@@ -107,6 +120,10 @@ public class IHM extends JFrame implements ActionListener {
             return panelBucket;
         }
 
+    /**
+     * Permet la création d'un des composants de l'interface, contenant plusieurs éléments. Sert à avoir une interface mieux présentée
+     * @return
+     */
         private JPanel composantAlgo1(){
 
             JPanel panelAlgo1 = new JPanel();
@@ -129,10 +146,10 @@ public class IHM extends JFrame implements ActionListener {
             return panelAlgo1;
         }
 
-    public String getPathname() {
-        return pathname;
-    }
-
+    /**
+     * Définition de méthode pour l'ActionListener. L'interface va "écouter" et selon les évènements (ici, clic sur un bouton) effectuer des actions en conséquence
+     * @param event
+     */
     @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getSource()==Bucket){
@@ -156,6 +173,14 @@ public class IHM extends JFrame implements ActionListener {
         else if (event.getSource()==Algo1){
             System.out.println("c algo 1");
         }
+    }
+
+    /**
+     * Getter de pathname
+     * @return
+     */
+    public String getPathname() {
+        return pathname;
     }
 }
 

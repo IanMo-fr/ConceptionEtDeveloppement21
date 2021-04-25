@@ -27,6 +27,10 @@ public class Pseudonymisation {
 
     // **** Constructeurs ****
 
+    /**
+     * Constructeur par défaut de Pseudonymisation
+     */
+
     public Pseudonymisation() {
         this.index_unite = 0;
         this.index_dizaine = 0;
@@ -38,7 +42,7 @@ public class Pseudonymisation {
 
     // **** Méthodes ****
     /**
-     * méthode qui génère des pseudos sous forme de String de 3 caractères aaa incrémenté de 1 à chaque nouveau pseudo généré
+     * méthode qui génère des pseudos sous forme de String de 3 caractères aaa incrémenté de 1 à chaque nouveau pseudo généré (aaa, puis aab, puis aac, etc)
      *
      * @return pseudo
      */
