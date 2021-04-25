@@ -132,11 +132,10 @@ public class Controleur {
 
     }
 
-       public void controleurIHM() throws IOException {
+       public void controleurIHM() {
         IHM fenetre = new IHM();
         fenetre.setVisible(true);
         String chemin = fenetre.getPathname();
-        System.out.println(chemin);
         this.pathname = chemin;
 
     }

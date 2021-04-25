@@ -30,7 +30,7 @@ public class IHM extends JFrame implements ActionListener {
     private JTextField nomFileDS = new JTextField();
     private JTextField nomFileQID = new JTextField();
     private JLabel erreur = new JLabel("Les données entrées sont incorrectes");
-
+    private JLabel message_bucket = new JLabel("La bucketisation a bien été faite.");
 
 
     public IHM(){
@@ -64,6 +64,9 @@ public class IHM extends JFrame implements ActionListener {
 
         erreur.setVisible(false);
         contentPane.add(erreur);
+
+        message_bucket.setVisible(false);
+        contentPane.add(message_bucket);
 
 
         Bucket.setPreferredSize(new Dimension(150,30));
@@ -139,9 +142,9 @@ public class IHM extends JFrame implements ActionListener {
                 String val_k = k.getText();
                 if ( nomQID.equals("") || nomDS.equals("") || val_k.equals("") || nomQID.equals(nomDS) ) {
                     erreur.setVisible(true);
-                    System.out.println(nomQID+" "+ nomDS+" "+val_k);
                 } else {
                     erreur.setVisible(false);
+                    message_bucket.setVisible(true);
                     int int_k = Integer.parseInt(val_k);
                     controleur.CreerDocBucketiséAPartirdeBDD(pathname, controleur.getArrivee(), int_k, nomQID, nomDS);
                 }

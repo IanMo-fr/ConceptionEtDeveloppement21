@@ -9,15 +9,22 @@ import java.io.IOException;
  * Main du projet : réalise les intéractions utilisateur et fait l'appel <code>Controleur</code>*/
 public class Main {
     public static void main(String[] args) throws Exception {
-       Controleur controleur = new Controleur("Ian", true); //Préciser ici en paramètre le chemin d'accès d'arrivée du fichier, sinon il ya un chemin par défaut
+
+        String pathname_Ian = "E:/Documents/Etude/L2/Semestre 4/Conception et dev/projetanon/exemple_ce.xls";
+        String pathname_Julien = "C:/Users/jujuo/Desktop/CDA_proj/exemple_ce.xls";
+        String pathname_Marilou = "F:/Semestre 4/pseudos.xls";
+
+
+        Controleur controleur = new Controleur("Julien", true); //Préciser ici en paramètre le chemin d'accès d'arrivée du fichier, sinon il ya un chemin par défaut
        //controleur.CreerDocPseudonymisé("C:/Users/jujuo/Desktop/CDA_proj/exemple_ce.xls");
 
      //  controleur.CreerDocsBucketisés("C:/Users/jujuo/Desktop/CDA_proj/pseudos.xls", 3); //Attention cette commande prend une base de données PSEUDONYMISEE en paramètre
-        controleur.controleurAlgo1("E:/Documents/Etude/L2/Semestre 4/Conception et dev/projetanon/exemple_ce.xls");
+
+        controleur.controleurAlgo1(pathname_Julien);
 
       //controleur.VerifierDiversité("C:/Users/jujuo/Desktop/CDA_proj/exemple_ce.xls", 3,3);
 
-       controleur.controleurIHM();
+      // controleur.controleurIHM();
 
 
 
