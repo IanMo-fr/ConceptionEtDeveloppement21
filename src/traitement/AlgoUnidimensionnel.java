@@ -19,10 +19,11 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
 
     do {
         //On transforme les valeurs numérique stocké en String en Integer pour l'appel de la fct mediane
-        for (int taille = 0; taille < listeAttribut.size()-1; taille++) {
-            // /!\ bug : ajout à la liste des valeurs null
-            int ajout = Integer.parseInt(listeAttribut.get(taille+1));
-            attribut.add(ajout);     //Integer.getInteger(listeAttribut.get(taille+1)));
+        for (int taille = 1; taille < listeAttribut.size(); taille++) {
+            float float_val = Float.parseFloat(listeAttribut.get(taille));
+            int ajout = Math.round(float_val);
+            attribut.add(ajout);
+
         }
 
         //appel de fct mediane sur l'attribut
@@ -31,8 +32,16 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         //on coupe en deux la liste de l'attibut pour avoir une généralisation par la médiane
         List<String> rHands;
         List<String> lHands;
-        rHands = listeAttribut.subList(0, mediane);
-        lHands = listeAttribut.subList(mediane, attribut.size());
+        int lowMediane = mediane;
+        int upperMediane = mediane;
+        //while utilisé si jamais la médiane ne se trouve pas dans la liste, on cherche docn la borne la plus proche de
+        //la valeur de la médiane
+        while (!attribut.contains(lowMediane)){
+            lowMediane--;}
+        rHands = listeAttribut.subList(0, attribut.indexOf(lowMediane) );
+        while (!attribut.contains(upperMediane)){
+            upperMediane++;}
+        lHands = listeAttribut.subList(attribut.indexOf(upperMediane), attribut.size());
 
         HSSFSheet sheet_donnees = wb.getSheet("donnees");
 
@@ -40,6 +49,7 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
             for (int b = 0; b < listeAttribut.size(); b++) {
                 //on verifie si la valeur à la cellule visitée est égale à une valeur de l'une des sub-listes
                 //et on modifie par la borne basse et haute de la sub-liste correspondante
+                // /!\ bug ici
                 if (rHands.contains(sheet_donnees.getRow(b).getCell(a).toString()))
                     sheet_donnees.getRow(b).getCell(a).setCellValue(rHands.get(0) + "-" + rHands.get(rHands.size() - 1));
                 else
