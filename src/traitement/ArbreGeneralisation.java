@@ -2,6 +2,8 @@ package traitement;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public interface ArbreGeneralisation {
@@ -34,7 +36,8 @@ public interface ArbreGeneralisation {
      */
     default int mediane(List<Integer> frequence){
        //on classe les valeurs de la serie dans l'orde croissant
-       frequence.sort(Integer::compareTo);
+       //frequence.sort(Integer::compareTo);
+        Collections.sort(frequence);
 
        //Si le nombre de valeurs de la liste est pair : on fait la moyenne des deux valeurs du milieu
        if (frequence.size()%2 ==0 )
