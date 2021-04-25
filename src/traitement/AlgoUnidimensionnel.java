@@ -4,6 +4,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,51 +13,60 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
      * @return le Workbook après passage par l'algorithme
      */
     @Override
-    public HSSFWorkbook anonyme(List<String> listeAttribut, HSSFWorkbook wb) {
+    public HSSFWorkbook anonyme(List<String> listeAttribut, HSSFWorkbook wb,String nomAttr) {
 
         //liste utilisee pour stocker les valeurs numériques de la liste des QID choisit
-        List<Integer> attribut = new LinkedList<Integer>();
+        List<Integer> attributNum = new LinkedList<Integer>();
 
     do {
+        //on coupe en deux la liste de l'attibut pour avoir une généralisation par la médiane
+        List<String> rHands;
+        List<String> lHands;
+        //on cherche le num de colonne de l'attribut
+        int row = -9999;
+        HSSFSheet sheet_donnees = wb.getSheet("donnees");
+        for (int i=0; i < sheet_donnees.getRow(0).getLastCellNum(); i++) {
+            if (sheet_donnees.getRow(0).getCell(i).getStringCellValue().compareTo(nomAttr) == 0)
+                row = i;
+        }
         //On transforme les valeurs numérique stocké en String en Integer pour l'appel de la fct mediane
         for (int taille = 1; taille < listeAttribut.size(); taille++) {
             float float_val = Float.parseFloat(listeAttribut.get(taille));
             int ajout = Math.round(float_val);
-            attribut.add(ajout);
-
+            attributNum.add(ajout);
         }
 
         //appel de fct mediane sur l'attribut
-        int mediane = this.mediane(attribut);
+        int mediane = this.mediane(attributNum);
 
-        //on coupe en deux la liste de l'attibut pour avoir une généralisation par la médiane
-        List<String> rHands;
-        List<String> lHands;
+        //borne de la médiane
         int lowMediane = mediane;
         int upperMediane = mediane;
+
+        //on trie la liste d'attibuts
+        Collections.sort(attributNum);
+
         //while utilisé si jamais la médiane ne se trouve pas dans la liste, on cherche docn la borne la plus proche de
         //la valeur de la médiane
-        while (!attribut.contains(lowMediane)){
+        while (!attributNum.contains(lowMediane)){
             lowMediane--;}
-        rHands = listeAttribut.subList(0, attribut.indexOf(lowMediane) );
-        while (!attribut.contains(upperMediane)){
+        rHands = listeAttribut.subList(0, attributNum.indexOf(lowMediane) );
+        while (!attributNum.contains(upperMediane)){
             upperMediane++;}
-        lHands = listeAttribut.subList(attribut.indexOf(upperMediane), attribut.size());
+        lHands = listeAttribut.subList(attributNum.indexOf(upperMediane), attributNum.size());
 
-        HSSFSheet sheet_donnees = wb.getSheet("donnees");
 
-        for (int a = 0; a < listeAttribut.size(); a++) {
-            for (int b = 0; b < listeAttribut.size(); b++) {
-                //on verifie si la valeur à la cellule visitée est égale à une valeur de l'une des sub-listes
-                //et on modifie par la borne basse et haute de la sub-liste correspondante
-                // /!\ bug ici
-                if (rHands.contains(sheet_donnees.getRow(b).getCell(a).toString()))
-                    sheet_donnees.getRow(b).getCell(a).setCellValue(rHands.get(0) + "-" + rHands.get(rHands.size() - 1));
-                else
-                    sheet_donnees.getRow(b).getCell(a).setCellValue(lHands.get(0) + "-" + lHands.get(lHands.size() - 1));
-            }
-        }
-    }while (attribut.size()>2);
+
+        //on verifie si la valeur à la cellule visitée est égale à une valeur de l'une des sub-listes
+        //et on modifie par la borne basse et haute de la sub-liste correspondante
+        for (int cell = 0; cell < listeAttribut.size(); cell++) {
+            if (rHands.contains(sheet_donnees.getRow(row).getCell(cell).toString()))
+                sheet_donnees.getRow(row).getCell(cell).setCellValue(rHands.get(0) + "-" + rHands.get(rHands.size() - 1));
+            else
+                sheet_donnees.getRow(row).getCell(cell).setCellValue(lHands.get(0) + "-" + lHands.get(lHands.size() - 1));
+        }    
+        
+    }while (attributNum.size()>2);
 
 
         return wb;

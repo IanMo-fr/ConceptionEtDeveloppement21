@@ -16,7 +16,7 @@ public interface ArbreGeneralisation {
      *
      * @return      le Workbook après passage par l'algorithme
      */
-   public HSSFWorkbook anonyme(List<String> listeAttribut, HSSFWorkbook wb);
+   public HSSFWorkbook anonyme(List<String> listeAttribut, HSSFWorkbook wb, String nomAttr);
 
     /**
      * Calcule la fréquence d'apparition d'un attribut donné

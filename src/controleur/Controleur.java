@@ -174,9 +174,8 @@ public class Controleur {
         HSSFWorkbook wb = Ouverture.getWb();
 
         AlgoUnidimensionnel algo = new AlgoUnidimensionnel();
-        algo.anonyme(ListeQID.get(1),wb);
         EnregistrementFichier enregistrement = new EnregistrementFichier();
-        enregistrement.EnregistrerFichier(algo.anonyme(ListeQID.get(1),wb), this.arrivee);
+        enregistrement.EnregistrerFichier(algo.anonyme(ListeQID.get(1),wb, "Age"), this.arrivee);
     }
 
 
