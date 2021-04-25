@@ -50,9 +50,8 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         //la valeur de la médiane
         while (!attributNum.contains(lowMediane)){
             lowMediane--;}
-        //rHands et lHands n'ont pas assez de valeurs, dans l'exemple on devrait avoir 6 et 4 valeurs or on en as 5 et 4
-        //lastIndexOf de mes couilles
-        rHands = attributNum.subList(0, attributNum.lastIndexOf(lowMediane));
+        //on mets un +1 car subList prends la borne sup exclue
+        rHands = attributNum.subList(0, attributNum.lastIndexOf(lowMediane)+1);
         while (!attributNum.contains(upperMediane)){
             upperMediane++;}
         lHands = attributNum.subList(attributNum.indexOf(upperMediane), attributNum.size());
@@ -62,6 +61,7 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         //on verifie si la valeur à la cellule visitée est égale à une valeur de l'une des sub-listes
         //et on modifie par la borne basse et haute de la sub-liste correspondante
         for (int cell = 0; cell < listeAttribut.size(); cell++) {
+            //NullPointerException ici aussi .. ouais !
             if (rHands.contains(sheet_donnees.getRow(cell).getCell(row).toString()))
                 sheet_donnees.getRow(cell).getCell(row).setCellValue(rHands.get(0) + "-" + rHands.get(rHands.size() - 1));
             else
