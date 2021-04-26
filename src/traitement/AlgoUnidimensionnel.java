@@ -23,6 +23,7 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         List<Integer> lHands;
         //on cherche le num de colonne de l'attribut
         int row = -9999;
+        // /!\ les valeurs de sheet_donnees sont re format 20-23 à la deuxième it'
         HSSFSheet sheet_donnees = wb.getSheet("donnees");
         for (int i=0; i < sheet_donnees.getRow(0).getLastCellNum(); i++) {
             if (sheet_donnees.getRow(0).getCell(i).getStringCellValue().compareTo(nomAttr) == 0)
@@ -59,6 +60,8 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
 
         //on verifie si la valeur à la cellule visitée est égale à une valeur de l'une des sub-listes
         //et on modifie par la borne basse et haute de la sub-liste correspondante
+
+        // /!\ deuxième it' : pas de première ligne à enlevée
         for (int cell = 1; cell <(rHands.size()+ lHands.size()+1); cell++) {
             //transformation de la valeur des cellules en Integer pour le test
             float float_val = Float.parseFloat(sheet_donnees.getRow(cell).getCell(row).toString());
@@ -71,18 +74,18 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
                 sheet_donnees.getRow(cell).getCell(row).setCellValue(lHands.get(0) + "-" + lHands.get(lHands.size() - 1));
         }
 
-        /*
+
         //on tri la listeAttribut pour envoyer une sub-liste égale aux données de rHands et lHands
         Collections.sort(listeAttribut);
 
         if (rHands.size()>3 ) {
-            anonyme(listeAttribut.subList(0, attributNum.lastIndexOf(lowMediane)+1), wb, nomAttr);
+            anonyme(listeAttribut.subList(0, attributNum.lastIndexOf(lowMediane)), wb, nomAttr);
         }
 
         if (lHands.size()>3) {
             anonyme(listeAttribut.subList(attributNum.indexOf(upperMediane), attributNum.size()), wb, nomAttr);
         }
-*/
+
 
 
         return wb;
