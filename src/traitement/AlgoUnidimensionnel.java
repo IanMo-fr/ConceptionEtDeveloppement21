@@ -25,6 +25,8 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         int row = -9999;
         // /!\ les valeurs de sheet_donnees sont au format 20-23 à la deuxième it'
         HSSFSheet sheet_donnees = wb.getSheet("donnees");
+        //liste de stockage des valeurs aprox
+        String [] val_String = new String[listeAttribut.size()-1];
 
         for (int i=0; i < sheet_donnees.getRow(0).getLastCellNum(); i++) {
             if (sheet_donnees.getRow(0).getCell(i).getStringCellValue().compareTo(nomAttr) == 0)
@@ -63,31 +65,42 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         //et on modifie par la borne basse et haute de la sub-liste correspondante
 
         // /!\ deuxième it' : pas de première ligne à enlevée
-        for (int cell = 1; cell <(rHands.size()+ lHands.size()+1); cell++) {
+        for (int cell = 0; cell <listeAttribut.size(); cell++) {
             //transformation de la valeur des cellules en Integer pour le test
-            float float_val = Float.parseFloat(sheet_donnees.getRow(cell).getCell(row).toString());
-            int test = Math.round(float_val);
-            Integer val_rh = test;
-            //on rentre les données dans les cellules
-            if (rHands.contains(val_rh))
-                sheet_donnees.getRow(cell).getCell(row).setCellValue(rHands.get(0) + "-" + rHands.get(rHands.size() - 1));
-            else
-                sheet_donnees.getRow(cell).getCell(row).setCellValue(lHands.get(0) + "-" + lHands.get(lHands.size() - 1));
+
+            //on test si la ligne à déjà été transformé
+        if ( !sheet_donnees.getRow(cell).getCell(row).toString().matches(".*-.*") ) {
+            //on saute la première ligne
+            if (cell != 0) {
+                float float_val = Float.parseFloat(sheet_donnees.getRow(cell).getCell(row).toString());
+                int test = Math.round(float_val);
+                Integer val_rh = test;
+                //on rentre les données dans le tableau
+                if (rHands.contains(val_rh))
+                    val_String[cell-1] = rHands.get(0) + "-" + rHands.get(rHands.size() -1);
+                else
+                    val_String[cell-1] = lHands.get(0) + "-" + lHands.get(lHands.size() -1);
+            }
+        }
         }
 
 
         //on tri la listeAttribut pour envoyer une sub-liste égale aux données de rHands et lHands
         Collections.sort(listeAttribut);
 
-        if (rHands.size()>3 ) {
+        if (rHands.size()>4 ) {
             anonyme(listeAttribut.subList(0, attributNum.lastIndexOf(lowMediane)), wb, nomAttr);
         }
 
-        if (lHands.size()>3) {
-            anonyme(listeAttribut.subList(attributNum.indexOf(upperMediane), attributNum.size()), wb, nomAttr);
+        if (lHands.size()>4) {
+            anonyme(listeAttribut.subList(attributNum.indexOf(upperMediane), attributNum.size()+1), wb, nomAttr);
         }
 
 
+        //parcours de la colonne pour copier les données de l'arrayList
+        for (int i= 1; i < val_String.length; i++){
+            sheet_donnees.getRow(i).getCell(row).setCellValue(val_String [i]);
+        }
 
         return wb;
     }
