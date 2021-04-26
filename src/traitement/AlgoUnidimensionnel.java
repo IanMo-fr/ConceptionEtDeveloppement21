@@ -60,23 +60,29 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         //on verifie si la valeur à la cellule visitée est égale à une valeur de l'une des sub-listes
         //et on modifie par la borne basse et haute de la sub-liste correspondante
         for (int cell = 1; cell <(rHands.size()+ lHands.size()+1); cell++) {
-            //NullPointerException ici aussi .. ouais !
-            if (rHands.contains(sheet_donnees.getRow(cell).getCell(row).toString()))
+            //transformation de la valeur des cellules en Integer pour le test
+            float float_val = Float.parseFloat(sheet_donnees.getRow(cell).getCell(row).toString());
+            int test = Math.round(float_val);
+            Integer val_rh = test;
+            //on rentre les données dans les cellules
+            if (rHands.contains(val_rh))
                 sheet_donnees.getRow(cell).getCell(row).setCellValue(rHands.get(0) + "-" + rHands.get(rHands.size() - 1));
             else
                 sheet_donnees.getRow(cell).getCell(row).setCellValue(lHands.get(0) + "-" + lHands.get(lHands.size() - 1));
         }
 
+        /*
+        //on tri la listeAttribut pour envoyer une sub-liste égale aux données de rHands et lHands
         Collections.sort(listeAttribut);
 
-        if (rHands.size()<3 ) {
-            anonyme(listeAttribut.subList(0, attributNum.lastIndexOf(lowMediane)+1), wb, "Age");
+        if (rHands.size()>3 ) {
+            anonyme(listeAttribut.subList(0, attributNum.lastIndexOf(lowMediane)+1), wb, nomAttr);
         }
 
-        if (lHands.size()<3) {
-            anonyme(listeAttribut.subList(attributNum.indexOf(upperMediane), attributNum.size()), wb, "Age");
+        if (lHands.size()>3) {
+            anonyme(listeAttribut.subList(attributNum.indexOf(upperMediane), attributNum.size()), wb, nomAttr);
         }
-
+*/
 
 
         return wb;
