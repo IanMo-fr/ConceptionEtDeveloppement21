@@ -65,20 +65,23 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         //et on modifie par la borne basse et haute de la sub-liste correspondante
 
         // /!\ deuxième it' : pas de première ligne à enlevée
-        for (int cell = 0; cell <listeAttribut.size()-1; cell++) {
+        for (int cell = 0; cell <listeAttribut.size(); cell++) {
             //transformation de la valeur des cellules en Integer pour le test
 
+            //on test si la ligne à déjà été transformé
+        if ( !sheet_donnees.getRow(cell).getCell(row).toString().matches(".*-.*") ) {
             //on saute la première ligne
-            if(cell != 0) {
+            if (cell != 0) {
                 float float_val = Float.parseFloat(sheet_donnees.getRow(cell).getCell(row).toString());
                 int test = Math.round(float_val);
                 Integer val_rh = test;
                 //on rentre les données dans le tableau
                 if (rHands.contains(val_rh))
-                    val_String[cell] = rHands.get(0) + "-" + rHands.get(rHands.size() - 1);
+                    val_String[cell-1] = rHands.get(0) + "-" + rHands.get(rHands.size() -1);
                 else
-                    val_String[cell] = lHands.get(0) + "-" + lHands.get(lHands.size() - 1);
+                    val_String[cell-1] = lHands.get(0) + "-" + lHands.get(lHands.size() -1);
             }
+        }
         }
 
 
@@ -90,7 +93,7 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         }
 
         if (lHands.size()>4) {
-            anonyme(listeAttribut.subList(attributNum.indexOf(upperMediane), attributNum.size()), wb, nomAttr);
+            anonyme(listeAttribut.subList(attributNum.indexOf(upperMediane), attributNum.size()+1), wb, nomAttr);
         }
 
 
