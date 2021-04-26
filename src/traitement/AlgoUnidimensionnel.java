@@ -64,7 +64,7 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
      */
     @Override
     public List<String> anonyme(List<Integer> listeQID) {
-
+List<Integer> oskour = listeQID;
         //appel de fct mediane sur l'attribut
         int mediane = this.mediane(listeQID);
 
@@ -83,11 +83,14 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         List<Integer> lHands = new ArrayList<>();
 
         //Si la médiane est une valeur de liste initialement ou non
+        /*
         if (listeQID.contains(mediane)) {
             lHands = listeQID.subList(0, listeQID.lastIndexOf(mediane)+1);
             rHands = listeQID.subList(listeQID.indexOf(mediane)+1, listeQID.size());
             upperMediane++;
         }else {
+
+         */
             //si jamais la médiane ne se trouve pas dans la liste, on cherche la borne la plus proche de la valeur de la médiane
                 while (!listeQID.contains(lowMediane)) {
                     lowMediane--;
@@ -101,7 +104,7 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
                 }
                 rHands = listeQID.subList(listeQID.indexOf(upperMediane), listeQID.size());
 
-        }
+       // }
         //liste de stockage des valeurs aprox
         List<String> val_String = new ArrayList<String>();
         //on verifie si la valeur à la cellule visitée est égale à une valeur de l'une des sub-listes
@@ -117,11 +120,11 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         }
 
         if (lHands.size()>4 ) {
-            anonyme(listeQID.subList(0, listeQID.lastIndexOf(lowMediane)));
+            anonyme(attributOG.subList(0, attributOG.lastIndexOf(lowMediane)));
         }
 
         if (rHands.size()>4) {
-            anonyme(listeQID.subList(listeQID.indexOf(upperMediane), listeQID.size()));
+            anonyme(attributOG.subList(attributOG.indexOf(upperMediane), attributOG.size()));
         }
 
         return val_String;

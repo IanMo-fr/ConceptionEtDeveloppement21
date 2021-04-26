@@ -2,6 +2,7 @@ package traitement;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -31,12 +32,14 @@ public interface ArbreGeneralisation {
     /**
      * /!\ on récupère la valeur de la médiane et non pas l'indice où se trouve la médiane:: peut être à changer /!\
      * Calcul de la médiane d'une liste <Integer> donnée
-     * @param frequence     la liste <Integer> avec la fréquence d'apparition d'un attribut
+     * @param list     la liste <Integer> avec la fréquence d'apparition d'un attribut
      * @return int          la médiane
      */
-    default int mediane(List<Integer> frequence){
+    default int mediane(List<Integer> list){
        //on classe les valeurs de la serie dans l'orde croissant
        //frequence.sort(Integer::compareTo);
+        List<Integer> frequence = new ArrayList<Integer>();
+        frequence.addAll(list);
         Collections.sort(frequence);
 
        //Si le nombre de valeurs de la liste est pair : on fait la moyenne des deux valeurs du milieu
