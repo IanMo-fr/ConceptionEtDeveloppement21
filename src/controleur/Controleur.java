@@ -161,8 +161,9 @@ public class Controleur {
         HSSFWorkbook wb = Ouverture.getWb();
 
         AlgoUnidimensionnel algo = new AlgoUnidimensionnel();
+        HSSFWorkbook wbAlgo = algo.algoUni(ListeQID,attribut,wb);
         EnregistrementFichier enregistrement = new EnregistrementFichier();
-        enregistrement.EnregistrerFichier(algo.anonyme(ListeQID.get(1),wb, attribut), this.arrivee+nom_sortie+".xls");
+        enregistrement.EnregistrerFichier(wbAlgo, this.arrivee+nom_sortie+".xls");
     }
 
     public void CreerDocAlgo1(String pathname, String nom_sortie, String attribut ) throws IOException {
