@@ -23,8 +23,9 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         List<Integer> lHands;
         //on cherche le num de colonne de l'attribut
         int row = -9999;
-        // /!\ les valeurs de sheet_donnees sont re format 20-23 à la deuxième it'
+        // /!\ les valeurs de sheet_donnees sont au format 20-23 à la deuxième it'
         HSSFSheet sheet_donnees = wb.getSheet("donnees");
+
         for (int i=0; i < sheet_donnees.getRow(0).getLastCellNum(); i++) {
             if (sheet_donnees.getRow(0).getCell(i).getStringCellValue().compareTo(nomAttr) == 0)
                 row = i;
