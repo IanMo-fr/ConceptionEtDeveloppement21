@@ -18,7 +18,6 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         //liste utilisee pour stocker les valeurs numériques de la liste des QID choisit
         List<Integer> attributNum = new LinkedList<Integer>();
 
-    do {
         //on coupe en deux la liste de l'attibut pour avoir une généralisation par la médiane
         List<Integer> rHands;
         List<Integer> lHands;
@@ -60,15 +59,24 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
 
         //on verifie si la valeur à la cellule visitée est égale à une valeur de l'une des sub-listes
         //et on modifie par la borne basse et haute de la sub-liste correspondante
-        for (int cell = 0; cell < listeAttribut.size(); cell++) {
+        for (int cell = 1; cell <(rHands.size()+ lHands.size()+1); cell++) {
             //NullPointerException ici aussi .. ouais !
             if (rHands.contains(sheet_donnees.getRow(cell).getCell(row).toString()))
                 sheet_donnees.getRow(cell).getCell(row).setCellValue(rHands.get(0) + "-" + rHands.get(rHands.size() - 1));
             else
                 sheet_donnees.getRow(cell).getCell(row).setCellValue(lHands.get(0) + "-" + lHands.get(lHands.size() - 1));
-        }    
-        
-    }while (attributNum.size()>2);
+        }
+
+        Collections.sort(listeAttribut);
+
+        if (rHands.size()<3 ) {
+            anonyme(listeAttribut.subList(0, attributNum.lastIndexOf(lowMediane)+1), wb, "Age");
+        }
+
+        if (lHands.size()<3) {
+            anonyme(listeAttribut.subList(attributNum.indexOf(upperMediane), attributNum.size()), wb, "Age");
+        }
+
 
 
         return wb;
