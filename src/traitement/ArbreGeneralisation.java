@@ -17,7 +17,7 @@ public interface ArbreGeneralisation {
      *
      * @return      le Workbook après passage par l'algorithme
      */
-   public List<String> anonyme(List<Integer> listeQID) ;
+   public List<String> anonyme(List<Integer> listeQID, List<String> val_string) ;
 
     /**
      * Calcule la fréquence d'apparition d'un attribut donné

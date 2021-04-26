@@ -27,7 +27,11 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
 
     public HSSFWorkbook algoUni(List<List<String>> listeQID, String nomAttr, HSSFWorkbook wb){
         List<Integer> liste = selectQIDAtt(listeQID, nomAttr);
-        List<String> aprox =  anonyme(liste);
+        List<String> val_string = new ArrayList<>();
+        for (int i=0; i<liste.size();i++) {
+            val_string.add("");
+        }
+        List<String> aprox =  anonyme(liste,val_string);
         return creerAnonyme(wb, aprox, nomAttr);
     }
 
@@ -63,7 +67,7 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
      * @return le Workbook après passage par l'algorithme
      */
     @Override
-    public List<String> anonyme(List<Integer> listeQID) {
+    public List<String> anonyme(List<Integer> listeQID, List<String> val_String) {
 List<Integer> oskour = listeQID;
         //appel de fct mediane sur l'attribut
         int mediane = this.mediane(listeQID);
@@ -105,8 +109,6 @@ List<Integer> oskour = listeQID;
                 rHands = listeQID.subList(listeQID.indexOf(upperMediane), listeQID.size());
 
        // }
-        //liste de stockage des valeurs aprox
-        List<String> val_String = new ArrayList<String>();
         //on verifie si la valeur à la cellule visitée est égale à une valeur de l'une des sub-listes
         //et on modifie par la borne basse et haute de la sub-liste correspondante
         for (int i = 0; i <attributOG.size(); i++) {
@@ -114,18 +116,20 @@ List<Integer> oskour = listeQID;
 
             //on rentre l'approximation dans la liste
             if (lHands.contains(attributOG.get(i)))
-                val_String.add(lHands.get(0) + "-" + lHands.get(lHands.size()-1));
+                val_String.set(i, lHands.get(0) + "-" + lHands.get(lHands.size()-1));
             else
-                val_String.add(rHands.get(0) + "-" + rHands.get(rHands.size()-1));
+                val_String.set(i, rHands.get(0) + "-" + rHands.get(rHands.size()-1));
         }
 
-        if (lHands.size()>4 ) {
-            anonyme(attributOG.subList(0, attributOG.lastIndexOf(lowMediane)));
+       if (lHands.size()>4 ) {
+            anonyme(attributOG.subList(0, attributOG.lastIndexOf(lowMediane)),val_String);
         }
 
         if (rHands.size()>4) {
-            anonyme(attributOG.subList(attributOG.indexOf(upperMediane), attributOG.size()));
+            anonyme(attributOG.subList(attributOG.indexOf(upperMediane), attributOG.size()),val_String);
         }
+
+
 
         return val_String;
     }
