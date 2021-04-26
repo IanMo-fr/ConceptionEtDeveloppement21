@@ -23,9 +23,9 @@ import static java.awt.FlowLayout.CENTER;
 
 public class IHM extends JFrame implements ActionListener {
 
-    private String pathname;
-    private String user;
-    private Controleur controleur = new Controleur(user, true);
+    public String pathname;
+    public String user;
+
     private JButton Bucket = new JButton("Bucketisation");
     private JButton Algo1 = new JButton("Algorithme 1");
     private JTextField k = new JTextField();
@@ -156,6 +156,8 @@ public class IHM extends JFrame implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
+
+        Controleur controleur = new Controleur(this.user);
         if (event.getSource()==Bucket){
             try {
                 String nomQID = nomFileQID.getText();
@@ -167,7 +169,7 @@ public class IHM extends JFrame implements ActionListener {
                     erreur.setVisible(false);
                     message_bucket.setVisible(true);
                     int int_k = Integer.parseInt(val_k);
-                    controleur.CreerDocBucketiséAPartirdeBDD(pathname, controleur.getArrivee(), int_k, nomQID, nomDS);
+                    controleur.CreerDocBucketiséAPartirdeBDD(this.pathname, int_k, nomQID, nomDS);
                 }
             }
             catch (IOException e) {

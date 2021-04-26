@@ -21,10 +21,8 @@ public class Controleur {
 
     private String pathname;
     private String arrivee;
+    private String user;
 
-    public String getArrivee() {
-        return arrivee;
-    }
 
     // **** constructeurs ****
     /**
@@ -33,30 +31,24 @@ public class Controleur {
     public Controleur(){
         this.arrivee = null;
         this.pathname = null;
-    }
-
-    /**
-     * Constructeur de Controle
-     * @param arrivee
-     */
-    public Controleur(String arrivee) {
-        this.arrivee = arrivee;
+        this.user=null;
     }
 
     /**
      * Constructeur surchargé de Controle : permet d'avoir un chemin d'arrivée par défaut si non spécifié
      */
-    public Controleur(String user, boolean test) {
+    public Controleur(String user) {
+        this.user=user;
         //todo : mettre nos chemins d'accès pour les tests dans un "case"
         switch (user) {
             case "Julien":
-                this.arrivee = "C:/Users/jujuo/Desktop/CDA_proj/pseudos.xls";
+                this.arrivee ="C:/Users/jujuo/Desktop/CDA_proj/";
                 break;
             case "Marilou":
-                this.arrivee="F:/Semestre 4/pseudos.xls";
+                this.arrivee ="F:/Semestre 4/";
                 break;
             case "Ian" :
-                this.arrivee = ("E:/Documents/Etude/L2/Semestre 4/Conception et dev/projetanon/pseudos.xls");
+                this.arrivee ="E:/Documents/Etude/L2/Semestre 4/Conception et dev/projetanon/";
                 break;
 
         }
@@ -76,7 +68,7 @@ public class Controleur {
         Pseudonymisation pseudonymisation = new Pseudonymisation();
         pseudonymisation.Pseudonymiser(ListeId, wb_depart);
         EnregistrementFichier Enregistrement = new EnregistrementFichier();
-        Enregistrement.EnregistrerFichier(pseudonymisation.getWorkbook(),arrivee);
+        Enregistrement.EnregistrerFichier(pseudonymisation.getWorkbook(), arrivee +"pseudos.xls");
 
     }
 
@@ -100,10 +92,10 @@ public class Controleur {
         bucket.Bucketiser(k, ListeIdentifiants, ListeQID, ListeDS);
         EnregistrementFichier Enregistrement = new EnregistrementFichier();
         HSSFWorkbook wbQID = bucket.getWbQID();
-        String arrivee_QID = pathname+nomQID+".xls";
+        String arrivee_QID = this.arrivee +nomQID+".xls";
         Enregistrement.EnregistrerFichier(wbQID, arrivee_QID);
         HSSFWorkbook wbDS = bucket.getWbDS();
-        String arrivee_DS = pathname+nomDS+".xls";
+        String arrivee_DS = this.arrivee +nomDS+".xls";
         Enregistrement.EnregistrerFichier(wbDS, arrivee_DS);
 
     }
@@ -113,9 +105,9 @@ public class Controleur {
      * @param pathname
      * @throws IOException
      */
-    public void CreerDocBucketiséAPartirdeBDD(String pathname, String arrivee, int k, String nomQID, String nomDS) throws IOException {
+    public void CreerDocBucketiséAPartirdeBDD(String pathname, int k, String nomQID, String nomDS) throws IOException {
         CreerDocPseudonymisé(pathname);
-        CreerDocsBucketisés(arrivee, k, nomQID, nomDS);
+        CreerDocsBucketisés(this.arrivee +"pseudos.xls", k, nomQID, nomDS);
 
     }
 
@@ -149,21 +141,20 @@ public class Controleur {
 
     /**
      * Méthode du Contrôleur qui va permettre d'appeler l'interface graphique
-     * @param user
      */
 
-       public void controleurIHM(String user) {
+       public void controleurIHM() {
         IHM fenetre = new IHM();
-        fenetre.setUser(user);
+        fenetre.setUser(this.user);
         fenetre.setVisible(true);
-       //  String chemin = fenetre.getPathname();
-       // this.pathname = chemin;
 
     }
 
 
 
-    public void controleurAlgo1(String pathname, String nomQID, String attribut) throws  IOException {
+
+    public void controleurAlgo1(String pathname, String nom_sortie, String attribut) throws  IOException {
+        this.pathname = pathname;
         LectureFichier Ouverture = new LectureFichier();
         Ouverture.OuvrirFichier(pathname);
         List<List<String>> ListeQID = Ouverture.getListeQuasiIdentifiants();
@@ -171,12 +162,12 @@ public class Controleur {
 
         AlgoUnidimensionnel algo = new AlgoUnidimensionnel();
         EnregistrementFichier enregistrement = new EnregistrementFichier();
-        enregistrement.EnregistrerFichier(algo.anonyme(ListeQID.get(1),wb, "Age"), this.arrivee);
+        enregistrement.EnregistrerFichier(algo.anonyme(ListeQID.get(1),wb, attribut), this.arrivee+nom_sortie+".xls");
     }
 
-    public void CreerDocAlgo1(String pathname, String arrivee, String nomQID, String attribut ) throws IOException {
+    public void CreerDocAlgo1(String pathname, String nom_sortie, String attribut ) throws IOException {
         CreerDocPseudonymisé(pathname);
-        controleurAlgo1(pathname,arrivee, nomQID, attribut);
+        controleurAlgo1(this.arrivee+"pseudos.xls", nom_sortie, attribut);
 
     }
 

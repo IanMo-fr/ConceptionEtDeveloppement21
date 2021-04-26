@@ -14,17 +14,16 @@ public class Main {
         String pathname_Julien = "C:/Users/jujuo/Desktop/CDA_proj/exemple_ce.xls";
         String pathname_Marilou = "F:/Semestre 4/exemple.xls";
 
+        Controleur controleur = new Controleur("Julien"); //Préciser ici en paramètre le chemin d'accès d'arrivée du fichier, sinon il ya un chemin par défaut
+       // controleur.CreerDocPseudonymisé("C:/Users/jujuo/Desktop/CDA_proj/exemple_ce.xls");
 
-        Controleur controleur = new Controleur("Ian", true); //Préciser ici en paramètre le chemin d'accès d'arrivée du fichier, sinon il ya un chemin par défaut
-       //controleur.CreerDocPseudonymisé("C:/Users/jujuo/Desktop/CDA_proj/exemple_ce.xls");
+    //  controleur.CreerDocsBucketisés(pathname_Julien, 3, "QID", "DS"); //Attention cette commande prend une base de données PSEUDONYMISEE en paramètre
 
-    //  controleur.CreerDocsBucketisés("C:/Users/jujuo/Desktop/CDA_proj/pseudos.xls", 3, "QID", "DS"); //Attention cette commande prend une base de données PSEUDONYMISEE en paramètre
-
-      controleur.controleurAlgo1(pathname_Ian);
+     //   controleur.controleurAlgo1(pathname_Julien,"toto","Age");
 
       // controleur.VerifierDiversité(pathname_Julien, 3,3);
+       controleur.controleurIHM(); //On précise ici l'utilisateur
 
-     // controleur.controleurIHM("Julien"); //On précise ici l'utilisateur
 
 
 
