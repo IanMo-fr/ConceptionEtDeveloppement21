@@ -69,7 +69,6 @@ public class Controleur {
      * @throws IOException
      */
     public void CreerDocPseudonymisé(String pathname) throws IOException {
-        this.pathname = pathname;
         LectureFichier Ouverture = new LectureFichier();
         Ouverture.OuvrirFichier(pathname);
         HSSFWorkbook wb_depart = Ouverture.getWb();
@@ -92,7 +91,6 @@ public class Controleur {
      */
 
     public void CreerDocsBucketisés(String pathname, int k, String nomQID, String nomDS) throws IOException {
-        this.pathname = pathname;
         LectureFichier Ouverture = new LectureFichier();
         Ouverture.OuvrirFichier(pathname);
         List<List<String>> ListeQID = Ouverture.getListeQuasiIdentifiants();
@@ -102,10 +100,10 @@ public class Controleur {
         bucket.Bucketiser(k, ListeIdentifiants, ListeQID, ListeDS);
         EnregistrementFichier Enregistrement = new EnregistrementFichier();
         HSSFWorkbook wbQID = bucket.getWbQID();
-        String arrivee_QID = "C:/Users/jujuo/Desktop/CDA_proj/"+nomQID+".xls";
+        String arrivee_QID = pathname+nomQID+".xls";
         Enregistrement.EnregistrerFichier(wbQID, arrivee_QID);
         HSSFWorkbook wbDS = bucket.getWbDS();
-        String arrivee_DS = "C:/Users/jujuo/Desktop/CDA_proj/"+nomDS+".xls";
+        String arrivee_DS = pathname+nomDS+".xls";
         Enregistrement.EnregistrerFichier(wbDS, arrivee_DS);
 
     }
@@ -121,6 +119,7 @@ public class Controleur {
 
     }
 
+
     /**
      * Méthode du Contrôleur qui permet de réaliser de A à Z le test de diversité d'une BDD bucketisée dont l'utilisateur a indiqué le k et le l
      * @param pathname
@@ -130,7 +129,6 @@ public class Controleur {
      */
 
     public void VerifierDiversité(String pathname, int k, int l) throws IOException {
-        this.pathname=pathname;
         LectureFichier Ouverture = new LectureFichier();
         Ouverture.OuvrirFichier(pathname);
         List<List<String>> ListeDS = Ouverture.getListeDonneesSensibles();
@@ -165,9 +163,7 @@ public class Controleur {
 
 
 
-
-    public void controleurAlgo1(String pathname) throws  IOException {
-        this.pathname = pathname;
+    public void controleurAlgo1(String pathname, String nomQID, String attribut) throws  IOException {
         LectureFichier Ouverture = new LectureFichier();
         Ouverture.OuvrirFichier(pathname);
         List<List<String>> ListeQID = Ouverture.getListeQuasiIdentifiants();
@@ -176,6 +172,12 @@ public class Controleur {
         AlgoUnidimensionnel algo = new AlgoUnidimensionnel();
         EnregistrementFichier enregistrement = new EnregistrementFichier();
         enregistrement.EnregistrerFichier(algo.anonyme(ListeQID.get(1),wb, "Age"), this.arrivee);
+    }
+
+    public void CreerDocAlgo1(String pathname, String arrivee, String nomQID, String attribut ) throws IOException {
+        CreerDocPseudonymisé(pathname);
+        controleurAlgo1(pathname,arrivee, nomQID, attribut);
+
     }
 
 

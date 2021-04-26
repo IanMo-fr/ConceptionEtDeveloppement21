@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static java.awt.FlowLayout.CENTER;
 
@@ -32,6 +33,10 @@ public class IHM extends JFrame implements ActionListener {
     private JTextField nomFileQID = new JTextField();
     private JLabel erreur = new JLabel("Les données entrées sont incorrectes");
     private JLabel message_bucket = new JLabel("La bucketisation a bien été faite.");
+    private JLabel message_Algo1 = new JLabel ("l'algorithme 1 a bien été appliqué");
+    private JTextField nomFile = new JTextField();
+    private JTextField AttributQID = new JTextField();
+
 
     public void setUser(String user) {
         this.user = user;
@@ -107,7 +112,6 @@ public class IHM extends JFrame implements ActionListener {
             JLabel nomDS = new JLabel("Nom du fichier contenant les Données Sensibles:");
             panelBucket.add(nomDS);
 
-
             panelBucket.add(nomFileDS);
 
             JLabel selectk = new JLabel("k :");
@@ -132,19 +136,19 @@ public class IHM extends JFrame implements ActionListener {
             JLabel nom = new JLabel("Nom du fichier :");
             panelAlgo1.add(nom);
 
-            JTextField nomFile = new JTextField();
+
             nomFile.setPreferredSize(new Dimension(100,30));
             panelAlgo1.add( nomFile);
 
             JLabel labelAttributQID = new JLabel("Attribut QID :");
             panelAlgo1.add(labelAttributQID);
 
-            JTextField AttributQID = new JTextField();
             AttributQID.setPreferredSize(new Dimension(100,30));
             panelAlgo1.add( AttributQID);
 
             return panelAlgo1;
         }
+
 
     /**
      * Définition de méthode pour l'ActionListener. L'interface va "écouter" et selon les évènements (ici, clic sur un bouton) effectuer des actions en conséquence
@@ -171,7 +175,14 @@ public class IHM extends JFrame implements ActionListener {
             }
         }
         else if (event.getSource()==Algo1){
-            System.out.println("c algo 1");
+            String nomQID = nomFileQID.getText();
+            String nomAttribut = AttributQID.getText();
+            if ( nomQID.equals("")){
+                erreur.setVisible(true);
+            } else {
+                erreur.setVisible(false);
+                message_Algo1.setVisible(true);
+}
         }
     }
 

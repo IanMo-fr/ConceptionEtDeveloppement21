@@ -66,6 +66,7 @@ public class LectureFichier {
         LireDS();
     }
 
+
     /**
      * Permet de compter le nombre de colonnes ID/QID/DS
      * @param nature
