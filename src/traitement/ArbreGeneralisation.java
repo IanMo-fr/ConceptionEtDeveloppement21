@@ -41,7 +41,7 @@ public interface ArbreGeneralisation {
 
        //Si le nombre de valeurs de la liste est pair : on fait la moyenne des deux valeurs du milieu
        if (frequence.size()%2 ==0 )
-           return ( (frequence.get(frequence.size()/2)+frequence.get((frequence.size()/2)+1)) /2 );
+           return ( (frequence.get(frequence.size()/2)+frequence.get((frequence.size()/2))) /2 );
        //Si le nombre de valeurs est impair : on prend la valeur du milieu
        if (frequence.size()%2 != 0)
            return (frequence.get(frequence.size()/2 ));

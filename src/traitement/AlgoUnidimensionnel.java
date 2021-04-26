@@ -25,6 +25,8 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         int row = -9999;
         // /!\ les valeurs de sheet_donnees sont au format 20-23 à la deuxième it'
         HSSFSheet sheet_donnees = wb.getSheet("donnees");
+        //liste de stockage des valeurs aprox
+        ArrayList<String> val_String = new ArrayList<String>();
 
         for (int i=0; i < sheet_donnees.getRow(0).getLastCellNum(); i++) {
             if (sheet_donnees.getRow(0).getCell(i).getStringCellValue().compareTo(nomAttr) == 0)
@@ -70,9 +72,9 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
             Integer val_rh = test;
             //on rentre les données dans les cellules
             if (rHands.contains(val_rh))
-                sheet_donnees.getRow(cell).getCell(row).setCellValue(rHands.get(0) + "-" + rHands.get(rHands.size() - 1));
+               val_String.add((cell-1),rHands.get(0) + "-" + rHands.get(rHands.size() - 1));
             else
-                sheet_donnees.getRow(cell).getCell(row).setCellValue(lHands.get(0) + "-" + lHands.get(lHands.size() - 1));
+                val_String.add((cell-1),lHands.get(0) + "-" + lHands.get(lHands.size() - 1));
         }
 
 
@@ -87,7 +89,17 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
             anonyme(listeAttribut.subList(attributNum.indexOf(upperMediane), attributNum.size()), wb, nomAttr);
         }
 
-
+/*
+if (rHands.contains(val_rh))
+                sheet_donnees.getRow(cell).getCell(row).setCellValue(rHands.get(0) + "-" + rHands.get(rHands.size() - 1));
+            else
+                sheet_donnees.getRow(cell).getCell(row).setCellValue(lHands.get(0) + "-" + lHands.get(lHands.size() - 1));
+        }
+ */
+        //parcours de la colonne pour copier les données de l'arrayList
+        for (int i= 1; i < val_String.size(); i++){
+            sheet_donnees.getRow(i).getCell(row).setCellValue(val_String.get(i));
+        }
 
         return wb;
     }
