@@ -89,7 +89,7 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
 
         if (listeQID.contains(mediane)) {
             lHands = listeQID.get(0) + "-" + listeQID.get(listeQID.lastIndexOf(mediane));
-            rHands = (listeQID.indexOf(mediane)+1) +"-" + listeQID.get(listeQID.size()-1);
+            rHands = (listeQID.get(listeQID.indexOf(mediane)+1) +"-" + listeQID.get(listeQID.size()-1));
             //upperMediane++;
         }else {
 
@@ -112,10 +112,10 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         for (int i = 0; i <attributOG.size(); i++) {
             //on rentre l'approximation dans la liste
             if ((attributOG.get(i) >= Integer.parseInt(lHands.substring(0,lHands.indexOf("-"))))
-                 && (attributOG.get(i) >= Integer.parseInt(lHands.substring(lHands.indexOf("-")+1,lHands.length())))       )
+                 && (attributOG.get(i) <= Integer.parseInt(lHands.substring(lHands.indexOf("-")+1,lHands.length()))))
                 val_String.set(i, lHands);
             else if ((attributOG.get(i) >= Integer.parseInt(rHands.substring(0,rHands.indexOf("-"))))
-                    && (attributOG.get(i) >= Integer.parseInt(rHands.substring(rHands.indexOf("-")+1,rHands.length())))       )
+                    && (attributOG.get(i) <= Integer.parseInt(rHands.substring(rHands.indexOf("-")+1,rHands.length()))))
                 val_String.set(i, rHands);
         }
 
