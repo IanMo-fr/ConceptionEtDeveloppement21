@@ -114,14 +114,14 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
             }else{
 
                 //si jamais la médiane ne se trouve pas dans la liste, on cherche la borne la plus proche de la valeur de la médiane
-                while (!listeQID.contains(lowMediane)) {
+                while (!listeQID.contains(lowMediane) && lowMediane <= 0) {
                     lowMediane--;
                 }
                 lHands = listeQID.get(0) + "-" + listeQID.get(listeQID.lastIndexOf(lowMediane));
 
                 //on mets un +1 car subList prends la borne sup exclue
 
-                while (!listeQID.contains(upperMediane)) {
+                while (!listeQID.contains(upperMediane) && upperMediane >= listeQID.size()) {
                     upperMediane++;
                 }
                 if(listeQID.indexOf(upperMediane)+1>= listeQID.size())
