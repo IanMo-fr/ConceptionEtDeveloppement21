@@ -77,8 +77,12 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
             arrayOfAprox.addAll(val_String);
             Collections.sort(arrayOfAprox);
 
-            for(int i=0; i< val_String.size(); i++) {
-                if (arrayOfAprox.lastIndexOf(arrayOfAprox.get(i)) > k) {
+            for(int i=0; i< val_String.size()-1; i++) {
+                int diversiteI = 0;
+                if (arrayOfAprox.get(i).equals(arrayOfAprox.get(i+1))) {
+                    diversiteI ++;
+                }
+                if (diversiteI >= k) {
                     List<Integer> frequence = new ArrayList<Integer>();
                     frequence.add(Integer.parseInt(arrayOfAprox.get(i).substring(0, arrayOfAprox.get(i).indexOf("-"))));
                     frequence.add(Integer.parseInt(arrayOfAprox.get(i).substring(arrayOfAprox.get(i).indexOf("-") + 1, arrayOfAprox.get(i).length())));
