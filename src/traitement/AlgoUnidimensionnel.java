@@ -76,11 +76,13 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
             List<String>arrayOfAprox = new ArrayList<>() ;
             arrayOfAprox.addAll(val_String);
             Collections.sort(arrayOfAprox);
-
+            int diversiteI = 1;
             for(int i=0; i< val_String.size()-1; i++) {
-                int diversiteI = 0;
+
                 if (arrayOfAprox.get(i).equals(arrayOfAprox.get(i+1))) {
                     diversiteI ++;
+                } else {//reset du compteur, la liste arrayOfAprox est triée
+                    diversiteI=1;
                 }
                 if (diversiteI >= k) {
                     List<Integer> frequence = new ArrayList<Integer>();
@@ -114,14 +116,14 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
             }else{
 
                 //si jamais la médiane ne se trouve pas dans la liste, on cherche la borne la plus proche de la valeur de la médiane
-                while (!listeQID.contains(lowMediane) && lowMediane <= 0) {
+                while (!listeQID.contains(lowMediane) && lowMediane >= 0) {
                     lowMediane--;
                 }
                 lHands = listeQID.get(0) + "-" + listeQID.get(listeQID.lastIndexOf(lowMediane));
 
                 //on mets un +1 car subList prends la borne sup exclue
 
-                while (!listeQID.contains(upperMediane) && upperMediane >= listeQID.size()) {
+                while (!listeQID.contains(upperMediane) && upperMediane < listeQID.get(listeQID.size()-1)) {
                     upperMediane++;
                 }
                 if(listeQID.indexOf(upperMediane)+1>= listeQID.size())
