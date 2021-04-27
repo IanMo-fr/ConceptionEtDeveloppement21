@@ -106,7 +106,7 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
             if (listeQID.contains(mediane)) {
                 lHands = listeQID.get(0) + "-" + listeQID.get(listeQID.lastIndexOf(mediane));
                 rHands = (listeQID.get(listeQID.indexOf(mediane) + 1) + "-" + listeQID.get(listeQID.size() - 1));
-                upperMediane++;
+                //upperMediane++;
             }else{
 
                 //si jamais la médiane ne se trouve pas dans la liste, on cherche la borne la plus proche de la valeur de la médiane
