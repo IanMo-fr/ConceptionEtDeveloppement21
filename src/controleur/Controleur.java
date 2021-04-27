@@ -153,7 +153,7 @@ public class Controleur {
 
 
 
-    public void controleurAlgo1(String pathname, String nom_sortie, String attribut) throws  IOException {
+    public void controleurAlgo1(String pathname, String nom_sortie, String attribut,int k) throws  IOException {
         this.pathname = pathname;
         LectureFichier Ouverture = new LectureFichier();
         Ouverture.OuvrirFichier(pathname);
@@ -161,14 +161,14 @@ public class Controleur {
         HSSFWorkbook wb = Ouverture.getWb();
 
         AlgoUnidimensionnel algo = new AlgoUnidimensionnel();
-        HSSFWorkbook wbAlgo = algo.algoUni(ListeQID,attribut,wb);
+        HSSFWorkbook wbAlgo = algo.algoUni(ListeQID,attribut,wb, k);
         EnregistrementFichier enregistrement = new EnregistrementFichier();
         enregistrement.EnregistrerFichier(wbAlgo, this.arrivee+nom_sortie+".xls");
     }
 
-    public void CreerDocAlgo1(String pathname, String nom_sortie, String attribut ) throws IOException {
+    public void CreerDocAlgo1(String pathname, String nom_sortie, String attribut, int k ) throws IOException {
         CreerDocPseudonymisé(pathname);
-        controleurAlgo1(this.arrivee+"pseudos.xls", nom_sortie, attribut);
+        controleurAlgo1(this.arrivee+"pseudos.xls", nom_sortie, attribut, k);
 
     }
 

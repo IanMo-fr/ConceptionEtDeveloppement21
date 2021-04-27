@@ -19,7 +19,7 @@ public class Main {
 
     //  controleur.CreerDocsBucketisés(pathname_Julien, 3, "QID", "DS"); //Attention cette commande prend une base de données PSEUDONYMISEE en paramètre
 
-       controleur.controleurAlgo1(pathname_Ian,"algo","Age");
+       controleur.controleurAlgo1(pathname_Ian,"algo","Age", 4);
 
       // controleur.VerifierDiversité(pathname_Julien, 3,3);
        //controleur.controleurIHM(); //On précise ici l'utilisateur

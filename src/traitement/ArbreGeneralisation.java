@@ -17,7 +17,7 @@ public interface ArbreGeneralisation {
      *
      * @return      le Workbook après passage par l'algorithme
      */
-   public List<String> anonyme(List<Integer> listeQID, List<String> val_string) ;
+   public List<String> anonyme(List<Integer> listeQID, List<String> val_string, int k) ;
 
     /**
      * Calcule la fréquence d'apparition d'un attribut donné
@@ -44,7 +44,7 @@ public interface ArbreGeneralisation {
 
        //Si le nombre de valeurs de la liste est pair : on fait la moyenne des deux valeurs du milieu
        if (frequence.size()%2 ==0 )
-           return ( (frequence.get(frequence.size()/2)+frequence.get((frequence.size()/2))) /2 );
+           return ( ((frequence.get(frequence.size()/2)-1)+frequence.get(frequence.size()/2)) /2 );
        //Si le nombre de valeurs est impair : on prend la valeur du milieu
        if (frequence.size()%2 != 0)
            return (frequence.get(frequence.size()/2 ));

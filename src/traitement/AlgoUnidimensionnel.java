@@ -25,13 +25,13 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         return wb;
     }
 
-    public HSSFWorkbook algoUni(List<List<String>> listeQID, String nomAttr, HSSFWorkbook wb){
+    public HSSFWorkbook algoUni(List<List<String>> listeQID, String nomAttr, HSSFWorkbook wb,int k){
         List<Integer> liste = selectQIDAtt(listeQID, nomAttr);
         List<String> val_string = new ArrayList<>();
         for (int i=0; i<liste.size();i++) {
             val_string.add("");
         }
-        List<String> aprox =  anonyme(liste,val_string);
+        List<String> aprox =  anonyme(liste,val_string, k);
         return creerAnonyme(wb, aprox, nomAttr);
     }
 
@@ -67,14 +67,26 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
      * @return le Workbook après passage par l'algorithme
      */
     @Override
-    public List<String> anonyme(List<Integer> listeQID, List<String> val_String) {
+    public List<String> anonyme(List<Integer> listeQID, List<String> val_String, int k) {
+        int mediane = 0;
         //appel de fct mediane sur l'attribut
         if (val_String.get(0).equals("")) {
-            int mediane = this.mediane(listeQID);
-        }
-        else {
-            if (val_String.)
-            int mediane = this.mediane();
+            mediane = this.mediane(listeQID);
+        }  else {
+            List<String>arrayOfAprox = new ArrayList<>() ;
+            arrayOfAprox.addAll(val_String);
+            Collections.sort(arrayOfAprox);
+
+            for(int i=0; i< val_String.size(); i++) {
+                if (arrayOfAprox.lastIndexOf(arrayOfAprox.get(i)) > k) {
+                    List<Integer> frequence = new ArrayList<Integer>();
+                    frequence.add(Integer.parseInt(arrayOfAprox.get(i).substring(0, arrayOfAprox.get(i).indexOf("-"))));
+                    frequence.add(Integer.parseInt(arrayOfAprox.get(i).substring(arrayOfAprox.get(i).indexOf("-") + 1, arrayOfAprox.get(i).length())));
+
+                    mediane = this.mediane(frequence);
+                    break;
+                }
+            }
         }
         //borne de la médiane
         int lowMediane = mediane;
@@ -94,8 +106,8 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
             if (listeQID.contains(mediane)) {
                 lHands = listeQID.get(0) + "-" + listeQID.get(listeQID.lastIndexOf(mediane));
                 rHands = (listeQID.get(listeQID.indexOf(mediane) + 1) + "-" + listeQID.get(listeQID.size() - 1));
-                //upperMediane++;
-
+                upperMediane++;
+            }else{
 
                 //si jamais la médiane ne se trouve pas dans la liste, on cherche la borne la plus proche de la valeur de la médiane
                 while (!listeQID.contains(lowMediane)) {
@@ -108,7 +120,10 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
                 while (!listeQID.contains(upperMediane)) {
                     upperMediane++;
                 }
-                rHands = (listeQID.indexOf(mediane) + 1) + "-" + listeQID.get(listeQID.size());
+                if(listeQID.indexOf(upperMediane)+1>= listeQID.size())
+                    rHands = (listeQID.get(listeQID.indexOf(upperMediane))) + "-" + listeQID.get(listeQID.size()-1);
+                else
+                    rHands = (listeQID.get(listeQID.indexOf(upperMediane)+1)) + "-" + listeQID.get(listeQID.size()-1);
             }
 
 
@@ -116,6 +131,8 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         //et on modifie par la borne basse et haute de la sub-liste correspondante
         for (int i = 0; i <attributOG.size(); i++) {
             //on rentre l'approximation dans la liste
+
+            ////// /!\ c'est juste lààààààà /!\ les valeurs ne se rajoutent pas à val_String ..
             if ((attributOG.get(i) >= Integer.parseInt(lHands.substring(0,lHands.indexOf("-"))))
                  && (attributOG.get(i) <= Integer.parseInt(lHands.substring(lHands.indexOf("-")+1,lHands.length()))))
                 val_String.set(i, lHands);
@@ -124,13 +141,13 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
                 val_String.set(i, rHands);
         }
 
-       if (lHands.length()>4 ) {
-            anonyme(attributOG,val_String);
+       if (mediane!=0 ) {
+            anonyme(attributOG,val_String, k);
         }
 
 
-        if (rHands.length()>4) {
-            anonyme(attributOG,val_String);
+        if (mediane!=0) {
+            anonyme(attributOG,val_String, k);
         }
 
 
