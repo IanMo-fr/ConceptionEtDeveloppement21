@@ -97,16 +97,18 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
                 } else {//reset du compteur, la liste arrayOfAprox est triée
                     diversiteI=1;
                 }
-                if (diversiteI >= k) {
+              /*  if (diversiteI >= k) {
                     List<Integer> frequence = new ArrayList<Integer>();
                     frequence.addAll(listeQID.subList(/*on cherche à recupérer l'ensemble des valeurs à redécouper, i.e toute les valeures comprise
-                    entre 16 et 22*/)));
+                    entre 16 et 22*//*)));
 
                     mediane = this.mediane(frequence);
                     break;
+                    */
+
                 }
             }
-        }
+      //  }
         //borne de la médiane
         int lowMediane = mediane;
         int upperMediane = mediane;

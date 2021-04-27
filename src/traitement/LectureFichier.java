@@ -28,6 +28,7 @@ public class LectureFichier {
     private List<List<String>> ListeDSBucket;
     private String pathname;
     private HSSFWorkbook wb;
+    private int colonne_deb_QID;
 
 
 
@@ -44,6 +45,7 @@ public class LectureFichier {
         this.ListeDSBucket = null;
         this.pathname = null;
         this.wb = null;
+        this.colonne_deb_QID=0;
     }
 
 
@@ -61,6 +63,7 @@ public class LectureFichier {
         HSSFWorkbook wb = new HSSFWorkbook(inputStream);  //Lecture du fichier comme fichier .xls
         this.pathname = pathname;
         this.wb = wb;
+        this.colonne_deb_QID=CompteurID_QID_DS("QID");
         LireIdentifiants();
         LireQID();
         LireDS();
@@ -245,6 +248,10 @@ public class LectureFichier {
      */
     public HSSFWorkbook getWb() {
         return wb;
+    }
+
+    public int getColonne_deb_QID() {
+        return colonne_deb_QID;
     }
 
 }

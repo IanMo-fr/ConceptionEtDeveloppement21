@@ -1,5 +1,8 @@
 package traitement;
 
+import org.apache.poi.hssf.usermodel.*;
+
+
 import java.util.*;
 
 public class AlgoUni {
@@ -50,7 +53,7 @@ public class AlgoUni {
 
         for (int i = 0; i < listeQID.size(); i++) {
             if (listeQID.get(i).get(0).equals(nomAttr))
-                listeAttribut = listeQID.get(i);
+                listeAttribut.addAll(listeQID.get(i));
         }
 
         //on retire la première ligne : le nom de l'attribut
@@ -72,7 +75,7 @@ public class AlgoUni {
     }
 
 
-    public List<List<Integer>> faireAlgoUni(List<List<Integer>> testo, List<Integer> listeAttribut, String nomAttr) {
+    public List<List<Integer>> groupeAlgoUni(List<List<Integer>> testo, List<Integer> listeAttribut, int k) {
 
         int mediane = calculMediane(listeAttribut);
         List<Integer> Lis_gauche = new ArrayList<>();
@@ -87,12 +90,12 @@ public class AlgoUni {
         }
 
 
-        if ((Lis_gauche.size())>=2 || Lis_droite.size()==0) {
+        if ((Lis_gauche.size())>=k || Lis_droite.size()==0) {
             testo.add(Lis_gauche);
         }
 
 
-       if (Lis_droite.size()<2) {
+       if (Lis_droite.size()<k) {
             testo.get(testo.size()-1).addAll(Lis_droite);
             Lis_droite.clear();
         }
@@ -101,25 +104,114 @@ public class AlgoUni {
        }
 
 
-        if (Lis_gauche.size()/2 >=2 && Lis_droite.size()!=0) {
+        if (Lis_gauche.size()/k >=2 && Lis_droite.size()!=0) {
 
-            faireAlgoUni(testo, Lis_gauche,"toto");
+            groupeAlgoUni(testo, Lis_gauche, k);
             testo.remove(0);
 
         }
-        if (Lis_droite.size()/2 >=2 && Lis_gauche.size()!=0) {
+        if (Lis_droite.size()/k >=2 && Lis_gauche.size()!=0) {
 
-            faireAlgoUni(testo, Lis_droite,"toto");
+            groupeAlgoUni(testo, Lis_droite, k);
             testo.remove(0);
 
         }
-
-
-
-
 
         return testo;
 
+    }
+
+    public HSSFWorkbook gg(List<Integer>QID_select_int, List<List<Integer>> liste_groupe_qid, List<List<String>> tous_QID, String nom_attr, HSSFWorkbook wb, int colonne_deb_QID) {
+
+        List<String> QID_select_string = new ArrayList<>();
+
+
+        for (int i = 0; i < QID_select_int.size(); i++) {
+            String val = QID_select_int.get(i).toString();
+            QID_select_string.add(val);
+        }
+
+        List<Integer> copie_QID_select_int = new ArrayList<>();
+        copie_QID_select_int.addAll(QID_select_int);
+
+
+        List<List<List<String>>> tout = new ArrayList<>();
+        List<List<String>> liste_autre_attr;
+        List<String> groupe_autre_attr;
+        List<Integer> liste_position = new ArrayList<>();
+
+        for (int a=0;a<tous_QID.size();a++) {
+        liste_autre_attr = new ArrayList<>();
+        for (int i = 0; i < liste_groupe_qid.size(); i++) {
+
+            groupe_autre_attr = new ArrayList<>();
+            for (int j = 0; j < liste_groupe_qid.get(i).size(); j++) {
+
+                int position = 0;
+                while (liste_groupe_qid.get(i).get(j) != QID_select_int.get(position)) {
+                    position++;
+                }
+                //System.out.println(position);
+                liste_position.add(position);
+                QID_select_int.set(position, -9999);
+                if (tous_QID.get(a).get(0).equals(nom_attr)) {
+                    tous_QID.get(a).set(position + 1, Collections.min(liste_groupe_qid.get(i)) + "-" + Collections.max(liste_groupe_qid.get(i)));
+                }
+                else {
+                    groupe_autre_attr.add(tous_QID.get(a).get(position + 1));
+                }
+
+
+            }
+            if (!tous_QID.get(a).get(0).equals(nom_attr)) {
+                liste_autre_attr.add(groupe_autre_attr);
+            }
+        }
+        QID_select_int.clear();
+        QID_select_int.addAll(copie_QID_select_int);
+        if (!tous_QID.get(a).get(0).equals(nom_attr)) {
+            tout.add(liste_autre_attr);
+        }
+    }
+
+     for (int x=0;x<tous_QID.size();x++) {
+         int index = 1;
+         if (!tous_QID.get(x).get(0).equals(nom_attr)) {
+             for (int a = 0; a < tout.size(); a++) {
+                 for (int b = 0; b < tout.get(a).size(); b++) {
+                     for (int c = 0; c < tout.get(a).get(b).size(); c++) {
+                         tous_QID.get(x).set(index, Collections.min(tout.get(a).get(b))+"-"+Collections.max(tout.get(a).get(b)));
+                         index++;
+                     }
+                 }
+             }
+         }
+     }
+
+
+     HSSFSheet sheet_donnees = wb.getSheet("donnees");
+
+
+        for (int a = 0; a < tous_QID.size(); a++) {
+            for (int b = 0; b < tous_QID.get(a).size(); b++) {
+                sheet_donnees.getRow(b).getCell(a+colonne_deb_QID-1).setCellValue(tous_QID.get(a).get(b));
+            }
+        }
+
+
+    return wb;
+}
+
+
+
+
+    public HSSFWorkbook appliquerAlgoUni (List<List<String>> liste_QID, String nomAttr, int k, HSSFWorkbook wb, int colonne_deb_QID) {
+        List<Integer> QID_selec_int = selectQIDAtt(liste_QID, nomAttr);
+        List<List<Integer>> liste_groupe_qid = new ArrayList<>();
+        liste_groupe_qid = groupeAlgoUni(liste_groupe_qid,QID_selec_int, k);
+        HSSFWorkbook wbAlgo =gg(QID_selec_int,liste_groupe_qid,liste_QID,nomAttr, wb, colonne_deb_QID);
+
+        return wbAlgo;
     }
 
 

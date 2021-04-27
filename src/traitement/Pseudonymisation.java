@@ -63,23 +63,7 @@ public class Pseudonymisation {
                 index_centaine++;
             }
         }
-        //Création d'une liste contenant tous les caractères que l'on va utiliser
 
-         /*   pseudo =
-            if (char1 > 122) {
-                char1=97;
-            }
-
-            if (char1 < 122) {
-                pseudo = (String.valueOf(char1++)) + (String.valueOf(char2)) + (String.valueOf(char3));
-            } else if (char2 < 122)  {      //Premier cas = zaa : on repasse z à a et on incrémente le deuxième a à b
-
-                pseudo = (String.valueOf(char1)) + (String.valueOf(char2++)) + (String.valueOf(char3));
-            } else {
-                pseudo = (String.valueOf(char1)) + (String.valueOf(char2)) + (String.valueOf(char3++));
-            }
-
-          */
         return pseudo;
     }
 

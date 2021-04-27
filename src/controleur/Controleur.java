@@ -151,26 +151,26 @@ public class Controleur {
     }
 
 
-
-
-    public void controleurAlgo1(String pathname, String nom_sortie, String attribut,int k) throws  IOException {
-        this.pathname = pathname;
-        LectureFichier Ouverture = new LectureFichier();
-        Ouverture.OuvrirFichier(pathname);
-        List<List<String>> ListeQID = Ouverture.getListeQuasiIdentifiants();
-        HSSFWorkbook wb = Ouverture.getWb();
-
-        AlgoUnidimensionnel algo = new AlgoUnidimensionnel();
-        HSSFWorkbook wbAlgo = algo.algoUni(ListeQID,attribut,wb, k);
-        EnregistrementFichier enregistrement = new EnregistrementFichier();
-        enregistrement.EnregistrerFichier(wbAlgo, this.arrivee+nom_sortie+".xls");
-    }
-
     public void CreerDocAlgo1(String pathname, String nom_sortie, String attribut, int k ) throws IOException {
         CreerDocPseudonymisé(pathname);
-        controleurAlgo1(this.arrivee+"pseudos.xls", nom_sortie, attribut, k);
+        algo1(this.arrivee+"pseudos.xls", nom_sortie, attribut, k);
 
     }
 
+    public void algo1 (String pathname, String nom_sortie, String nom_attr, int k) throws IOException {
+           this.pathname = pathname;
+           LectureFichier Ouverture = new LectureFichier();
+           Ouverture.OuvrirFichier(pathname);
+           List<List<String>> listeQID = Ouverture.getListeQuasiIdentifiants();
+           HSSFWorkbook wb = Ouverture.getWb();
+           int colonne_deb_QID = Ouverture.getColonne_deb_QID();
+           AlgoUni algo = new AlgoUni();
+           HSSFWorkbook wbAlgo = algo.appliquerAlgoUni(listeQID, nom_attr, k, wb, colonne_deb_QID);
+           EnregistrementFichier enregistrement = new EnregistrementFichier();
+           enregistrement.EnregistrerFichier(wbAlgo, this.arrivee+nom_sortie+".xls");
+
+
+
+    }
 
 }
