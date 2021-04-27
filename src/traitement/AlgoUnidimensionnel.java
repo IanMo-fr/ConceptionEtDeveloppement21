@@ -68,7 +68,15 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
      */
     @Override
     public List<String> anonyme(List<Integer> listeQID, List<String> val_String, int k) {
+
         int mediane = 0;
+
+        List<Integer> attributOG = new ArrayList<>();
+
+        attributOG.addAll(listeQID);
+        //on trie la liste d'attibuts
+        Collections.sort(listeQID);
+
         //appel de fct mediane sur l'attribut
         if (val_String.get(0).equals("")) {
             mediane = this.mediane(listeQID);
@@ -86,8 +94,8 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
                 }
                 if (diversiteI >= k) {
                     List<Integer> frequence = new ArrayList<Integer>();
-                    frequence.add(Integer.parseInt(arrayOfAprox.get(i).substring(0, arrayOfAprox.get(i).indexOf("-"))));
-                    frequence.add(Integer.parseInt(arrayOfAprox.get(i).substring(arrayOfAprox.get(i).indexOf("-") + 1, arrayOfAprox.get(i).length())));
+                    frequence.addAll(listeQID.subList(/*on cherche à recupérer l'ensemble des valeurs à redécouper, i.e toute les valeures comprise
+                    entre 16 et 22*/)));
 
                     mediane = this.mediane(frequence);
                     break;
@@ -98,11 +106,6 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         int lowMediane = mediane;
         int upperMediane = mediane;
 
-        List<Integer> attributOG = new ArrayList<>();
-
-        attributOG.addAll(listeQID);
-        //on trie la liste d'attibuts
-        Collections.sort(listeQID);
 
         //on coupe en deux la liste de l'attibut pour avoir une généralisation par la médiane
         String rHands;
@@ -111,7 +114,7 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
             //Si la médiane est une valeur de liste initialement ou non
             if (listeQID.contains(mediane)) {
                 lHands = listeQID.get(0) + "-" + listeQID.get(listeQID.lastIndexOf(mediane));
-                rHands = (listeQID.get(listeQID.indexOf(mediane) + 1) + "-" + listeQID.get(listeQID.size() - 1));
+                rHands = (listeQID.get(listeQID.indexOf(mediane) + 1) + "-" + listeQID.get(listeQID.lastIndexOf(lowMediane)*2) );
                 //upperMediane++;
             }else{
 
@@ -127,9 +130,9 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
                     upperMediane++;
                 }
                 if(listeQID.indexOf(upperMediane)+1>= listeQID.size())
-                    rHands = (listeQID.get(listeQID.indexOf(upperMediane))) + "-" + listeQID.get(listeQID.size()-1);
+                    rHands = (listeQID.get(listeQID.indexOf(upperMediane))) + "-" + listeQID.get(listeQID.lastIndexOf(lowMediane)*2);
                 else
-                    rHands = (listeQID.get(listeQID.indexOf(upperMediane)+1)) + "-" + listeQID.get(listeQID.size()-1);
+                    rHands = (listeQID.get(listeQID.indexOf(upperMediane)+1)) + "-" + listeQID.get(listeQID.lastIndexOf(lowMediane)*2);
             }
 
 
@@ -138,7 +141,7 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         for (int i = 0; i <attributOG.size(); i++) {
             //on rentre l'approximation dans la liste
 
-            ////// /!\ c'est juste lààààààà /!\ les valeurs ne se rajoutent pas à val_String ..
+
             if ((attributOG.get(i) >= Integer.parseInt(lHands.substring(0,lHands.indexOf("-"))))
                  && (attributOG.get(i) <= Integer.parseInt(lHands.substring(lHands.indexOf("-")+1,lHands.length()))))
                 val_String.set(i, lHands);
@@ -150,12 +153,6 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
        if (mediane!=0 ) {
             anonyme(attributOG,val_String, k);
         }
-
-
-        if (mediane!=0) {
-            anonyme(attributOG,val_String, k);
-        }
-
 
 
         return val_String;
