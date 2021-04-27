@@ -42,7 +42,7 @@ public class Controleur {
         //todo : mettre nos chemins d'accès pour les tests dans un "case"
         switch (user) {
             case "Julien":
-                this.arrivee ="C:/Users/jujuo/Desktop/CDA_proj/";
+                this.arrivee ="C:/Users/jujuo/Desktop/CDA_projet/";
                 break;
             case "Marilou":
                 this.arrivee ="F:/Semestre 4/";

@@ -8,6 +8,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+
+
+//Récupérer le QID dont on a besoin dans une liste, la trier, récupérer la médiane, séparer partie haute/ partie basse
+//
+
 public class AlgoUnidimensionnel implements ArbreGeneralisation {
 
     private HSSFWorkbook creerAnonyme(HSSFWorkbook wb, List<String> val_string, String nomAttr) {
@@ -147,7 +152,7 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
                 val_String.set(i, rHands);
         }
 
-       if (mediane!=0 ) {
+       if (mediane>4 ) {
             anonyme(attributOG,val_String, k);
         }
 
