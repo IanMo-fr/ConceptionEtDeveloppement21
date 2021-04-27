@@ -48,9 +48,7 @@ public interface ArbreGeneralisation {
        //Si le nombre de valeurs est impair : on prend la valeur du milieu
        if (frequence.size()%2 != 0)
            return (frequence.get(frequence.size()/2 ));
-       // on n'est pas censé arriver là mais au cas où
-       else
-           return -9999;
+
    }
 
 }
