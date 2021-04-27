@@ -69,8 +69,13 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
     @Override
     public List<String> anonyme(List<Integer> listeQID, List<String> val_String) {
         //appel de fct mediane sur l'attribut
-        int mediane = this.mediane(listeQID);
-
+        if (val_String.get(0).equals("")) {
+            int mediane = this.mediane(listeQID);
+        }
+        else {
+            if (val_String.)
+            int mediane = this.mediane();
+        }
         //borne de la médiane
         int lowMediane = mediane;
         int upperMediane = mediane;
@@ -85,27 +90,27 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         String rHands;
         String lHands;
 
-        //Si la médiane est une valeur de liste initialement ou non
+            //Si la médiane est une valeur de liste initialement ou non
+            if (listeQID.contains(mediane)) {
+                lHands = listeQID.get(0) + "-" + listeQID.get(listeQID.lastIndexOf(mediane));
+                rHands = (listeQID.get(listeQID.indexOf(mediane) + 1) + "-" + listeQID.get(listeQID.size() - 1));
+                //upperMediane++;
 
-        if (listeQID.contains(mediane)) {
-            lHands = listeQID.get(0) + "-" + listeQID.get(listeQID.lastIndexOf(mediane));
-            rHands = (listeQID.get(listeQID.indexOf(mediane)+1) +"-" + listeQID.get(listeQID.size()-1));
-            //upperMediane++;
-        }else {
 
-            //si jamais la médiane ne se trouve pas dans la liste, on cherche la borne la plus proche de la valeur de la médiane
+                //si jamais la médiane ne se trouve pas dans la liste, on cherche la borne la plus proche de la valeur de la médiane
                 while (!listeQID.contains(lowMediane)) {
                     lowMediane--;
                 }
                 lHands = listeQID.get(0) + "-" + listeQID.get(listeQID.lastIndexOf(lowMediane));
 
-            //on mets un +1 car subList prends la borne sup exclue
+                //on mets un +1 car subList prends la borne sup exclue
 
                 while (!listeQID.contains(upperMediane)) {
                     upperMediane++;
                 }
-            rHands = (listeQID.indexOf(mediane)+1) +"-" + listeQID.get(listeQID.size());
-        }
+                rHands = (listeQID.indexOf(mediane) + 1) + "-" + listeQID.get(listeQID.size());
+            }
+
 
         //on verifie si la valeur à la cellule visitée est égale à une valeur de l'une des sub-listes
         //et on modifie par la borne basse et haute de la sub-liste correspondante
@@ -120,12 +125,12 @@ public class AlgoUnidimensionnel implements ArbreGeneralisation {
         }
 
        if (lHands.length()>4 ) {
-            anonyme(listeQID.subList(0, listeQID.lastIndexOf(lowMediane)),val_String);
+            anonyme(attributOG,val_String);
         }
 
 
         if (rHands.length()>4) {
-            anonyme(listeQID.subList(listeQID.indexOf(upperMediane), listeQID.size()),val_String);
+            anonyme(attributOG,val_String);
         }
 
 
