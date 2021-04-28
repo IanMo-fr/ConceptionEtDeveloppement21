@@ -158,7 +158,6 @@ public class Controleur {
     }
 
     public void algo1 (String pathname, String nom_sortie, String nom_attr, int k) throws IOException {
-           this.pathname = pathname;
            LectureFichier Ouverture = new LectureFichier();
            Ouverture.OuvrirFichier(pathname);
            List<List<String>> listeQID = Ouverture.getListeQuasiIdentifiants();
