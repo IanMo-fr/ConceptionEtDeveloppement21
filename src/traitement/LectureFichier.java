@@ -250,6 +250,10 @@ public class LectureFichier {
         return wb;
     }
 
+    /**
+     * getter de l'index du début de la colonne des QID
+     * @return
+     */
     public int getColonne_deb_QID() {
         return colonne_deb_QID;
     }

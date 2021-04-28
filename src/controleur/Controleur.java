@@ -150,13 +150,28 @@ public class Controleur {
 
     }
 
-
+    /**
+     * Enregistre un document anonymisé passé par l'algorithme 1
+     * @param pathname
+     * @param nom_sortie
+     * @param attribut
+     * @param k
+     * @throws IOException
+     */
     public void CreerDocAlgo1(String pathname, String nom_sortie, String attribut, int k ) throws IOException {
         CreerDocPseudonymisé(pathname);
         algo1(this.arrivee+"pseudos.xls", nom_sortie, attribut, k);
 
     }
 
+    /**
+     * Transmet les information et fichiers nécessaire à la réalisation de l'algorithme 1
+     * @param pathname
+     * @param nom_sortie
+     * @param nom_attr
+     * @param k
+     * @throws IOException
+     */
     public void algo1 (String pathname, String nom_sortie, String nom_attr, int k) throws IOException {
            LectureFichier Ouverture = new LectureFichier();
            Ouverture.OuvrirFichier(pathname);

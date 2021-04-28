@@ -11,7 +11,7 @@ public class AlgoUni {
     /**
      * Calcul de la médiane d'une liste
      *
-     * @param maliste   la list de type T : <code>Integer</code> non trié dont on calcul la médiane
+     * @param maliste   la list de type T : <code>Integer</code> non trié dont on calcule la médiane
      * @return mediane  la médiane
      */
     public int calculMediane(List<Integer> maliste) {
@@ -129,7 +129,7 @@ public class AlgoUni {
     }
 
     /**
-     *
+     * Enregistre les groupes divisés de la liste QID dans un <code>HSSFWorkbook</code>
      * @param QID_select_int
      * @param liste_groupe_qid
      * @param tous_QID
@@ -221,13 +221,13 @@ public class AlgoUni {
 
 
     /**
-     *
+     * Appel et applique les différentes méthodes de la classe
      * @param liste_QID
      * @param nomAttr
      * @param k
      * @param wb
      * @param colonne_deb_QID
-     * @return
+     * @return wbAlgo       le workbook anonymisé
      */
     public HSSFWorkbook appliquerAlgoUni (List<List<String>> liste_QID, String nomAttr, int k, HSSFWorkbook wb, int colonne_deb_QID) {
         List<Integer> QID_selec_int = selectQIDAtt(liste_QID, nomAttr);
