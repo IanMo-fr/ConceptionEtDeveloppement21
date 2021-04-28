@@ -7,13 +7,13 @@ import java.util.*;
 
 public class AlgoUni {
 
+
     /**
      * Calcul de la médiane d'une liste
      *
-     * @param maliste
-     * @return
+     * @param maliste   la list de type T : <code>Integer</code> non trié dont on calcul la médiane
+     * @return mediane  la médiane
      */
-
     public int calculMediane(List<Integer> maliste) {
         List<Integer> liste_clone = new ArrayList<>();
         liste_clone.addAll(maliste);
@@ -39,11 +39,11 @@ public class AlgoUni {
 
 
     /**
-     * Sélection du QID qui nous intéresse et transformation en Integer list sans le label de colonne
+     * Sélection du QID qui nous intéresse et transformation en Integer list sans le label, le nom, de la colonne
      *
-     * @param listeQID
-     * @param nomAttr
-     * @return
+     * @param listeQID              La liste de liste des QID
+     * @param nomAttr               Le label, le nom de la colonne recherchée
+     * @return listeAttributNum     la liste d'attribut du QID séléctionné par le nom
      */
     private List<Integer> selectQIDAtt(List<List<String>> listeQID, String nomAttr) {
 
@@ -75,6 +75,13 @@ public class AlgoUni {
     }
 
 
+    /**
+     * divise la liste d'attibut choisit en groupe de taille k
+     * @param testo                 La liste d'attibut divisée, peut être vide
+     * @param listeAttribut         La liste QID a diviser
+     * @param k                     Le nombre minimum d'éléments par groupe
+     * @return testo                La liste d'attribut divisée
+     */
     public List<List<Integer>> groupeAlgoUni(List<List<Integer>> testo, List<Integer> listeAttribut, int k) {
 
         int mediane = calculMediane(listeAttribut);
@@ -121,6 +128,16 @@ public class AlgoUni {
 
     }
 
+    /**
+     *
+     * @param QID_select_int
+     * @param liste_groupe_qid
+     * @param tous_QID
+     * @param nom_attr
+     * @param wb
+     * @param colonne_deb_QID
+     * @return
+     */
     public HSSFWorkbook gg(List<Integer>QID_select_int, List<List<Integer>> liste_groupe_qid, List<List<String>> tous_QID, String nom_attr, HSSFWorkbook wb, int colonne_deb_QID) {
 
         List<String> QID_select_string = new ArrayList<>();
@@ -203,8 +220,15 @@ public class AlgoUni {
 }
 
 
-
-
+    /**
+     *
+     * @param liste_QID
+     * @param nomAttr
+     * @param k
+     * @param wb
+     * @param colonne_deb_QID
+     * @return
+     */
     public HSSFWorkbook appliquerAlgoUni (List<List<String>> liste_QID, String nomAttr, int k, HSSFWorkbook wb, int colonne_deb_QID) {
         List<Integer> QID_selec_int = selectQIDAtt(liste_QID, nomAttr);
         List<List<Integer>> liste_groupe_qid = new ArrayList<>();
