@@ -29,12 +29,14 @@ public class IHM extends JFrame implements ActionListener {
     private JButton Bucket = new JButton("Bucketisation");
     private JButton Algo1 = new JButton("Algorithme 1");
     private JTextField k = new JTextField();
+    private JTextField k2 = new JTextField();
     private JTextField nomFileDS = new JTextField();
     private JTextField nomFileQID = new JTextField();
-    private JLabel erreur = new JLabel("Les données entrées sont incorrectes");
+    private JTextField nomFileQID2 = new JTextField();
+    private JLabel erreurBucket = new JLabel("Les données entrées sont incorrectes");
+    private JLabel erreurAlgo1 = new JLabel("Les données entrées sont incorrectes");
     private JLabel message_bucket = new JLabel("La bucketisation a bien été faite.");
     private JLabel message_Algo1 = new JLabel ("l'algorithme 1 a bien été appliqué");
-    private JTextField nomFile = new JTextField();
     private JTextField AttributQID = new JTextField();
 
 
@@ -75,8 +77,8 @@ public class IHM extends JFrame implements ActionListener {
 
         contentPane.add(composantBucket());
 
-        erreur.setVisible(false);
-        contentPane.add(erreur);
+        erreurBucket.setVisible(false);
+        contentPane.add(erreurBucket);
 
         message_bucket.setVisible(false);
         contentPane.add(message_bucket);
@@ -87,6 +89,13 @@ public class IHM extends JFrame implements ActionListener {
         Bucket.addActionListener( this);
 
         contentPane.add(composantAlgo1());
+
+        erreurAlgo1.setVisible(false);
+        contentPane.add(erreurAlgo1);
+
+        message_Algo1.setVisible(false);
+        contentPane.add(message_Algo1);
+
         Algo1.setPreferredSize(new Dimension(150,30));
         contentPane.add(Algo1);
         Algo1.addActionListener(this);
@@ -131,14 +140,11 @@ public class IHM extends JFrame implements ActionListener {
         private JPanel composantAlgo1(){
 
             JPanel panelAlgo1 = new JPanel();
-            panelAlgo1.setLayout(new GridLayout(2,2,30,30));
+            panelAlgo1.setLayout(new GridLayout(3,2,30,30));
 
             JLabel nom = new JLabel("Nom du fichier :");
             panelAlgo1.add(nom);
-
-
-            nomFile.setPreferredSize(new Dimension(100,30));
-            panelAlgo1.add( nomFile);
+            panelAlgo1.add(nomFileQID2);
 
             JLabel labelAttributQID = new JLabel("Attribut QID :");
             panelAlgo1.add(labelAttributQID);
@@ -146,7 +152,11 @@ public class IHM extends JFrame implements ActionListener {
             AttributQID.setPreferredSize(new Dimension(100,30));
             panelAlgo1.add( AttributQID);
 
-            return panelAlgo1;
+            JLabel selectk2 = new JLabel("k :");
+            panelAlgo1.add(selectk2);
+            panelAlgo1.add(k2);
+
+           return panelAlgo1;
         }
 
 
@@ -158,35 +168,40 @@ public class IHM extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
 
         Controleur controleur = new Controleur(this.user);
-        if (event.getSource()==Bucket){
-            try {
+        try {
+            if (event.getSource() == Bucket) {
+
                 String nomQID = nomFileQID.getText();
                 String nomDS = nomFileDS.getText();
                 String val_k = k.getText();
-                if ( nomQID.equals("") || nomDS.equals("") || val_k.equals("") || nomQID.equals(nomDS) ) {
-                    erreur.setVisible(true);
+                if (nomQID.equals("") || nomDS.equals("") || val_k.equals("") || nomQID.equals(nomDS)) {
+                    erreurBucket.setVisible(true);
                 } else {
-                    erreur.setVisible(false);
+                    erreurBucket.setVisible(false);
                     message_bucket.setVisible(true);
                     int int_k = Integer.parseInt(val_k);
                     controleur.CreerDocBucketiséAPartirdeBDD(this.pathname, int_k, nomQID, nomDS);
                 }
-            }
-            catch (IOException e) {
-                e.printStackTrace();
+            } else if (event.getSource() == Algo1) {
+                String nomQID2 = nomFileQID2.getText();
+                String nomAttribut = AttributQID.getText();
+                String val_k2 = k2.getText();
+                if (nomQID2.equals("") || nomAttribut.equals("") || val_k2.equals("")) {
+                    erreurAlgo1.setVisible(true);
+                } else {
+                    erreurAlgo1.setVisible(false);
+                    message_Algo1.setVisible(true);
+                    int int_k2 = Integer.parseInt(val_k2);
+                    controleur.CreerDocAlgo1(this.pathname, nomQID2, nomAttribut, int_k2);
+                }
             }
         }
-        else if (event.getSource()==Algo1){
-            String nomQID = nomFileQID.getText();
-            String nomAttribut = AttributQID.getText();
-            if ( nomQID.equals("")){
-                erreur.setVisible(true);
-            } else {
-                erreur.setVisible(false);
-                message_Algo1.setVisible(true);
-}
+        catch (IOException e) {
+            e.printStackTrace();
+            }
         }
-    }
+
+
 
     /**
      * Getter de pathname

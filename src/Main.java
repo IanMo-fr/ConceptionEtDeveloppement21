@@ -22,11 +22,10 @@ public class Main {
 
         // controleur.CreerDocsBucketisés(pathname_Julien, 3, "QID", "DS"); //Attention cette commande prend une base de données PSEUDONYMISEE en paramètre
 
-        controleur.CreerDocAlgo1(pathname_Julien,"toto","CP", 2);
+       // controleur.CreerDocAlgo1(pathname_Julien,"toto","CP", 2);
 
         // controleur.VerifierDiversité(pathname_Julien, 3,3);
-        // controleur.controleurIHM(); //On précise ici l'utilisateur
-
+        controleur.controleurIHM(); //On précise ici l'utilisateur
 
 
 
