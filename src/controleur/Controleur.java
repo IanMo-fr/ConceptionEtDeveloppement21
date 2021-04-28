@@ -35,7 +35,8 @@ public class Controleur {
     }
 
     /**
-     * Constructeur surchargé de Controle : permet d'avoir un chemin d'arrivée par défaut si non spécifié
+     * Constructeur Controle : permet d'avoir un chemin d'arrivée par défaut suivant l'utilisateur
+     * @param user      Chemin d'accès
      */
     public Controleur(String user) {
         this.user=user;
@@ -57,10 +58,10 @@ public class Controleur {
 
     /**
      * Permet de réaliser bout à bout la création et l'enregistrement d'un fichier Excel Pseudonymisé à partir d'un fichier Excel donné (par son chemin d'accès)
-     * @param pathname
-     * @throws IOException
+     * @param pathname          Chemin d'accès pour la lecture du fichier
+     * @throws IOException      Si le fichier n'existe pas
      */
-    public void CreerDocPseudonymisé(String pathname) throws IOException {
+    public void CreerDocPseudonymise(String pathname) throws IOException {
         LectureFichier Ouverture = new LectureFichier();
         Ouverture.OuvrirFichier(pathname);
         HSSFWorkbook wb_depart = Ouverture.getWb();
@@ -82,7 +83,7 @@ public class Controleur {
      * @throws IOException
      */
 
-    public void CreerDocsBucketisés(String pathname, int k, String nomQID, String nomDS) throws IOException {
+    public void CreerDocsBucketises(String pathname, int k, String nomQID, String nomDS) throws IOException {
         LectureFichier Ouverture = new LectureFichier();
         Ouverture.OuvrirFichier(pathname);
         List<List<String>> ListeQID = Ouverture.getListeQuasiIdentifiants();
@@ -105,9 +106,9 @@ public class Controleur {
      * @param pathname
      * @throws IOException
      */
-    public void CreerDocBucketiséAPartirdeBDD(String pathname, int k, String nomQID, String nomDS) throws IOException {
-        CreerDocPseudonymisé(pathname);
-        CreerDocsBucketisés(this.arrivee +"pseudos.xls", k, nomQID, nomDS);
+    public void CreerDocBucketiseAPartirdeBDD(String pathname, int k, String nomQID, String nomDS) throws IOException {
+        CreerDocPseudonymise(pathname);
+        CreerDocsBucketises(this.arrivee +"pseudos.xls", k, nomQID, nomDS);
 
     }
 
@@ -120,14 +121,14 @@ public class Controleur {
      * @throws IOException
      */
 
-    public void VerifierDiversité(String pathname, int k, int l) throws IOException {
+    public void VerifierDiversite(String pathname, int k, int l) throws IOException {
         LectureFichier Ouverture = new LectureFichier();
         Ouverture.OuvrirFichier(pathname);
         List<List<String>> ListeDS = Ouverture.getListeDonneesSensibles();
 
-        Diversité diversité = new Diversité();
-        diversité.Verification(ListeDS,k,l);
-        boolean resultat = diversité.isEst_diverse();
+        Diversite diversite = new Diversite();
+        diversite.Verification(ListeDS,k,l);
+        boolean resultat = diversite.isEst_diverse();
         if (resultat == true) {
             System.out.println("Cette base de données " +k +"-anonymisée est bien "+l+"-diverse.");
         }
@@ -159,7 +160,7 @@ public class Controleur {
      * @throws IOException
      */
     public void CreerDocAlgo1(String pathname, String nom_sortie, String attribut, int k ) throws IOException {
-        CreerDocPseudonymisé(pathname);
+        CreerDocPseudonymise(pathname);
         algo1(this.arrivee+"pseudos.xls", nom_sortie, attribut, k);
 
     }

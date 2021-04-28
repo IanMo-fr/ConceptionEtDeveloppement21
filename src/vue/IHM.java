@@ -1,9 +1,7 @@
 package vue;
-import traitement.*;
 
 import controleur.Controleur;
 
-import javax.naming.ldap.Control;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
@@ -12,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import static java.awt.FlowLayout.CENTER;
 
@@ -39,7 +36,10 @@ public class IHM extends JFrame implements ActionListener {
     private JLabel message_Algo1 = new JLabel ("l'algorithme 1 a bien été appliqué");
     private JTextField AttributQID = new JTextField();
 
-
+    /**
+     * Setter de <code>user</code>
+     * @param user
+     */
     public void setUser(String user) {
         this.user = user;
     }
@@ -180,7 +180,7 @@ public class IHM extends JFrame implements ActionListener {
                     erreurBucket.setVisible(false);
                     message_bucket.setVisible(true);
                     int int_k = Integer.parseInt(val_k);
-                    controleur.CreerDocBucketiséAPartirdeBDD(this.pathname, int_k, nomQID, nomDS);
+                    controleur.CreerDocBucketiseAPartirdeBDD(this.pathname, int_k, nomQID, nomDS);
                 }
             } else if (event.getSource() == Algo1) {
                 String nomQID2 = nomFileQID2.getText();

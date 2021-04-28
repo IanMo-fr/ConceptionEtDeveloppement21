@@ -105,7 +105,7 @@ public class LectureFichier {
 
     /**
      * Permet de lire les identifiants d'un fichier excel et de les stocker dans un ArrayList
-     * @throws IOException
+     *
      */
     public void LireIdentifiants() {
 
@@ -143,7 +143,7 @@ public class LectureFichier {
     }
     /**
      * Permet de lire les quasi-identifiants d'un fichier excel et de les stocker dans un ArrayList
-     * @throws IOException
+     *
      */
 
     public void LireQID() {
@@ -180,7 +180,7 @@ public class LectureFichier {
 
     /**
      * Permet de lire les données sensibles d'un fichier excel et de les stocker dans un ArrayList
-     * @throws IOException
+     *
      */
 
     public void LireDS() {

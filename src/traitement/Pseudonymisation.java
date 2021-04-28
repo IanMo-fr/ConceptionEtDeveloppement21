@@ -71,7 +71,7 @@ public class Pseudonymisation {
      * Méthode créant un tableau à 2 dimensions de même taille que les
      *
      * @param ListeIdentifiants
-     * @return tab      un tableau à 2 dimensions contenant les données pseudonimisées
+     * @param wb
      */
     public void Pseudonymiser(List<List<String>> ListeIdentifiants, HSSFWorkbook wb) {
 
