@@ -77,12 +77,12 @@ public class AlgoUni {
 
     /**
      * divise la liste d'attibut choisit en groupe de taille k
-     * @param testo                 La liste d'attibut divisée, peut être vide
+     * @param lis_groupe                 La liste d'attibut divisée, peut être vide
      * @param listeAttribut         La liste QID a diviser
      * @param k                     Le nombre minimum d'éléments par groupe
      * @return testo                La liste d'attribut divisée
      */
-    public List<List<Integer>> groupeAlgoUni(List<List<Integer>> testo, List<Integer> listeAttribut, int k) {
+    public List<List<Integer>> groupeAlgoUni(List<List<Integer>> lis_groupe, List<Integer> listeAttribut, int k) {
 
         int mediane = calculMediane(listeAttribut);
         List<Integer> Lis_gauche = new ArrayList<>();
@@ -98,33 +98,34 @@ public class AlgoUni {
 
 
         if ((Lis_gauche.size())>=k || Lis_droite.size()==0) {
-            testo.add(Lis_gauche);
+            lis_groupe.add(Lis_gauche);
         }
 
 
        if (Lis_droite.size()<k) {
-            testo.get(testo.size()-1).addAll(Lis_droite);
+            lis_groupe.get(lis_groupe.size()-1).addAll(Lis_droite);
             Lis_droite.clear();
         }
        else {
-           testo.add(Lis_droite);
+           lis_groupe.add(Lis_droite);
        }
 
 
         if (Lis_gauche.size()/k >=2 && Lis_droite.size()!=0) {
 
-            groupeAlgoUni(testo, Lis_gauche, k);
-            testo.remove(0);
+            groupeAlgoUni(lis_groupe, Lis_gauche, k);
+            lis_groupe.remove(0);
 
         }
         if (Lis_droite.size()/k >=2 && Lis_gauche.size()!=0) {
 
-            groupeAlgoUni(testo, Lis_droite, k);
-            testo.remove(0);
+            groupeAlgoUni(lis_groupe, Lis_droite, k);
+            lis_groupe.remove(0);
 
         }
 
-        return testo;
+
+        return lis_groupe;
 
     }
 
