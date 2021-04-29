@@ -15,9 +15,8 @@ import static java.awt.FlowLayout.CENTER;
 
 
 /**
- * Class de prise d'information et d'affichage auprès de l'utilisateur
+ * Classe de prise d'information et d'affichage aupres de l'utilisateur
  */
-
 public class IHM extends JFrame implements ActionListener {
 
     public String pathname;
@@ -45,9 +44,8 @@ public class IHM extends JFrame implements ActionListener {
     }
 
     /**
-     * Constructeur par défaut de IHM : permet de construire l'interface graphique et tout ses éléments
+     * Constructeur par defaut de IHM : permet de construire l'interface graphique et tout ses elements
      */
-
     public IHM(){
         super ("Projet CdA");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -104,7 +102,7 @@ public class IHM extends JFrame implements ActionListener {
 
 
     /**
-     * Permet la création d'un des composants de l'interface, contenant plusieurs éléments. Sert à avoir une interface mieux présentée
+     * Permet la creation d'un des composants de l'interface, contenant plusieurs elements. Sert a avoir une interface mieux presentee
      * @return
      */
         private JPanel composantBucket(){
@@ -134,7 +132,7 @@ public class IHM extends JFrame implements ActionListener {
         }
 
     /**
-     * Permet la création d'un des composants de l'interface, contenant plusieurs éléments. Sert à avoir une interface mieux présentée
+     * Permet la creation d'un des composants de l'interface, contenant plusieurs elements. Sert à avoir une interface mieux presentee
      * @return
      */
         private JPanel composantAlgo1(){
@@ -161,7 +159,7 @@ public class IHM extends JFrame implements ActionListener {
 
 
     /**
-     * Définition de méthode pour l'ActionListener. L'interface va "écouter" et selon les évènements (ici, clic sur un bouton) effectuer des actions en conséquence
+     * Definition de methode pour l'ActionListener. L'interface va "ecouter" et selon les evenements (ici, clic sur un bouton) effectuer des actions en consequence
      * @param event
      */
     @Override

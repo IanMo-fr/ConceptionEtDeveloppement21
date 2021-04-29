@@ -13,7 +13,7 @@ import java.util.List;
 
 
 /**
- * Fait le lien entre l'interface Homme-machine du package <code>vue</code> et les class de type "modèle" du package <code>traitement</code>
+ * Fait le lien entre l'interface Homme-machine du package <code>vue</code> et les class de type "modele" du package <code>traitement</code>
  */
 public class Controleur {
 
@@ -26,7 +26,7 @@ public class Controleur {
 
     // **** constructeurs ****
     /**
-     * Constructeur par défaut
+     * Constructeur par defaut
      */
     public Controleur(){
         this.arrivee = null;
@@ -35,8 +35,8 @@ public class Controleur {
     }
 
     /**
-     * Constructeur Controle : permet d'avoir un chemin d'arrivée par défaut suivant l'utilisateur
-     * @param user      Chemin d'accès
+     * Constructeur Controle : permet d'avoir un chemin d'arrivee par defaut suivant l'utilisateur
+     * @param user      Chemin d'acces
      */
     public Controleur(String user) {
         this.user=user;
@@ -57,8 +57,8 @@ public class Controleur {
 
 
     /**
-     * Permet de réaliser bout à bout la création et l'enregistrement d'un fichier Excel Pseudonymisé à partir d'un fichier Excel donné (par son chemin d'accès)
-     * @param pathname          Chemin d'accès pour la lecture du fichier
+     * Permet de realiser bout a bout la creation et l'enregistrement d'un fichier Excel Pseudonymise a partir d'un fichier Excel donne (par son chemin d'acces)
+     * @param pathname          Chemin d'acces pour la lecture du fichier
      * @throws IOException      Si le fichier n'existe pas
      */
     public void CreerDocPseudonymise(String pathname) throws IOException {
@@ -74,15 +74,14 @@ public class Controleur {
     }
 
     /**
-     * Méthode du Contrôleur qui permet de réaliser de bout en bout la bucketisation d'une base de données pseudonymisée.
-     * L'utilisateur a indiqué le chemin d'accès de la bdd pseudonymisée, le nombre k d'éléments par groupe, le nom du fichier de sortie des QID et celui des DS
+     * Methode du Controleur qui permet de realiser de bout en bout la bucketisation d'une base de donnees pseudonymisee.
+     * L'utilisateur a indique le chemin d'acces de la bdd pseudonymisee, le nombre k d'elements par groupe, le nom du fichier de sortie des QID et celui des DS
      * @param pathname
      * @param k
      * @param nomQID
      * @param nomDS
      * @throws IOException
      */
-
     public void CreerDocsBucketises(String pathname, int k, String nomQID, String nomDS) throws IOException {
         LectureFichier Ouverture = new LectureFichier();
         Ouverture.OuvrirFichier(pathname);
@@ -102,7 +101,7 @@ public class Controleur {
     }
 
     /**
-     * Permet de réaliser bout à bout la création et l'enregistrement d'un fichier Excel Pseudonymisé à partir d'un fichier Excel donné (par son chemin d'accès)
+     * Permet de realiser bout a bout la creation et l'enregistrement d'un fichier Excel Pseudonymise a partir d'un fichier Excel donne (par son chemin d'acces)
      * @param pathname
      * @throws IOException
      */
@@ -114,13 +113,12 @@ public class Controleur {
 
 
     /**
-     * Méthode du Contrôleur qui permet de réaliser de A à Z le test de diversité d'une BDD bucketisée dont l'utilisateur a indiqué le k et le l
+     * Methode du Controleur qui permet de realiser de A à Z le test de diversite d'une BDD bucketisee dont l'utilisateur a indique le k et le l
      * @param pathname
      * @param k
      * @param l
      * @throws IOException
      */
-
     public void VerifierDiversite(String pathname, int k, int l) throws IOException {
         LectureFichier Ouverture = new LectureFichier();
         Ouverture.OuvrirFichier(pathname);
@@ -141,9 +139,8 @@ public class Controleur {
     }
 
     /**
-     * Méthode du Contrôleur qui va permettre d'appeler l'interface graphique
+     * Methode du Controleur qui va permettre d'appeler l'interface graphique
      */
-
        public void controleurIHM() {
         IHM fenetre = new IHM();
         fenetre.setUser(this.user);
@@ -152,7 +149,7 @@ public class Controleur {
     }
 
     /**
-     * Enregistre un document anonymisé passé par l'algorithme 1
+     * Enregistre un document anonymisé passe par l'algorithme 1
      * @param pathname
      * @param nom_sortie
      * @param attribut
@@ -166,7 +163,7 @@ public class Controleur {
     }
 
     /**
-     * Transmet les information et fichiers nécessaire à la réalisation de l'algorithme 1
+     * Transmet les information et fichiers necessaire a la realisation de l'algorithme 1
      * @param pathname
      * @param nom_sortie
      * @param nom_attr

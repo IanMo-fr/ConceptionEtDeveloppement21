@@ -16,7 +16,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 
 /**
- * Class responsable de la lecture des fichiers <code>.xls</code> placés dans <code>../</code>.
+ * Classe responsable de la lecture des fichiers <code>.xls</code> places dans <code>../</code>.
  */
 public class LectureFichier {
 
@@ -35,7 +35,7 @@ public class LectureFichier {
     // **** Constructeurs ****
 
     /**
-     * Constructeur par défaut de LectureFichier
+     * Constructeur par defaut de LectureFichier
      */
 
    public LectureFichier() {
@@ -52,9 +52,9 @@ public class LectureFichier {
     // **** Méthodes ****
 
     /**
-     * Méthode pour l'ouverture du fichier en type <code>HSSFWorkbook</code>. Lis les données contenues dans le fichier et les stockent dans des ArrayList
-     * @param pathname      Le chemin d'accès du fichier à ouvrir
-     * @throws IOException      Exception à l'ouverture du fichier
+     * Methode pour l'ouverture du fichier en type <code>HSSFWorkbook</code>. Lit les donnees contenues dans le fichier et les stocke dans des ArrayList
+     * @param pathname      Le chemin d'acces du fichier a ouvrir
+     * @throws IOException      Exception a l'ouverture du fichier
      */
     public void OuvrirFichier(String pathname) throws IOException {
         File fichier = new File(pathname);
@@ -145,7 +145,6 @@ public class LectureFichier {
      * Permet de lire les quasi-identifiants d'un fichier excel et de les stocker dans un ArrayList
      *
      */
-
     public void LireQID() {
         List<List<String>> ListeQID = new ArrayList<>();
         int compteur_QID = CompteurID_QID_DS("QID");  //On cherche le nombre de colonne de type ID
@@ -179,10 +178,9 @@ public class LectureFichier {
     }
 
     /**
-     * Permet de lire les données sensibles d'un fichier excel et de les stocker dans un ArrayList
+     * Permet de lire les donnees sensibles d'un fichier excel et de les stocker dans un ArrayList
      *
      */
-
     public void LireDS() {
         List<List<String>> ListeDS = new ArrayList<>();
         int compteur_DS = CompteurID_QID_DS("DS");  //On cherche le nombre de colonne de type ID
@@ -234,7 +232,7 @@ public class LectureFichier {
     }
 
     /**
-     * getter de la liste des données sensibles
+     * getter de la liste des donnees sensibles
      * @return ListeIdentifiants
      */
     public List<List<String>> getListeDonneesSensibles() {

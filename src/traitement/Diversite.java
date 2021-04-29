@@ -3,24 +3,26 @@ package traitement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe implementant les methodes permettznt de verifier la l diversite de la methode par bucketisation
+ */
 public class Diversite {
 
     private boolean est_diverse;
 
     /**
-     * Constructeur par défaut de Diversite
+     * Constructeur par defaut de Diversite
      */
     public Diversite() {
         this.est_diverse=false;
     }
 
     /**
-     * Fonction qui vérifie si une liste de données sensibles k-bucketisée respecte une l-diversité. l et k étant indiqués par l'utilisateur
+     * Fonction qui verifie si une liste de donnees sensibles k-bucketisee respecte une l-diversite. l et k etant indiques par l'utilisateur
      * @param ListeDS
      * @param k
      * @param l
      */
-
     public void Verification(List<List<String>> ListeDS, int k, int l) {
 
         int taille_listeDS= ListeDS.get(0).size(); // On récupère la taille de la liste des données sensibles
@@ -73,7 +75,6 @@ public class Diversite {
      * Getter de est_diverse
       * @return est_diverse
      */
-
     public boolean isEst_diverse() {
         return est_diverse;
     }

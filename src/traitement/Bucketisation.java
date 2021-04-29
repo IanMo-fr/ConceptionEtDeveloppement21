@@ -8,6 +8,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * classe responsable de l'implementation des methodes necessaire a la bucketisation
+ */
 public class Bucketisation {
 
     // **** Attributs ****
@@ -32,7 +35,7 @@ public class Bucketisation {
     // **** Méthodes ****
 
     /**
-     * Cette fonction permet de k-bucketisée une BDD. Elle utilise pour cela toutes les informations de la BDD récupérée dans des tableaux de tableaux.
+     * Cette fonction permet de k-bucketiser une BDD. Elle utilise pour cela toutes les informations de la BDD recuperee dans des tableaux de tableaux.
      * k est lui choisi par l'utilisateur
      * @param k
      * @param ListePseudos
@@ -89,7 +92,7 @@ public class Bucketisation {
     }
 
     /**
-     * Fonction qui permet la création d'un HSSFWorkbook contenant les QID bucketisés
+     * Fonction qui permet la creation d'un HSSFWorkbook contenant les QID bucketises
      * @param ListeBucket
      */
     private void CreerFichierBucketQID(List<List<String>> ListeBucket) {
@@ -113,7 +116,7 @@ public class Bucketisation {
     }
 
     /**
-     * Fonction qui permet la création d'un HSSFWorkbook contenant les données sensibles bucketisées
+     * Fonction qui permet la creation d'un HSSFWorkbook contenant les donnees sensibles bucketisees
      * @param ListeBucket
      */
     private void CreerFichierBucketDS(List<List<String>> ListeBucket) {

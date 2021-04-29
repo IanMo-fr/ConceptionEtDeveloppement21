@@ -5,13 +5,16 @@ import org.apache.poi.hssf.usermodel.*;
 
 import java.util.*;
 
+/**
+ * Classe responsable de l'implementation des methodes de l'algortihme d'anonymistion unidimensionnel
+ */
 public class AlgoUni {
 
 
     /**
-     * Calcul de la médiane d'une liste
+     * Calcul de la mediane d'une liste
      *
-     * @param maliste   la list de type T : <code>Integer</code> non trié dont on calcule la médiane
+     * @param maliste   la list de type T : <code>Integer</code> non trie dont on calcule la médiane
      * @return mediane  la médiane
      */
     public int calculMediane(List<Integer> maliste) {
@@ -39,11 +42,11 @@ public class AlgoUni {
 
 
     /**
-     * Sélection du QID qui nous intéresse et transformation en Integer list sans le label, le nom, de la colonne
+     * Selection du QID qui nous interesse et transformation en Integer list sans le label, le nom, de la colonne
      *
      * @param listeQID              La liste de liste des QID
-     * @param nomAttr               Le label, le nom de la colonne recherchée
-     * @return listeAttributNum     la liste d'attribut du QID séléctionné par le nom
+     * @param nomAttr               Le label, le nom de la colonne recherchee
+     * @return listeAttributNum     la liste d'attribut du QID selectionne par le nom
      */
     private List<Integer> selectQIDAtt(List<List<String>> listeQID, String nomAttr) {
 
@@ -77,10 +80,10 @@ public class AlgoUni {
 
     /**
      * divise la liste d'attibut choisit en groupe de taille k
-     * @param lis_groupe                 La liste d'attibut divisée, peut être vide
+     * @param lis_groupe                 La liste d'attibut divisee, peut etre vide
      * @param listeAttribut         La liste QID a diviser
-     * @param k                     Le nombre minimum d'éléments par groupe
-     * @return testo                La liste d'attribut divisée
+     * @param k                     Le nombre minimum d'elements par groupe
+     * @return testo                La liste d'attribut divisee
      */
     public List<List<Integer>> groupeAlgoUni(List<List<Integer>> lis_groupe, List<Integer> listeAttribut, int k) {
 
@@ -130,7 +133,7 @@ public class AlgoUni {
     }
 
     /**
-     * Enregistre les groupes divisés de la liste QID dans un <code>HSSFWorkbook</code>
+     * Enregistre les groupes divises de la liste QID dans un <code>HSSFWorkbook</code>
      * @param QID_select_int
      * @param liste_groupe_qid
      * @param tous_QID
@@ -222,13 +225,13 @@ public class AlgoUni {
 
 
     /**
-     * Appel et applique les différentes méthodes de la classe
+     * Appel et applique les differentes methodes de la classe
      * @param liste_QID
      * @param nomAttr
      * @param k
      * @param wb
      * @param colonne_deb_QID
-     * @return wbAlgo       le workbook anonymisé
+     * @return wbAlgo       le workbook anonymise
      */
     public HSSFWorkbook appliquerAlgoUni (List<List<String>> liste_QID, String nomAttr, int k, HSSFWorkbook wb, int colonne_deb_QID) {
         List<Integer> QID_selec_int = selectQIDAtt(liste_QID, nomAttr);

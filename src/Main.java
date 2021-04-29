@@ -11,7 +11,7 @@ import java.io.IOException;
 //ATTENTION IMPORT VUE POUR TEST
 
 /**
- * Main du projet : réalise les intéractions utilisateur et fait l'appel <code>Controleur</code>*/
+ * Main du projet : realise les interactions utilisateur et fait l'appel <code>Controleur</code>*/
 public class Main {
     public static void main(String[] args) throws Exception {
 

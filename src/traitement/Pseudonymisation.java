@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class permettant la pseudomisation
+ * Classe permettant la pseudomisation
  */
 public class Pseudonymisation {
 
@@ -28,9 +28,8 @@ public class Pseudonymisation {
     // **** Constructeurs ****
 
     /**
-     * Constructeur par défaut de Pseudonymisation
+     * Constructeur par defaut de Pseudonymisation
      */
-
     public Pseudonymisation() {
         this.index_unite = 0;
         this.index_dizaine = 0;
@@ -42,7 +41,7 @@ public class Pseudonymisation {
 
     // **** Méthodes ****
     /**
-     * méthode qui génère des pseudos sous forme de String de 3 caractères aaa incrémenté de 1 à chaque nouveau pseudo généré (aaa, puis aab, puis aac, etc)
+     * methode qui genere des pseudos sous forme de String de 3 caracteres aaa incremente de 1 à chaque nouveau pseudo genere (aaa, puis aab, puis aac, etc)
      *
      * @return pseudo
      */
@@ -68,7 +67,7 @@ public class Pseudonymisation {
     }
 
     /**
-     * Méthode créant un tableau à 2 dimensions de même taille que les
+     * Methode creant un tableau a 2 dimensions de meme taille que les identifiants
      *
      * @param ListeIdentifiants
      * @param wb
@@ -93,7 +92,7 @@ public class Pseudonymisation {
     }
 
     /**
-     * Méthode qui permet de créer un fichier Excel identique au premier mais avec les ID pseudonymisés, et d'enregistrer ce dernier au chemin d'accès spécifié
+     * Methode qui permet de creer un fichier Excel identique au premier mais avec les ID pseudonymises, et d'enregistrer ce dernier au chemin d'acces specifie
      * @param ListePseudos
      * @param wb
      */

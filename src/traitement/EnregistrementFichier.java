@@ -6,17 +6,17 @@ import java.io.*;
 import java.util.List;
 
 /**
- * Class responsable de sauvegarder les fichiers traitées.
+ * Classe responsable de sauvegarder les fichiers traitees.
  */
 public class EnregistrementFichier {
 
     /**
-     * Constructeur par défaut d'EnregistrementFichier
+     * Constructeur par defaut d'EnregistrementFichier
      */
     public EnregistrementFichier() {}
 
     /**
-     * Méthode qui permet d'enregistrer un fichier workbook donné en paramètre au chemin "arrivee"
+     * Methode qui permet d'enregistrer un fichier workbook donne en parametre au chemin "arrivee"
      * @param arrivee
      */
     public void EnregistrerFichier(HSSFWorkbook wb, String arrivee) {
