@@ -77,142 +77,111 @@ public class AlgoMulti {
     }
 
 
-public List<List<String>> groupeAlgoMulti(List<List<String>> lis_finale, List<Integer> listeAttribut, int k, List<List<String>> tous_QID, String nomAttrDepart) {
+public  List<List<Integer>> groupeAlgoMulti( List<List<Integer>> lis_lis_position, List<Integer> listeAttribut, int k, List<List<String>> tous_QID, String nomAttrDepart, List<Integer> liste_position, String attrEnCours) {
 
-        if (lis_finale.size()!=0) {
-            lis_finale.remove(0);
+
+    Hashtable dic = new Hashtable(tous_QID.size());
+    for (int i = 0; i < tous_QID.size(); i++) {
+        dic.put(tous_QID.get(i).get(0), i);
+    }
+    int int_attr_départ = (int) dic.get(nomAttrDepart);
+
+
+
+    int mediane = calculMediane(listeAttribut);
+
+
+    List<Integer> liste_position_gauche = new ArrayList<>();
+    List<Integer> liste_position_droite = new ArrayList<>();
+    for (int i = 0; i < listeAttribut.size(); i++) {
+        if (listeAttribut.get(i) <= mediane) {
+            liste_position_gauche.add(liste_position.get(i));
+
+        } else {
+
+            liste_position_droite.add(liste_position.get(i));
+
         }
+    }
 
+        if (liste_position_droite.size() < k) {
 
-        Hashtable dic = new Hashtable(tous_QID.size());
-        for (int i =0;i<tous_QID.size();i++) {
-            dic.put(tous_QID.get(i).get(0), i);
-        }
-
-
-        List<List<Integer>> lis_lis_position = new ArrayList<>();
-        List<List<List<String>>> liste_liste_groupes = new ArrayList<>();
-
-        int mediane = calculMediane(listeAttribut);
-
-        List<Integer> Lis_gauche = new ArrayList<>();
-        List<Integer> Lis_droite = new ArrayList<>();
-
-        List<Integer> liste_position_gauche = new ArrayList<>();
-        List<Integer> liste_position_droite = new ArrayList<>();
-        for (int i = 0; i < listeAttribut.size(); i++) {
-            if (listeAttribut.get(i) <= mediane) {
-                liste_position_gauche.add(i+1);
-                Lis_gauche.add(listeAttribut.get(i ));
-            } else {
-
-                liste_position_droite.add(i+1);
-                Lis_droite.add(listeAttribut.get(i ));
-            }
-        }
-
-        if ((liste_position_gauche.size())>=k || liste_position_droite.size()==0) {
-            lis_lis_position.add(liste_position_gauche);
-            //lis_finale.add(Lis_gauche);
-        }
-
-
-        if (liste_position_droite.size()<k) {
-           // lis_finale.get(lis_finale.size()-1).addAll(Lis_droite);
-            Lis_droite.clear();
             liste_position_gauche.addAll(liste_position_droite);
             liste_position_droite.clear();
         }
-        else {
-            lis_lis_position.add(liste_position_droite);
-           // lis_finale.add(Lis_droite);
-        }
 
-
-
-
-//[[[18000.0, 18500.0, 18510.0, 69100.0, 38000.0, 37000.0], [69000.0, 69300.0, 98000.0, 74000.0]], [[22.0, 21.0, 20.0, 26.0, 16.0, 26.0], [27.0, 28.0, 40.0, 32.0]]]
-
-
-        for (int a=0;a<tous_QID.size();a++) {
-            List<List<String>> liste_groupes = new ArrayList<>();
-
-            for (int b=0;b<lis_lis_position.size();b++) {
-
-                List<String> groupes = new ArrayList<>();
-
-                for (int c=0; c<lis_lis_position.get(b).size();c++) {
-                    groupes.add(tous_QID.get(a).get(lis_lis_position.get(b).get(c)));
-
-
-                }
-                liste_groupes.add(groupes);
-                if (nomAttrDepart.equals(tous_QID.get(a).get(0))) {
-                    lis_finale.add(groupes);
-                }
-
+        if (liste_position_gauche.size() >= k || liste_position_droite.size() == 0) {
+                lis_lis_position.add(liste_position_gauche);
+                //lis_finale.add(Lis_gauche);
             }
 
-           // lis_finale.remove(0);
-            liste_liste_groupes.add(liste_groupes);
-
+        if (liste_position_droite.size() >= k) {
+            lis_lis_position.add(liste_position_droite);
+            // lis_finale.add(Lis_droite);
         }
 
-   // System.out.println(liste_liste_groupes);
-    //System.out.println(lis_lis_position);
+
+    System.out.println(lis_lis_position);
+
 
         Random rand = new Random();
 
-        int new_QID = rand.nextInt(tous_QID.size());
-        //int new_QID = (int) dic.get("Age");
-        List<String> prochain_attr_gauche_string = liste_liste_groupes.get(new_QID).get(0);
-        List<String> prochain_attr_droite_string = liste_liste_groupes.get(new_QID).get(1);
+       // int new_QID = rand.nextInt(tous_QID.size());
+        int new_QID = (int) dic.get("Age");
+        String new_Attr = tous_QID.get(new_QID).get(0);
+        List<String> prochain_attr_gauche_string = new ArrayList<>();
+        List<String> prochain_attr_droite_string = new ArrayList<>();
+
+        for (int i=0;i<liste_position_gauche.size();i++) {
+            prochain_attr_gauche_string.add(tous_QID.get(new_QID).get(liste_position_gauche.get(i)));
+        }
+        for (int i=0;i<liste_position_droite.size();i++) {
+        prochain_attr_droite_string.add(tous_QID.get(new_QID).get(liste_position_droite.get(i)));
+        }
 
 
 
-        //[[21, 20, 16], [22, 26], [27, 26, 28], [40, 32]]
-
-        //[[18000, 18500, 18510], [38000, 37000], [69000, 69100, 69300], [98000, 74000]]
 
 
 
         List<Integer> prochain_attr_gauche = new ArrayList<>();
-        for (int i=0;i<prochain_attr_gauche_string.size();i++) {
+        for (int i = 0; i < prochain_attr_gauche_string.size(); i++) {
             float float_val = Float.parseFloat(prochain_attr_gauche_string.get(i));
             int ajout = Math.round(float_val);
             prochain_attr_gauche.add(ajout);
         }
 
         List<Integer> prochain_attr_droite = new ArrayList<>();
-        for (int i=0;i<prochain_attr_droite_string.size();i++) {
+        for (int i = 0; i < prochain_attr_droite_string.size(); i++) {
             float float_val = Float.parseFloat(prochain_attr_droite_string.get(i));
             int ajout = Math.round(float_val);
             prochain_attr_droite.add(ajout);
         }
 
-        if (liste_position_gauche.size()/k >=2 && liste_position_droite.size()!=0) {
-
-            groupeAlgoMulti(lis_finale,prochain_attr_gauche,k,tous_QID, nomAttrDepart);
-            //lis_finale.remove(0);
 
 
-        }
-        if (liste_position_droite.size()/k >=2 && liste_position_gauche.size()!=0) {
 
-            groupeAlgoMulti(lis_finale,prochain_attr_droite,k,tous_QID, nomAttrDepart);
-           // lis_finale.remove(0);
+
+        if (liste_position_gauche.size() / k >= 2 && liste_position_droite.size() != 0) {
+
+            groupeAlgoMulti(lis_lis_position, prochain_attr_gauche, k, tous_QID, nomAttrDepart, liste_position_gauche, new_Attr);
+
 
 
 
         }
+        if (liste_position_droite.size() / k >= 2 && liste_position_gauche.size() != 0) {
+
+            groupeAlgoMulti(lis_lis_position, prochain_attr_droite, k, tous_QID, nomAttrDepart, liste_position_droite, new_Attr);
 
 
-        return lis_finale;
+        }
+
+
+        return lis_lis_position;
 
     }
-
-
-
+}
 
 
 
@@ -338,4 +307,3 @@ List<List<Integer>> lis_lis_position = new ArrayList<>();
 
 
 
-}

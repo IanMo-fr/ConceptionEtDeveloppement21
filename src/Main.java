@@ -37,29 +37,16 @@ public class Main {
 
         List<Integer> selectedQID= algM.selectQIDAtt(liste_QID, "Age");
 
-        List<List<String>> lis_finale = new ArrayList<>();
+        List<List<Integer>> lis_finale = new ArrayList<>();
        // [18000.0, 18500.0, 18510.0, 69100.0, 38000.0, 37000.0]
-        List<String> lis_lys = new ArrayList<>();
-        lis_lys.add("18000.0");
-        lis_lys.add("18500.0");
-        lis_lys.add("18510.0");
-        lis_lys.add("69100.0");
-        lis_lys.add("38000.0");
-        lis_lys.add("37000.0");
-        lis_finale.add(lis_lys);
-        lis_finale = algM.groupeAlgoMulti(lis_finale,selectedQID,2,liste_QID, "Age");
+        List<Integer> lis_lys = new ArrayList<>();
+        for (int i =0; i < selectedQID.size();i++) {
+            lis_lys.add(i+1);
+        }
+
+        lis_finale = algM.groupeAlgoMulti(lis_finale,selectedQID,2,liste_QID, "Age", lis_lys, "Age");
         System.out.println(lis_finale);
-      //  System.out.println(algM.ggmulti(selectedQID,lis_groupe,liste_QID,"Age"));
 
-
-     //   [[18000, 18500, 18510], [38000, 37000], [69000, 69100, 69300], [98000, 74000]]
-      /*  selectedQID= algM.selectQIDAtt(liste_QID,"CP");
-        lis_groupe.clear();
-        lis_groupe  = algM.groupeAlgoMulti(lis_groupe,selectedQID,5);
-        liste_QID = algM.ggmulti(selectedQID,lis_groupe,liste_QID,"CP");
-        System.out.println(liste_QID);
-// [[1, 3, 4, 9, 10], [2, 5, 6, 7, 8]]
-       */
 
 
 
