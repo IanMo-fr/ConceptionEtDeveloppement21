@@ -21,19 +21,18 @@ public class IHM extends JFrame implements ActionListener {
 
     private String pathname;
     private String user;
-
-    private JButton Bucket = new JButton("Bucketisation");
-    private JButton Algo1 = new JButton("Algorithme Multi");
-    private JTextField k = new JTextField();
-    private JTextField k2 = new JTextField();
-    private JTextField nomFileDS = new JTextField();
-    private JTextField nomFileQID = new JTextField();
-    private JTextField nomFileQID2 = new JTextField();
-    private JLabel erreurBucket = new JLabel("Les données entrées sont incorrectes");
-    private JLabel erreurAlgo1 = new JLabel("Les données entrées sont incorrectes");
-    private JLabel message_bucket = new JLabel("La bucketisation a bien été faite.");
-    private JLabel message_Algo1 = new JLabel ("l'algorithme 1 a bien été appliqué");
-    private JTextField AttributQID = new JTextField();
+    private final JButton Bucket = new JButton("Bucketisation");
+    private final JButton Algo1 = new JButton("Algorithme Multi");
+    private final JTextField k = new JTextField();
+    private final JTextField k2 = new JTextField();
+    private final JTextField nomFileDS = new JTextField();
+    private final JTextField nomFileQID = new JTextField();
+    private final JTextField nomFileQID2 = new JTextField();
+    private final JLabel erreurBucket = new JLabel("Les données entrées sont incorrectes");
+    private final JLabel erreurAlgo1 = new JLabel("Les données entrées sont incorrectes");
+    private final JLabel message_bucket = new JLabel("La bucketisation a bien été faite.");
+    private final JLabel message_Algo1 = new JLabel ("l'algorithme 1 a bien été appliqué");
+    private final JTextField AttributQID = new JTextField();
 
     /**
      * Setter de <code>user</code>

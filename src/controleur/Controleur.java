@@ -21,7 +21,7 @@ public class Controleur {
 
     private String pathname;
     private String arrivee;
-    private String user;
+    private final String user;
 
 
     // **** constructeurs ****

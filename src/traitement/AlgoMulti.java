@@ -262,7 +262,7 @@ public class AlgoMulti {
      * @param wb
      * @param colonne_deb_QID
      * @param nomAttrdep
-     * @return
+     * @return wbAlgo
      */
     public HSSFWorkbook appliquerAlgoMulti (List<List<String>> liste_QID, int k, HSSFWorkbook wb, int colonne_deb_QID, String nomAttrdep) {
 
