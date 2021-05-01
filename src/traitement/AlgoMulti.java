@@ -8,12 +8,12 @@ import java.util.*;
 public class AlgoMulti {
 
     /**
-     * Calcul de la médiane d'une liste
+     * Calcul de la mediane d'une liste
      *
-     * @param maliste   la list de type T : <code>Integer</code> non trié dont on calcule la médiane
-     * @return mediane  la médiane
+     * @param maliste   la list de type T : <code>Integer</code> non trie dont on calcule la médiane
+     * @return mediane  la mediane
      */
-    public int calculMediane(List<Integer> maliste) {
+    private int calculMediane(List<Integer> maliste) {
         List<Integer> liste_clone = new ArrayList<>();
         liste_clone.addAll(maliste);
         int mediane;
@@ -41,13 +41,13 @@ public class AlgoMulti {
 
 
     /**
-     * Sélection du QID qui nous intéresse et transformation en Integer list sans le label la colonne
+     * Selection du QID qui nous interesse et transformation en Integer list sans le label la colonne
      *
      * @param listeQID              La liste de liste des QID
-     * @param nomAttr               Le label, le nom de la colonne recherchée
-     * @return listeAttributNum     la liste d'attribut du QID séléctionné par le nom
+     * @param nomAttr               Le label, le nom de la colonne recherchee
+     * @return listeAttributNum     la liste d'attribut du QID selectionne par le nom
      */
-    public List<Integer> selectQIDAtt(List<List<String>> listeQID, String nomAttr) {
+    private List<Integer> selectQIDAtt(List<List<String>> listeQID, String nomAttr) {
 
 
         List<String> listeAttribut = new ArrayList<>();
@@ -76,8 +76,16 @@ public class AlgoMulti {
         return listeAttributNum;
     }
 
-
-public  List<List<Integer>> groupeAlgoMulti( List<List<Integer>> lis_lis_position, List<Integer> listeAttribut, int k, List<List<String>> tous_QID, List<Integer> liste_position) {
+    /**
+     * Separe la liste d'attribut QID
+     * @param lis_lis_position      tuple des listes d'attribut divises
+     * @param listeAttribut         la liste d'attribut QID a diviser
+     * @param k                     le nombre d'element minimum par groupe
+     * @param tous_QID              la liste de liste des QID
+     * @param liste_position        la liste de la position de chaque attribut
+     * @return lis_lis_position
+     */
+    private  List<List<Integer>> groupeAlgoMulti( List<List<Integer>> lis_lis_position, List<Integer> listeAttribut, int k, List<List<String>> tous_QID, List<Integer> liste_position) {
 
 
   /*  Hashtable dic = new Hashtable(tous_QID.size());
@@ -87,21 +95,21 @@ public  List<List<Integer>> groupeAlgoMulti( List<List<Integer>> lis_lis_positio
 
    */
 
-    int mediane = calculMediane(listeAttribut);
+        int mediane = calculMediane(listeAttribut);
 
 
-    List<Integer> liste_position_gauche = new ArrayList<>();
-    List<Integer> liste_position_droite = new ArrayList<>();
-    for (int i = 0; i < listeAttribut.size(); i++) {
-        if (listeAttribut.get(i) <= mediane) {
-            liste_position_gauche.add(liste_position.get(i));
+        List<Integer> liste_position_gauche = new ArrayList<>();
+        List<Integer> liste_position_droite = new ArrayList<>();
+        for (int i = 0; i < listeAttribut.size(); i++) {
+            if (listeAttribut.get(i) <= mediane) {
+                liste_position_gauche.add(liste_position.get(i));
 
-        } else {
+            } else {
 
-            liste_position_droite.add(liste_position.get(i));
+                liste_position_droite.add(liste_position.get(i));
 
+            }
         }
-    }
 
 
 
@@ -113,10 +121,10 @@ public  List<List<Integer>> groupeAlgoMulti( List<List<Integer>> lis_lis_positio
         }
 
         if (liste_position_gauche.size() >= k) {
-                lis_lis_position.add(liste_position_gauche);
+            lis_lis_position.add(liste_position_gauche);
 
 
-            }
+        }
 
         if (liste_position_droite.size() >= k) {
             lis_lis_position.add(liste_position_droite);
@@ -137,7 +145,7 @@ public  List<List<Integer>> groupeAlgoMulti( List<List<Integer>> lis_lis_positio
             prochain_attr_gauche_string.add(tous_QID.get(new_QID).get(liste_position_gauche.get(i)));
         }
         for (int i=0;i<liste_position_droite.size();i++) {
-        prochain_attr_droite_string.add(tous_QID.get(new_QID).get(liste_position_droite.get(i)));
+            prochain_attr_droite_string.add(tous_QID.get(new_QID).get(liste_position_droite.get(i)));
         }
 
 
@@ -182,7 +190,15 @@ public  List<List<Integer>> groupeAlgoMulti( List<List<Integer>> lis_lis_positio
 
     }
 
-    public HSSFWorkbook ggM(List<List<Integer>> liste_groupe_qid, List<List<String>> tous_QID, HSSFWorkbook wb, int colonne_deb_QID) {
+    /**
+     * Applique les bornes de valeurs aux groupes et les appliques au workbook
+     * @param liste_groupe_qid
+     * @param tous_QID
+     * @param wb
+     * @param colonne_deb_QID
+     * @return wb
+     */
+    private HSSFWorkbook ggM(List<List<Integer>> liste_groupe_qid, List<List<String>> tous_QID, HSSFWorkbook wb, int colonne_deb_QID) {
 
 
         //Première étape : construction des groupes, on va chercher chaque élément grâce à sa position
@@ -210,7 +226,7 @@ public  List<List<Integer>> groupeAlgoMulti( List<List<Integer>> lis_lis_positio
             absolument_tout.add(liste_tout_qid);
         }
 
-       //Les groupes sont créés, il ne reste plus qu'à modifier le wb. On peut facilement obtenir le min/max de chaque groupe
+        //Les groupes sont créés, il ne reste plus qu'à modifier le wb. On peut facilement obtenir le min/max de chaque groupe
 
 
         for (int a = 0; a < tous_QID.size(); a++) {
@@ -219,7 +235,7 @@ public  List<List<Integer>> groupeAlgoMulti( List<List<Integer>> lis_lis_positio
 
                 for (int j = 0; j < liste_groupe_qid.get(i).size(); j++) {
 
-                   tous_QID.get(a).set(liste_groupe_qid.get(i).get(j), Collections.min(absolument_tout.get(a).get(i)) + "-" + Collections.max(absolument_tout.get(a).get(i)));
+                    tous_QID.get(a).set(liste_groupe_qid.get(i).get(j), Collections.min(absolument_tout.get(a).get(i)) + "-" + Collections.max(absolument_tout.get(a).get(i)));
                 }
 
 
@@ -228,7 +244,7 @@ public  List<List<Integer>> groupeAlgoMulti( List<List<Integer>> lis_lis_positio
         }
 
 
-       HSSFSheet sheet_donnees = wb.getSheet("donnees");
+        HSSFSheet sheet_donnees = wb.getSheet("donnees");
 
 
         for (int a = 0; a < tous_QID.size(); a++) {
@@ -242,9 +258,15 @@ public  List<List<Integer>> groupeAlgoMulti( List<List<Integer>> lis_lis_positio
     }
 
 
-
-
-
+    /**
+     * Applique les methodes pour l'appel dans le controleur
+     * @param liste_QID
+     * @param k
+     * @param wb
+     * @param colonne_deb_QID
+     * @param nomAttrdép
+     * @return
+     */
     public HSSFWorkbook appliquerAlgoMulti (List<List<String>> liste_QID, int k, HSSFWorkbook wb, int colonne_deb_QID, String nomAttrdép) {
 
         List<Integer> QID_select = selectQIDAtt(liste_QID, nomAttrdép);
