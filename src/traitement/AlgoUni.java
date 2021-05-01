@@ -14,7 +14,7 @@ public class AlgoUni {
      * @param maliste   la list de type T : <code>Integer</code> non trié dont on calcule la médiane
      * @return mediane  la médiane
      */
-    public int calculMediane(List<Integer> maliste) {
+    private int calculMediane(List<Integer> maliste) {
         List<Integer> liste_clone = new ArrayList<>();
         liste_clone.addAll(maliste);
         int mediane;
@@ -82,7 +82,7 @@ public class AlgoUni {
      * @param k                     Le nombre minimum d'éléments par groupe
      * @return testo                La liste d'attribut divisée
      */
-    public List<List<Integer>> groupeAlgoUni(List<List<Integer>> lis_groupe, List<Integer> listeAttribut, int k) {
+    private List<List<Integer>> groupeAlgoUni(List<List<Integer>> lis_groupe, List<Integer> listeAttribut, int k) {
 
         int mediane = calculMediane(listeAttribut);
         List<Integer> Lis_gauche = new ArrayList<>();
@@ -110,17 +110,18 @@ public class AlgoUni {
            lis_groupe.add(Lis_droite);
        }
 
+       lis_groupe.remove(listeAttribut);
 
         if (Lis_gauche.size()/k >=2 && Lis_droite.size()!=0) {
 
             groupeAlgoUni(lis_groupe, Lis_gauche, k);
-            lis_groupe.remove(0);
+           // lis_groupe.remove(0);
 
         }
         if (Lis_droite.size()/k >=2 && Lis_gauche.size()!=0) {
 
             groupeAlgoUni(lis_groupe, Lis_droite, k);
-            lis_groupe.remove(0);
+            //lis_groupe.remove(0);
 
         }
 
@@ -139,7 +140,7 @@ public class AlgoUni {
      * @param colonne_deb_QID
      * @return
      */
-    public HSSFWorkbook gg(List<Integer>QID_select_int, List<List<Integer>> liste_groupe_qid, List<List<String>> tous_QID, String nom_attr, HSSFWorkbook wb, int colonne_deb_QID) {
+    private HSSFWorkbook gg(List<Integer>QID_select_int, List<List<Integer>> liste_groupe_qid, List<List<String>> tous_QID, String nom_attr, HSSFWorkbook wb, int colonne_deb_QID) {
 
         List<String> QID_select_string = new ArrayList<>();
 

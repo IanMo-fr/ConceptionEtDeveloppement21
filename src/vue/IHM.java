@@ -192,7 +192,7 @@ public class IHM extends JFrame implements ActionListener {
                     erreurAlgo1.setVisible(false);
                     message_Algo1.setVisible(true);
                     int int_k2 = Integer.parseInt(val_k2);
-                    controleur.CreerDocAlgo1(this.pathname, nomQID2, nomAttribut, int_k2);
+                    controleur.CreerDocAlgoM(this.pathname, nomQID2, nomAttribut, int_k2);
                 }
             }
         }
