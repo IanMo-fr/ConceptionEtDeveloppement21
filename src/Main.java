@@ -20,9 +20,11 @@ public class Main {
         Controleur controleur = new Controleur("Marilou"); //Préciser ici en paramètre le chemin d'accès d'arrivée du fichier, sinon il ya un chemin par défaut
         // controleur.CreerDocPseudonymisé("C:/Users/jujuo/Desktop/CDA_proj/exemple_ce.xls");
 
-        // controleur.CreerDocsBucketisés(pathname_Julien, 3, "QID", "DS"); //Attention cette commande prend une base de données PSEUDONYMISEE en paramètre
+        // controleur.CreerDocsBucketisés(pathname_Julien, 3, "QID", "DS"); //Attention cette commande prend une base de données PSEUDONYMISEE en paramètre sinon le résultat ne sera simplement pas pseudonymisé
 
-       // controleur.CreerDocAlgo1(pathname_Julien,"toto","CP", 2);
+        // controleur.CreerDocAlgo1(pathname_Julien,"toto","CP", 2);
+
+       // controleur.CreerDocAlgoM(pathname_Julien,"toto","CP", 2);
 
         // controleur.VerifierDiversité(pathname_Julien, 3,3);
        controleur.controleurIHM(); //On précise ici l'utilisateur

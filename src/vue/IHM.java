@@ -23,7 +23,7 @@ public class IHM extends JFrame implements ActionListener {
     private String user;
 
     private JButton Bucket = new JButton("Bucketisation");
-    private JButton Algo1 = new JButton("Algorithme 1");
+    private JButton Algo1 = new JButton("Algorithme Multidimensionnel");
     private JTextField k = new JTextField();
     private JTextField k2 = new JTextField();
     private JTextField nomFileDS = new JTextField();
@@ -144,7 +144,7 @@ public class IHM extends JFrame implements ActionListener {
             panelAlgo1.add(nom);
             panelAlgo1.add(nomFileQID2);
 
-            JLabel labelAttributQID = new JLabel("Attribut QID :");
+            JLabel labelAttributQID = new JLabel("Attribut QID de départ :");
             panelAlgo1.add(labelAttributQID);
 
             AttributQID.setPreferredSize(new Dimension(100,30));
