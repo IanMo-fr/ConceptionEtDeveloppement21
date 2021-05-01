@@ -41,7 +41,7 @@ public class AlgoMulti {
 
 
     /**
-     * Selection du QID qui nous interesse et transformation en Integer list sans le label la colonne
+     * Sélection du QID qui nous intéresse et transformation en Integer list sans le label la colonne
      *
      * @param listeQID              La liste de liste des QID
      * @param nomAttr               Le label, le nom de la colonne recherchee
@@ -62,7 +62,7 @@ public class AlgoMulti {
         listeAttribut.remove(0);
 
 
-        //liste utilisee pour stocker les valeurs numériques de la liste des QID choisit
+        //liste utilisée pour stocker les valeurs numériques de la liste des QID choisit
         List<Integer> listeAttributNum = new LinkedList<Integer>();
 
 
@@ -77,7 +77,7 @@ public class AlgoMulti {
     }
 
     /**
-     * Separe la liste d'attribut QID
+     * Permet d'obtenir la liste des groupes avec la position de chaque élément
      * @param lis_lis_position      tuple des listes d'attribut divises
      * @param listeAttribut         la liste d'attribut QID a diviser
      * @param k                     le nombre d'element minimum par groupe
@@ -88,17 +88,11 @@ public class AlgoMulti {
     private  List<List<Integer>> groupeAlgoMulti( List<List<Integer>> lis_lis_position, List<Integer> listeAttribut, int k, List<List<String>> tous_QID, List<Integer> liste_position) {
 
 
-  /*  Hashtable dic = new Hashtable(tous_QID.size());
-    for (int i = 0; i < tous_QID.size(); i++) {
-        dic.put(tous_QID.get(i).get(0), i);
-    }
-
-   */
-
+        //Récupération de la médiane des valeurs de l'attribut en cours
         int mediane = calculMediane(listeAttribut);
 
 
-        List<Integer> liste_position_gauche = new ArrayList<>();
+        List<Integer> liste_position_gauche = new ArrayList<>();  //On va stocker les listes de position après séparation par la médiane
         List<Integer> liste_position_droite = new ArrayList<>();
         for (int i = 0; i < listeAttribut.size(); i++) {
             if (listeAttribut.get(i) <= mediane) {
@@ -112,7 +106,7 @@ public class AlgoMulti {
         }
 
 
-
+//Si la liste de droite ne contient pas assez d'éléments pour former un groupe de taille k, on envoie ses éléments dans la liste de gauche et on vide la liste
 
         if (liste_position_droite.size() < k) {
 
@@ -120,27 +114,33 @@ public class AlgoMulti {
             liste_position_droite.clear();
         }
 
+        //Si la liste obtenu a du sens = on peut former au moins un groupe dedans, on l'ajoute à notre liste de résultats
         if (liste_position_gauche.size() >= k) {
             lis_lis_position.add(liste_position_gauche);
 
 
         }
-
+        //idem
         if (liste_position_droite.size() >= k) {
             lis_lis_position.add(liste_position_droite);
 
 
         }
 
+
+        //Maintenant qu'on a traité tous les éléments de liste_position, on peut la supprimer de la liste pour n'avoir que des résultats qui ont du sens
         lis_lis_position.remove(liste_position);
 
-        Random rand = new Random();
 
+        //Choix aléatoire du nouveau QID
+        Random rand = new Random();
         int new_QID = rand.nextInt(tous_QID.size());
 
+
+
+        //Récupération des éléments associés aux listes de position droite/gauche du nouveau QID aléatoire
         List<String> prochain_attr_gauche_string = new ArrayList<>();
         List<String> prochain_attr_droite_string = new ArrayList<>();
-
         for (int i=0;i<liste_position_gauche.size();i++) {
             prochain_attr_gauche_string.add(tous_QID.get(new_QID).get(liste_position_gauche.get(i)));
         }
@@ -150,8 +150,7 @@ public class AlgoMulti {
 
 
 
-
-
+        //Transformation en liste d'Integer pour pouvoir calculer la médiane et comparer les valeurs à cette dernière
 
         List<Integer> prochain_attr_gauche = new ArrayList<>();
         for (int i = 0; i < prochain_attr_gauche_string.size(); i++) {
@@ -169,22 +168,19 @@ public class AlgoMulti {
 
 
 
-
-
+        //Si jamais on peut encore diviser en deux groupes de taille d'au moins k et que la liste de droite n'est pas vide (sinon on peut être bloqués si pas assez d'éléments à droite et qu'ils partent à gauche)
+        //alors on recommence avec la liste de gauche
         if (liste_position_gauche.size() / k >= 2 && liste_position_droite.size() != 0) {
 
             groupeAlgoMulti(lis_lis_position, prochain_attr_gauche, k, tous_QID, liste_position_gauche);
-
-
         }
-        if (liste_position_droite.size() / k >= 2) { //&& liste_position_gauche.size() != 0) {
 
+        //Idem pour la liste de droite sans d'autres conditions cette fois
+        if (liste_position_droite.size() / k >= 2) {
             groupeAlgoMulti(lis_lis_position, prochain_attr_droite, k, tous_QID, liste_position_droite);
 
-
         }
-
-
+        //Résultat final contenant les groupes d'éléments avec leur position
 
         return lis_lis_position;
 
@@ -203,7 +199,6 @@ public class AlgoMulti {
 
         //Première étape : construction des groupes, on va chercher chaque élément grâce à sa position
 
-        // lis = [[1, 2], [3, 4], [5, 6], [7, 8], [13, 14, 15], [9, 10], [11, 12]]
         List<List<List<String>>> absolument_tout = new ArrayList<>();
         for (int a = 0; a < tous_QID.size(); a++) {
 
@@ -215,7 +210,7 @@ public class AlgoMulti {
 
                 for (int j = 0; j < liste_groupe_qid.get(i).size(); j++) {
 
-                    String ajout = tous_QID.get(a).get(liste_groupe_qid.get(i).get(j)); //Collections.min(liste_groupe_qid.get(i)) + "-" + Collections.max(liste_groupe_qid.get(i));
+                    String ajout = tous_QID.get(a).get(liste_groupe_qid.get(i).get(j));
                     QID_select.add(ajout);
                 }
 
@@ -229,6 +224,7 @@ public class AlgoMulti {
         //Les groupes sont créés, il ne reste plus qu'à modifier le wb. On peut facilement obtenir le min/max de chaque groupe
 
 
+        //On commence par modifier la liste des QID avec les valeurs des min/max de chaque groupe pour pouvoir facilement modifier le wb
         for (int a = 0; a < tous_QID.size(); a++) {
 
             for (int i = 0; i < liste_groupe_qid.size(); i++) {
@@ -243,6 +239,7 @@ public class AlgoMulti {
             }
         }
 
+        //Il n'y a plus qu'à mettre à jour le wb en lisant la liste des QID
 
         HSSFSheet sheet_donnees = wb.getSheet("donnees");
 
@@ -272,7 +269,7 @@ public class AlgoMulti {
         List<Integer> QID_select = selectQIDAtt(liste_QID, nomAttrdép);
         List<List<Integer>> liste_groupe_qid = new ArrayList<>();
 
-        List<Integer> liste_position = new ArrayList<>();
+        List<Integer> liste_position = new ArrayList<>();  //Pour la première itération, cette liste contient la position de chaque élément, leur numérotation. Le début est à 1 car il y a le label de colonne qu'il faudra ignorer par la suite
         for (int i =0; i < QID_select.size();i++) {
             liste_position.add(i+1);
         }

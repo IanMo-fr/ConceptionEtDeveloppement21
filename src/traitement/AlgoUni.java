@@ -145,18 +145,18 @@ public class AlgoUni {
      */
     private HSSFWorkbook gg(List<Integer>QID_select_int, List<List<Integer>> liste_groupe_qid, List<List<String>> tous_QID, String nom_attr, HSSFWorkbook wb, int colonne_deb_QID) {
 
-        List<String> QID_select_string = new ArrayList<>();
+
+        //L'algo Multidimensionnel contient une version bien plus optimisée de cet algorithme.
 
 
-        for (int i = 0; i < QID_select_int.size(); i++) {
-            String val = QID_select_int.get(i).toString();
-            QID_select_string.add(val);
-        }
 
+        //Copie qui permettra de réinitialisé les valeurs à chaque boucle par la suite
         List<Integer> copie_QID_select_int = new ArrayList<>();
         copie_QID_select_int.addAll(QID_select_int);
 
 
+
+        //On forme à partir des groupes de taille k ou plus de l'attribut sélectionné les groupes des autres attributs, et on en profite pour directement placer les bornes de l'attribut sélectionné
         List<List<List<String>>> tout = new ArrayList<>();
         List<List<String>> liste_autre_attr;
         List<String> groupe_autre_attr;
@@ -164,38 +164,41 @@ public class AlgoUni {
 
         for (int a=0;a<tous_QID.size();a++) {
         liste_autre_attr = new ArrayList<>();
-        for (int i = 0; i < liste_groupe_qid.size(); i++) {
+            for (int i = 0; i < liste_groupe_qid.size(); i++) {
 
-            groupe_autre_attr = new ArrayList<>();
-            for (int j = 0; j < liste_groupe_qid.get(i).size(); j++) {
+                 groupe_autre_attr = new ArrayList<>();
+                 for (int j = 0; j < liste_groupe_qid.get(i).size(); j++) {
 
-                int position = 0;
-                while (liste_groupe_qid.get(i).get(j) != QID_select_int.get(position)) {
-                    position++;
+                     int position = 0;
+                     while (liste_groupe_qid.get(i).get(j) != QID_select_int.get(position)) { //Récupération de la position de l'élément du groupe
+                         position++;
+                     }
+                     liste_position.add(position);
+                    QID_select_int.set(position, -9999);  //On change la valeur pour que s'il y a un doublon, il passe au prochain et ne revienne pas sur le même
+                                                      //Attention, cela fonctionne car dans les groupes, pour chaque valeur, ce sera la première que l'on trouvera dans la liste du QID en question
+                     if (tous_QID.get(a).get(0).equals(nom_attr)) {  //Si c'est l'attribut sélectionné, on place les bornes
+                         tous_QID.get(a).set(position + 1, Collections.min(liste_groupe_qid.get(i)) + "-" + Collections.max(liste_groupe_qid.get(i)));
+                     }
+                     else {  //Sinon, on forme les groupes de tous les autres QID
+                         groupe_autre_attr.add(tous_QID.get(a).get(position + 1));
+                     }
+
+
+                 }
+                if (!tous_QID.get(a).get(0).equals(nom_attr)) {
+                    liste_autre_attr.add(groupe_autre_attr);
                 }
-                //System.out.println(position);
-                liste_position.add(position);
-                QID_select_int.set(position, -9999);
-                if (tous_QID.get(a).get(0).equals(nom_attr)) {
-                    tous_QID.get(a).set(position + 1, Collections.min(liste_groupe_qid.get(i)) + "-" + Collections.max(liste_groupe_qid.get(i)));
-                }
-                else {
-                    groupe_autre_attr.add(tous_QID.get(a).get(position + 1));
-                }
-
-
             }
+            QID_select_int.clear();
+            QID_select_int.addAll(copie_QID_select_int);
             if (!tous_QID.get(a).get(0).equals(nom_attr)) {
-                liste_autre_attr.add(groupe_autre_attr);
+                tout.add(liste_autre_attr);
             }
         }
-        QID_select_int.clear();
-        QID_select_int.addAll(copie_QID_select_int);
-        if (!tous_QID.get(a).get(0).equals(nom_attr)) {
-            tout.add(liste_autre_attr);
-        }
-    }
 
+        //A ce stade, pour le QID sélectionné, tout est bon, il ne reste que les autres, dont on a les groupes correspondant mais pas encore les bornes
+
+        //On vient donc mettre à jour les valeurs par les bornes de chaque groupe
      for (int x=0;x<tous_QID.size();x++) {
          int index = 1;
          if (!tous_QID.get(x).get(0).equals(nom_attr)) {
@@ -210,6 +213,8 @@ public class AlgoUni {
          }
      }
 
+
+     //Il ne reste plus qu'à modifier le wb à partir de la liste des QID qui a été correctement modifiée
 
      HSSFSheet sheet_donnees = wb.getSheet("donnees");
 
