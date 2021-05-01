@@ -25,7 +25,7 @@ public class LectureFichier {
     private List<List<String>> ListeIdentifiants;
     private List<List<String>> ListeQuasiIdentifiants;
     private List<List<String>> ListeDonneesSensibles;
-    private List<List<String>> ListeDSBucket;
+    private final List<List<String>> ListeDSBucket;
     private String pathname;
     private HSSFWorkbook wb;
     private int colonne_deb_QID;
