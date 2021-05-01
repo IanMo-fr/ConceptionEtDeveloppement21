@@ -261,12 +261,12 @@ public class AlgoMulti {
      * @param k
      * @param wb
      * @param colonne_deb_QID
-     * @param nomAttrdép
+     * @param nomAttrdep
      * @return
      */
-    public HSSFWorkbook appliquerAlgoMulti (List<List<String>> liste_QID, int k, HSSFWorkbook wb, int colonne_deb_QID, String nomAttrdép) {
+    public HSSFWorkbook appliquerAlgoMulti (List<List<String>> liste_QID, int k, HSSFWorkbook wb, int colonne_deb_QID, String nomAttrdep) {
 
-        List<Integer> QID_select = selectQIDAtt(liste_QID, nomAttrdép);
+        List<Integer> QID_select = selectQIDAtt(liste_QID, nomAttrdep);
         List<List<Integer>> liste_groupe_qid = new ArrayList<>();
 
         List<Integer> liste_position = new ArrayList<>();  //Pour la première itération, cette liste contient la position de chaque élément, leur numérotation. Le début est à 1 car il y a le label de colonne qu'il faudra ignorer par la suite
