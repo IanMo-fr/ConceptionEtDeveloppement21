@@ -170,7 +170,7 @@ public class Controleur {
      * @param k
      * @throws IOException
      */
-    public void algo1 (String pathname, String nom_sortie, String nom_attr, int k) throws IOException {
+    private void algo1 (String pathname, String nom_sortie, String nom_attr, int k) throws IOException {
            LectureFichier Ouverture = new LectureFichier();
            Ouverture.OuvrirFichier(pathname);
            List<List<String>> listeQID = Ouverture.getListeQuasiIdentifiants();
@@ -180,6 +180,26 @@ public class Controleur {
            HSSFWorkbook wbAlgo = algo.appliquerAlgoUni(listeQID, nom_attr, k, wb, colonne_deb_QID);
            EnregistrementFichier enregistrement = new EnregistrementFichier();
            enregistrement.EnregistrerFichier(wbAlgo, this.arrivee+nom_sortie+".xls");
+
+
+
+    }
+
+    public void CreerDocAlgoM(String pathname, String nom_sortie, String attribut_dép, int k ) throws IOException {
+        CreerDocPseudonymise(pathname);
+        algoMulti(this.arrivee+"pseudos.xls", nom_sortie, attribut_dép, k);
+    }
+
+    private void algoMulti (String pathname, String nom_sortie, String nom_attr_dép, int k) throws IOException {
+        LectureFichier Ouverture = new LectureFichier();
+        Ouverture.OuvrirFichier(pathname);
+        List<List<String>> listeQID = Ouverture.getListeQuasiIdentifiants();
+        HSSFWorkbook wb = Ouverture.getWb();
+        int colonne_deb_QID = Ouverture.getColonne_deb_QID();
+        AlgoMulti algoM = new AlgoMulti();
+        HSSFWorkbook wbAlgo = algoM.appliquerAlgoMulti(listeQID, k, wb, colonne_deb_QID, nom_attr_dép);
+        EnregistrementFichier enregistrement = new EnregistrementFichier();
+        enregistrement.EnregistrerFichier(wbAlgo, this.arrivee+nom_sortie+".xls");
 
 
 
