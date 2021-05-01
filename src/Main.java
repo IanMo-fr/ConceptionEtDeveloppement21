@@ -1,9 +1,6 @@
 import controleur.Controleur;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import traitement.AlgoMulti;
 import traitement.AlgoUni;
-import traitement.LectureFichier;
 import vue.*;
 import java.util.*;
 
@@ -20,7 +17,7 @@ public class Main {
         String pathname_Julien = "C:/Users/jujuo/Desktop/CDA_projet/exemple_ce.xls";
         String pathname_Marilou = "F:/Semestre 4/exemple.xls";
 
-        Controleur controleur = new Controleur("Julien"); //Préciser ici en paramètre le chemin d'accès d'arrivée du fichier, sinon il ya un chemin par défaut
+        Controleur controleur = new Controleur("Marilou"); //Préciser ici en paramètre le chemin d'accès d'arrivée du fichier, sinon il ya un chemin par défaut
         // controleur.CreerDocPseudonymisé("C:/Users/jujuo/Desktop/CDA_proj/exemple_ce.xls");
 
         // controleur.CreerDocsBucketisés(pathname_Julien, 3, "QID", "DS"); //Attention cette commande prend une base de données PSEUDONYMISEE en paramètre

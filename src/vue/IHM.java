@@ -19,8 +19,8 @@ import static java.awt.FlowLayout.CENTER;
  */
 public class IHM extends JFrame implements ActionListener {
 
-    public String pathname;
-    public String user;
+    private String pathname;
+    private String user;
 
     private JButton Bucket = new JButton("Bucketisation");
     private JButton Algo1 = new JButton("Algorithme 1");
@@ -198,16 +198,6 @@ public class IHM extends JFrame implements ActionListener {
             e.printStackTrace();
             }
         }
-
-
-
-    /**
-     * Getter de pathname
-     * @return
-     */
-    public String getPathname() {
-        return pathname;
-    }
 }
 
 
