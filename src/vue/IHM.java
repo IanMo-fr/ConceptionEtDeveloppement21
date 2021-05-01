@@ -23,7 +23,7 @@ public class IHM extends JFrame implements ActionListener {
     private String user;
 
     private JButton Bucket = new JButton("Bucketisation");
-    private JButton Algo1 = new JButton("Algorithme Multidimensionnel");
+    private JButton Algo1 = new JButton("Algorithme Multi");
     private JTextField k = new JTextField();
     private JTextField k2 = new JTextField();
     private JTextField nomFileDS = new JTextField();
